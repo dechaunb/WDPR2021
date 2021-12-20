@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 
 using OkOk.Data;
-using OkOk.Services;
+using OkOk.Models.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
