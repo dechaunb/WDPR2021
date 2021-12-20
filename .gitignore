@@ -288,5 +288,5 @@ __pycache__/
 # tools/
 
 # DBeaver
-.db-shm
-.db-wal
+*.db-shm
+*.db-wal
