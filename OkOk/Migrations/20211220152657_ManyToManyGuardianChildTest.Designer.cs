@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OkOk.Data;
 
@@ -10,27 +11,13 @@ using OkOk.Data;
 namespace OkOk.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211220152657_ManyToManyGuardianChildTest")]
+    partial class ManyToManyGuardianChildTest
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.0");
-
-            modelBuilder.Entity("ChatApplicationUserSupportGroup", b =>
-                {
-                    b.Property<string>("ChatUserId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("GroupId")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("ChatUserId", "GroupId");
-
-                    b.HasIndex("GroupId");
-
-                    b.ToTable("ChatApplicationUserSupportGroup");
-                });
 
             modelBuilder.Entity("GuardianChild", b =>
                 {
@@ -75,7 +62,7 @@ namespace OkOk.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "09971dd1-6b45-48fa-b1b2-d3099bbc3ecc",
+                            Id = "056937bb-1d6c-488a-a629-0212959e8834",
                             ConcurrencyStamp = "1",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
@@ -177,69 +164,69 @@ namespace OkOk.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "6f82dbf9-4a9f-4089-aad1-a527410342c2",
+                            Id = "610b0cc0-6f19-46e2-b033-e290ddd6c0b1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "8d519f79-3a30-43da-bb1e-ecb1b03ac2f3",
+                            ConcurrencyStamp = "88a2b8c2-0a30-4209-a7b2-4b9565c3be75",
                             Email = "angelo@okokapp.nl",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ANGELO@OKOKAPP.NL",
                             NormalizedUserName = "ANGELO@OKOKAPP.NL",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGFXLCOor4qogTv8+1aI8Y1c085r932/h+nFa9s5TlsTsdJocuy9kEBZQE/qWlSjgg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDrdhXIQ9lvtVrVmyvGkuE4JXxZpgo5LCVIo33kPZ1V3+H3hfKCJPFjI8I0BX1CbTw==",
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "e992e446-622d-48f6-8a2e-1f8b9bd5a7dc",
+                            SecurityStamp = "c66f49f3-d35d-46db-abd7-721c9bebffe8",
                             TwoFactorEnabled = false,
                             UserName = "angelo@okokapp.nl"
                         },
                         new
                         {
-                            Id = "f6005de8-915d-4288-b6d7-c04765685084",
+                            Id = "c266a7fe-6e83-4275-a09e-d48956cb9a2d",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c6a2ccb6-0c29-4eed-9ad5-d44b2ac1402b",
+                            ConcurrencyStamp = "fa74d86f-2a64-4120-a192-2a7f5a8b08f4",
                             Email = "dechaun@okokapp.nl",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "DECHAUN@OKOKAPP.NL",
                             NormalizedUserName = "DECHAUN@OKOKAPP.NL",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAiZQF9+irLtQoPq4/hiPHurRUbEyde8CJ9wHVysBmDG1hHtfcDdHuqyPVTWVigCOw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELOLhERSwZ2Ym9HEYE8mwKmX+ge7IYzK1Fpz8C/K3AQf8XaBEkF/AUaadhAM/q5RuA==",
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "4af86b04-3f67-4702-9b87-546d1a288a05",
+                            SecurityStamp = "524907d0-88d6-4ab1-9697-a4fdab0522f3",
                             TwoFactorEnabled = false,
                             UserName = "dechaun@okokapp.nl"
                         },
                         new
                         {
-                            Id = "338f651f-74c3-40b7-a340-1b017f9cb881",
+                            Id = "24ead0cf-877e-4ec2-b325-ce67c4236b7f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "900b8567-5ac3-437c-91af-23c488feaf9c",
+                            ConcurrencyStamp = "a0b96649-ff70-4ee2-b5fe-9efe4da86fad",
                             Email = "timothy@okokapp.nl",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "TIMOTHY@OKOKAPP.NL",
                             NormalizedUserName = "TIMOTHY@OKOKAPP.NL",
-                            PasswordHash = "AQAAAAEAACcQAAAAEP5oqbtSwr50BBVIM+dG1mE6kNyixeaQcB72niNkbN051HZDUKoyxutuYn79HqBdug==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBMcmlHrTP9DxVhSnlXgJ+WScZ7GYn0WrTl4whc04NBhOIkuUYAz0GlOOl5UXMhCnw==",
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "500088d1-d20f-40f1-b383-24a4c0a30377",
+                            SecurityStamp = "716abd7a-3372-47a5-9e3d-59a743c38417",
                             TwoFactorEnabled = false,
                             UserName = "timothy@okokapp.nl"
                         },
                         new
                         {
-                            Id = "04cfe54b-a771-4750-aee7-b8267266eae1",
+                            Id = "7b824801-f924-462d-aae0-49d1656c6a9f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e704f15c-b187-4569-b047-62138a1a59ec",
+                            ConcurrencyStamp = "d13b34b1-7a1e-44cd-acfc-0ee01ffbe2c3",
                             Email = "yash@okokapp.nl",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "YASH@OKOKAPP.NL",
                             NormalizedUserName = "YASH@OKOKAPP.NL",
-                            PasswordHash = "AQAAAAEAACcQAAAAEFgW5DemWdkYB70LvBRUN/uUItuJRQmvBv1dFfsNTRmd23Xbiwid5TKhfgL5X5SJ3A==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEO7GrH0oL9JuPOJgiuPvBTULHM5DdvM2TU/oj9ZFqAzSH2TlajyapKRKORkkTae4CA==",
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "1ed6c6dd-19df-4a5d-8234-54a95bddec71",
+                            SecurityStamp = "4ada1396-b106-4aa4-8ede-96d9832f8820",
                             TwoFactorEnabled = false,
                             UserName = "yash@okokapp.nl"
                         });
@@ -309,23 +296,23 @@ namespace OkOk.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "6f82dbf9-4a9f-4089-aad1-a527410342c2",
-                            RoleId = "09971dd1-6b45-48fa-b1b2-d3099bbc3ecc"
+                            UserId = "610b0cc0-6f19-46e2-b033-e290ddd6c0b1",
+                            RoleId = "056937bb-1d6c-488a-a629-0212959e8834"
                         },
                         new
                         {
-                            UserId = "f6005de8-915d-4288-b6d7-c04765685084",
-                            RoleId = "09971dd1-6b45-48fa-b1b2-d3099bbc3ecc"
+                            UserId = "c266a7fe-6e83-4275-a09e-d48956cb9a2d",
+                            RoleId = "056937bb-1d6c-488a-a629-0212959e8834"
                         },
                         new
                         {
-                            UserId = "338f651f-74c3-40b7-a340-1b017f9cb881",
-                            RoleId = "09971dd1-6b45-48fa-b1b2-d3099bbc3ecc"
+                            UserId = "24ead0cf-877e-4ec2-b325-ce67c4236b7f",
+                            RoleId = "056937bb-1d6c-488a-a629-0212959e8834"
                         },
                         new
                         {
-                            UserId = "04cfe54b-a771-4750-aee7-b8267266eae1",
-                            RoleId = "09971dd1-6b45-48fa-b1b2-d3099bbc3ecc"
+                            UserId = "7b824801-f924-462d-aae0-49d1656c6a9f",
+                            RoleId = "056937bb-1d6c-488a-a629-0212959e8834"
                         });
                 });
 
@@ -380,110 +367,7 @@ namespace OkOk.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Addresses");
-                });
-
-            modelBuilder.Entity("OkOk.Models.Message", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("ChatUserId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("DateTime")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("GroupId")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ChatUserId");
-
-                    b.HasIndex("GroupId");
-
-                    b.ToTable("Messages");
-                });
-
-            modelBuilder.Entity("OkOk.Models.MessageReport", b =>
-                {
-                    b.Property<Guid>("MessageId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("ReportId")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("MessageId", "ReportId");
-
-                    b.HasIndex("ReportId")
-                        .IsUnique();
-
-                    b.ToTable("MessageReports");
-                });
-
-            modelBuilder.Entity("OkOk.Models.Report", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Reports");
-                });
-
-            modelBuilder.Entity("OkOk.Models.SignUpRequest", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("ClientId")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("DoctorId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("Handled")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ClientId")
-                        .IsUnique();
-
-                    b.HasIndex("DoctorId");
-
-                    b.ToTable("SignUpRequests");
-                });
-
-            modelBuilder.Entity("OkOk.Models.SupportGroup", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("ChatUserId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("SupportGroups");
+                    b.ToTable("Address");
                 });
 
             modelBuilder.Entity("OkOk.Models.Treatment", b =>
@@ -492,7 +376,7 @@ namespace OkOk.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("ClientId")
+                    b.Property<string>("ClientApplicationUserId")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("DateTime")
@@ -501,52 +385,28 @@ namespace OkOk.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("DoctorId")
-                        .HasColumnType("TEXT");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("ClientId");
+                    b.HasIndex("ClientApplicationUserId");
 
-                    b.HasIndex("DoctorId");
-
-                    b.ToTable("Treatments");
-                });
-
-            modelBuilder.Entity("OkOk.Models.Identity.ApplicationUser", b =>
-                {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasDiscriminator().HasValue("ApplicationUser");
-                });
-
-            modelBuilder.Entity("OkOk.Models.Identity.ChatApplicationUser", b =>
-                {
-                    b.HasBaseType("OkOk.Models.Identity.ApplicationUser");
-
-                    b.HasDiscriminator().HasValue("ChatApplicationUser");
-                });
-
-            modelBuilder.Entity("OkOk.Models.Identity.GuardianApplicationUser", b =>
-                {
-                    b.HasBaseType("OkOk.Models.Identity.ApplicationUser");
-
-                    b.HasDiscriminator().HasValue("GuardianApplicationUser");
+                    b.ToTable("Treatment");
                 });
 
             modelBuilder.Entity("OkOk.Models.Identity.ClientApplicationUser", b =>
                 {
-                    b.HasBaseType("OkOk.Models.Identity.ChatApplicationUser");
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
                     b.Property<Guid>("AddressId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .ValueGeneratedOnUpdateSometimes()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .ValueGeneratedOnUpdateSometimes()
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("OldEnough")
@@ -557,30 +417,21 @@ namespace OkOk.Migrations
                     b.HasDiscriminator().HasValue("ClientApplicationUser");
                 });
 
-            modelBuilder.Entity("OkOk.Models.Identity.DoctorApplicationUser", b =>
+            modelBuilder.Entity("OkOk.Models.Identity.GuardianApplicationUser", b =>
                 {
-                    b.HasBaseType("OkOk.Models.Identity.ChatApplicationUser");
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
-                    b.Property<string>("Specialism")
+                    b.Property<string>("FirstName")
                         .IsRequired()
+                        .ValueGeneratedOnUpdateSometimes()
                         .HasColumnType("TEXT");
 
-                    b.HasDiscriminator().HasValue("DoctorApplicationUser");
-                });
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .ValueGeneratedOnUpdateSometimes()
+                        .HasColumnType("TEXT");
 
-            modelBuilder.Entity("ChatApplicationUserSupportGroup", b =>
-                {
-                    b.HasOne("OkOk.Models.Identity.ChatApplicationUser", null)
-                        .WithMany()
-                        .HasForeignKey("ChatUserId")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
-
-                    b.HasOne("OkOk.Models.SupportGroup", null)
-                        .WithMany()
-                        .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasDiscriminator().HasValue("GuardianApplicationUser");
                 });
 
             modelBuilder.Entity("GuardianChild", b =>
@@ -589,13 +440,15 @@ namespace OkOk.Migrations
                         .WithMany()
                         .HasForeignKey("ChildId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("FK_GuardianChild_Children_ChildId");
 
                     b.HasOne("OkOk.Models.Identity.GuardianApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("GuardianId")
                         .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("FK_GuardianChild_Guardians_GuardianId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -649,76 +502,11 @@ namespace OkOk.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("OkOk.Models.Message", b =>
-                {
-                    b.HasOne("OkOk.Models.Identity.ChatApplicationUser", "ChatApplicationUser")
-                        .WithMany("Messages")
-                        .HasForeignKey("ChatUserId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
-                    b.HasOne("OkOk.Models.SupportGroup", "SupportGroup")
-                        .WithMany("Messages")
-                        .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.SetNull)
-                        .IsRequired();
-
-                    b.Navigation("ChatApplicationUser");
-
-                    b.Navigation("SupportGroup");
-                });
-
-            modelBuilder.Entity("OkOk.Models.MessageReport", b =>
-                {
-                    b.HasOne("OkOk.Models.Message", "Message")
-                        .WithMany("MessageReports")
-                        .HasForeignKey("MessageId")
-                        .OnDelete(DeleteBehavior.SetNull)
-                        .IsRequired();
-
-                    b.HasOne("OkOk.Models.Report", "Report")
-                        .WithOne("MessageReport")
-                        .HasForeignKey("OkOk.Models.MessageReport", "ReportId")
-                        .OnDelete(DeleteBehavior.SetNull)
-                        .IsRequired();
-
-                    b.Navigation("Message");
-
-                    b.Navigation("Report");
-                });
-
-            modelBuilder.Entity("OkOk.Models.SignUpRequest", b =>
-                {
-                    b.HasOne("OkOk.Models.Identity.ClientApplicationUser", "ClientApplicationUser")
-                        .WithOne("SignUpRequest")
-                        .HasForeignKey("OkOk.Models.SignUpRequest", "ClientId")
-                        .OnDelete(DeleteBehavior.SetNull)
-                        .IsRequired();
-
-                    b.HasOne("OkOk.Models.Identity.DoctorApplicationUser", "DoctorApplicationUser")
-                        .WithMany("SignUpRequests")
-                        .HasForeignKey("DoctorId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
-                    b.Navigation("ClientApplicationUser");
-
-                    b.Navigation("DoctorApplicationUser");
-                });
-
             modelBuilder.Entity("OkOk.Models.Treatment", b =>
                 {
-                    b.HasOne("OkOk.Models.Identity.ClientApplicationUser", "ClientApplicationUser")
+                    b.HasOne("OkOk.Models.Identity.ClientApplicationUser", null)
                         .WithMany("Treatments")
-                        .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
-                    b.HasOne("OkOk.Models.Identity.DoctorApplicationUser", "DoctorApplicationUser")
-                        .WithMany("Treatments")
-                        .HasForeignKey("DoctorId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
-                    b.Navigation("ClientApplicationUser");
-
-                    b.Navigation("DoctorApplicationUser");
+                        .HasForeignKey("ClientApplicationUserId");
                 });
 
             modelBuilder.Entity("OkOk.Models.Identity.ClientApplicationUser", b =>
@@ -732,37 +520,8 @@ namespace OkOk.Migrations
                     b.Navigation("Address");
                 });
 
-            modelBuilder.Entity("OkOk.Models.Message", b =>
-                {
-                    b.Navigation("MessageReports");
-                });
-
-            modelBuilder.Entity("OkOk.Models.Report", b =>
-                {
-                    b.Navigation("MessageReport");
-                });
-
-            modelBuilder.Entity("OkOk.Models.SupportGroup", b =>
-                {
-                    b.Navigation("Messages");
-                });
-
-            modelBuilder.Entity("OkOk.Models.Identity.ChatApplicationUser", b =>
-                {
-                    b.Navigation("Messages");
-                });
-
             modelBuilder.Entity("OkOk.Models.Identity.ClientApplicationUser", b =>
                 {
-                    b.Navigation("SignUpRequest");
-
-                    b.Navigation("Treatments");
-                });
-
-            modelBuilder.Entity("OkOk.Models.Identity.DoctorApplicationUser", b =>
-                {
-                    b.Navigation("SignUpRequests");
-
                     b.Navigation("Treatments");
                 });
 #pragma warning restore 612, 618
