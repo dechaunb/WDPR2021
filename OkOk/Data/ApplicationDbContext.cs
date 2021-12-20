@@ -7,15 +7,27 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 using OkOk.Models;
-using OkOk.Services;
+using OkOk.Models.Identity;
 
 namespace OkOk.Data
 {
     public class ApplicationDbContext : IdentityDbContext<IdentityUser>
     {
-
+        //Models.Identity
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<ChatApplicationUser> ChatApplicationUsers { get; set; }
         public DbSet<ClientApplicationUser> ClientApplicationUsers { get; set; }
         public DbSet<DoctorApplicationUser> DoctorApplicationUsers { get; set; }
+        public DbSet<GuardianApplicationUser> GuardianApplicationUsers { get; set; }
+
+        //Models
+        public DbSet<Address> Addresses { get; set; }
+        public DbSet<Message> Messages { get; set; }
+        public DbSet<MessageReport> MessageReports { get; set; }
+        public DbSet<Report> Reports { get; set; }
+        public DbSet<SignUpRequest> SignUpRequests { get; set; }
+        public DbSet<SupportGroup> SupportGroups { get; set; }
+        public DbSet<Treatment> Treatments { get; set; }
         
         public ApplicationDbContext (DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -26,6 +38,99 @@ namespace OkOk.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);  
+
+            //Relations
+
+
+            //Treatment
+            modelBuilder.Entity<Treatment>()
+                        .HasOne(treatment => treatment.ClientApplicationUser)
+                        .WithMany(client => client.Treatments)
+                        .HasForeignKey(treatment => treatment.ClientId)
+                        .OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder.Entity<Treatment>()
+                        .HasOne(treatment => treatment.DoctorApplicationUser)
+                        .WithMany(doctor => doctor.Treatments)
+                        .HasForeignKey(treatment => treatment.DoctorId)
+                        .OnDelete(DeleteBehavior.SetNull);
+
+            //MessageReport
+            modelBuilder.Entity<MessageReport>()
+                        .HasKey(composite => new { composite.MessageId, composite.ReportId});
+
+            modelBuilder.Entity<MessageReport>()
+                        .HasOne(mreport => mreport.Message)
+                        .WithMany(message => message.MessageReports)
+                        .HasForeignKey(mreport => mreport.MessageId)
+                        .OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder.Entity<MessageReport>()
+                        .HasOne(mreport => mreport.Report)
+                        .WithOne(report => report.MessageReport)
+                        .HasForeignKey<MessageReport>(mreport => mreport.ReportId)
+                        .OnDelete(DeleteBehavior.SetNull);
+
+            //SignUpRequest
+            modelBuilder.Entity<ClientApplicationUser>()
+                        .HasOne(client => client.SignUpRequest)
+                        .WithOne(signup => signup.ClientApplicationUser)
+                        .HasForeignKey<SignUpRequest>(signup => signup.ClientId)
+                        .IsRequired()
+                        .OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder.Entity<SignUpRequest>()
+                        .HasOne(signup => signup.DoctorApplicationUser)
+                        .WithMany(doctor => doctor.SignUpRequests)
+                        .HasForeignKey(signup => signup.DoctorId)
+                        .OnDelete(DeleteBehavior.SetNull);
+
+            //Message
+            modelBuilder.Entity<Message>()
+                        .HasOne(message => message.ChatApplicationUser)
+                        .WithMany(chatuser => chatuser.Messages)
+                        .HasForeignKey(message => message.ChatUserId)
+                        .OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder.Entity<Message>()
+                        .HasOne(message => message.SupportGroup)
+                        .WithMany(group => group.Messages)
+                        .HasForeignKey(message => message.GroupId)
+                        .OnDelete(DeleteBehavior.SetNull);
+
+            //Create GuardianChild Table
+            modelBuilder.Entity<GuardianApplicationUser>()
+                        .HasMany(guardian => guardian.Children)
+                        .WithMany(child => child.Guardians)
+                        .UsingEntity<Dictionary<string, object>>(
+                            "GuardianChild",
+                            j => j
+                                .HasOne<ClientApplicationUser>()
+                                .WithMany()
+                                .HasForeignKey("ChildId")
+                                .OnDelete(DeleteBehavior.Cascade),
+                            j => j
+                                .HasOne<GuardianApplicationUser>()
+                                .WithMany()
+                                .HasForeignKey("GuardianId")
+                                .OnDelete(DeleteBehavior.ClientCascade));
+
+            //Create ChatApplicationSupportGroup Table
+            modelBuilder.Entity<ChatApplicationUser>()
+                        .HasMany(chatuser => chatuser.SupportGroups)
+                        .WithMany(group => group.ChatApplicationUsers)
+                        .UsingEntity<Dictionary<string, object>>(
+                            "ChatApplicationUserSupportGroup",
+                            j => j
+                                .HasOne<SupportGroup>()
+                                .WithMany()
+                                .HasForeignKey("GroupId")
+                                .OnDelete(DeleteBehavior.Cascade),
+                            j => j
+                                .HasOne<ChatApplicationUser>()
+                                .WithMany()
+                                .HasForeignKey("ChatUserId")
+                                .OnDelete(DeleteBehavior.ClientCascade));
 
             //SeedUsers
             IdentityUser angelo = new IdentityUser()  
