@@ -11,7 +11,7 @@ using OkOk.Models.Identity;
 
 namespace OkOk.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<IdentityUser>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         //Models.Identity
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
@@ -133,8 +133,10 @@ namespace OkOk.Data
                                 .OnDelete(DeleteBehavior.ClientCascade));
 
             //SeedUsers
-            IdentityUser angelo = new IdentityUser()  
+            ApplicationUser angelo = new ApplicationUser()  
             {  
+                FirstName = "Angelo",
+                LastName = "OkOk",
                 UserName = "angelo@okokapp.nl",  
                 Email = "angelo@okokapp.nl",  
                 LockoutEnabled = false,  
@@ -145,8 +147,10 @@ namespace OkOk.Data
                 NormalizedUserName = "angelo@okokapp.nl".ToUpper()
             };
 
-            IdentityUser dechaun = new IdentityUser()  
+            ApplicationUser dechaun = new ApplicationUser()  
             {  
+                FirstName = "Dechaun",
+                LastName = "OkOk",
                 UserName = "dechaun@okokapp.nl",  
                 Email = "dechaun@okokapp.nl",  
                 LockoutEnabled = false,  
@@ -157,8 +161,10 @@ namespace OkOk.Data
                 NormalizedUserName = "dechaun@okokapp.nl".ToUpper()
             };
 
-            IdentityUser timothy = new IdentityUser()  
+            ApplicationUser timothy = new ApplicationUser()  
             {   
+                FirstName = "Timothy",
+                LastName = "OkOk",
                 UserName = "timothy@okokapp.nl",  
                 Email = "timothy@okokapp.nl",  
                 LockoutEnabled = false,  
@@ -169,8 +175,10 @@ namespace OkOk.Data
                 NormalizedUserName = "timothy@okokapp.nl".ToUpper()
             };
 
-            IdentityUser yash = new IdentityUser()  
+            ApplicationUser yash = new ApplicationUser()  
             {   
+                FirstName = "Yash",
+                LastName = "OkOk",
                 UserName = "yash@okokapp.nl",  
                 Email = "yash@okokapp.nl",  
                 LockoutEnabled = false,  
@@ -183,16 +191,16 @@ namespace OkOk.Data
 
 
   
-            PasswordHasher<IdentityUser> passwordHasher = new PasswordHasher<IdentityUser>();  
+            PasswordHasher<ApplicationUser> passwordHasher = new PasswordHasher<ApplicationUser>();  
             angelo.PasswordHash = passwordHasher.HashPassword(angelo, "Admin123");
             dechaun.PasswordHash = passwordHasher.HashPassword(dechaun, "Admin123");  
             timothy.PasswordHash = passwordHasher.HashPassword(timothy, "Admin123");  
             yash.PasswordHash = passwordHasher.HashPassword(yash, "Admin123");  
   
-            modelBuilder.Entity<IdentityUser>().HasData(angelo);
-            modelBuilder.Entity<IdentityUser>().HasData(dechaun);
-            modelBuilder.Entity<IdentityUser>().HasData(timothy);
-            modelBuilder.Entity<IdentityUser>().HasData(yash);
+            modelBuilder.Entity<ApplicationUser>().HasData(angelo);
+            modelBuilder.Entity<ApplicationUser>().HasData(dechaun);
+            modelBuilder.Entity<ApplicationUser>().HasData(timothy);
+            modelBuilder.Entity<ApplicationUser>().HasData(yash);
 
             //SeedRoles
             IdentityRole admin = new IdentityRole()

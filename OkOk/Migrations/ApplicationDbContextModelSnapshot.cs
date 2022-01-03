@@ -75,7 +75,7 @@ namespace OkOk.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "09971dd1-6b45-48fa-b1b2-d3099bbc3ecc",
+                            Id = "20817567-9593-45be-a63e-c41aac402464",
                             ConcurrencyStamp = "1",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
@@ -103,146 +103,6 @@ namespace OkOk.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetRoleClaims", (string)null);
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasDatabaseName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasDatabaseName("UserNameIndex");
-
-                    b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "6f82dbf9-4a9f-4089-aad1-a527410342c2",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "8d519f79-3a30-43da-bb1e-ecb1b03ac2f3",
-                            Email = "angelo@okokapp.nl",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "ANGELO@OKOKAPP.NL",
-                            NormalizedUserName = "ANGELO@OKOKAPP.NL",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGFXLCOor4qogTv8+1aI8Y1c085r932/h+nFa9s5TlsTsdJocuy9kEBZQE/qWlSjgg==",
-                            PhoneNumber = "1234567890",
-                            PhoneNumberConfirmed = true,
-                            SecurityStamp = "e992e446-622d-48f6-8a2e-1f8b9bd5a7dc",
-                            TwoFactorEnabled = false,
-                            UserName = "angelo@okokapp.nl"
-                        },
-                        new
-                        {
-                            Id = "f6005de8-915d-4288-b6d7-c04765685084",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "c6a2ccb6-0c29-4eed-9ad5-d44b2ac1402b",
-                            Email = "dechaun@okokapp.nl",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "DECHAUN@OKOKAPP.NL",
-                            NormalizedUserName = "DECHAUN@OKOKAPP.NL",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAiZQF9+irLtQoPq4/hiPHurRUbEyde8CJ9wHVysBmDG1hHtfcDdHuqyPVTWVigCOw==",
-                            PhoneNumber = "1234567890",
-                            PhoneNumberConfirmed = true,
-                            SecurityStamp = "4af86b04-3f67-4702-9b87-546d1a288a05",
-                            TwoFactorEnabled = false,
-                            UserName = "dechaun@okokapp.nl"
-                        },
-                        new
-                        {
-                            Id = "338f651f-74c3-40b7-a340-1b017f9cb881",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "900b8567-5ac3-437c-91af-23c488feaf9c",
-                            Email = "timothy@okokapp.nl",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "TIMOTHY@OKOKAPP.NL",
-                            NormalizedUserName = "TIMOTHY@OKOKAPP.NL",
-                            PasswordHash = "AQAAAAEAACcQAAAAEP5oqbtSwr50BBVIM+dG1mE6kNyixeaQcB72niNkbN051HZDUKoyxutuYn79HqBdug==",
-                            PhoneNumber = "1234567890",
-                            PhoneNumberConfirmed = true,
-                            SecurityStamp = "500088d1-d20f-40f1-b383-24a4c0a30377",
-                            TwoFactorEnabled = false,
-                            UserName = "timothy@okokapp.nl"
-                        },
-                        new
-                        {
-                            Id = "04cfe54b-a771-4750-aee7-b8267266eae1",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "e704f15c-b187-4569-b047-62138a1a59ec",
-                            Email = "yash@okokapp.nl",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "YASH@OKOKAPP.NL",
-                            NormalizedUserName = "YASH@OKOKAPP.NL",
-                            PasswordHash = "AQAAAAEAACcQAAAAEFgW5DemWdkYB70LvBRUN/uUItuJRQmvBv1dFfsNTRmd23Xbiwid5TKhfgL5X5SJ3A==",
-                            PhoneNumber = "1234567890",
-                            PhoneNumberConfirmed = true,
-                            SecurityStamp = "1ed6c6dd-19df-4a5d-8234-54a95bddec71",
-                            TwoFactorEnabled = false,
-                            UserName = "yash@okokapp.nl"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -309,23 +169,23 @@ namespace OkOk.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "6f82dbf9-4a9f-4089-aad1-a527410342c2",
-                            RoleId = "09971dd1-6b45-48fa-b1b2-d3099bbc3ecc"
+                            UserId = "cbb04c70-d0f8-4488-8de7-e249d7cfd574",
+                            RoleId = "20817567-9593-45be-a63e-c41aac402464"
                         },
                         new
                         {
-                            UserId = "f6005de8-915d-4288-b6d7-c04765685084",
-                            RoleId = "09971dd1-6b45-48fa-b1b2-d3099bbc3ecc"
+                            UserId = "03e2fcfa-869f-4c80-b59e-8f996ad3283b",
+                            RoleId = "20817567-9593-45be-a63e-c41aac402464"
                         },
                         new
                         {
-                            UserId = "338f651f-74c3-40b7-a340-1b017f9cb881",
-                            RoleId = "09971dd1-6b45-48fa-b1b2-d3099bbc3ecc"
+                            UserId = "1072f42f-320c-4878-97d5-ab7b4334e083",
+                            RoleId = "20817567-9593-45be-a63e-c41aac402464"
                         },
                         new
                         {
-                            UserId = "04cfe54b-a771-4750-aee7-b8267266eae1",
-                            RoleId = "09971dd1-6b45-48fa-b1b2-d3099bbc3ecc"
+                            UserId = "d39826b0-083f-4b44-8b18-e40e2b1f71ec",
+                            RoleId = "20817567-9593-45be-a63e-c41aac402464"
                         });
                 });
 
@@ -381,6 +241,162 @@ namespace OkOk.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Addresses");
+                });
+
+            modelBuilder.Entity("OkOk.Models.Identity.ApplicationUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex");
+
+                    b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("ApplicationUser");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "cbb04c70-d0f8-4488-8de7-e249d7cfd574",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "3cbe0ee6-7554-407f-9387-d5b4b5511507",
+                            Email = "angelo@okokapp.nl",
+                            EmailConfirmed = true,
+                            FirstName = "Angelo",
+                            LastName = "OkOk",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ANGELO@OKOKAPP.NL",
+                            NormalizedUserName = "ANGELO@OKOKAPP.NL",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHFsI+wBHKSsBu2hKpkhi06wnLSV8lHAbfxiTjyG6ZdgLvBiVJnuZ/EqrJC0Rt4RZw==",
+                            PhoneNumber = "1234567890",
+                            PhoneNumberConfirmed = true,
+                            SecurityStamp = "a94f67e5-f50f-4f9a-a2ae-c9a794d98b3e",
+                            TwoFactorEnabled = false,
+                            UserName = "angelo@okokapp.nl"
+                        },
+                        new
+                        {
+                            Id = "03e2fcfa-869f-4c80-b59e-8f996ad3283b",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "ce2285fd-33fc-41f3-a38f-ee36f4f881e2",
+                            Email = "dechaun@okokapp.nl",
+                            EmailConfirmed = true,
+                            FirstName = "Dechaun",
+                            LastName = "OkOk",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "DECHAUN@OKOKAPP.NL",
+                            NormalizedUserName = "DECHAUN@OKOKAPP.NL",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHKu0Y+Y2Vyju5rSzhUcO7MRQGznYLmDeNE8p8mBt8y2Bpzo8O63ubiPSwP9T6mAqw==",
+                            PhoneNumber = "1234567890",
+                            PhoneNumberConfirmed = true,
+                            SecurityStamp = "462f00b1-7ce6-4114-bf91-fc0806e872bc",
+                            TwoFactorEnabled = false,
+                            UserName = "dechaun@okokapp.nl"
+                        },
+                        new
+                        {
+                            Id = "1072f42f-320c-4878-97d5-ab7b4334e083",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "aeb8e4d6-eb32-47b5-beb5-885ef3bce1c5",
+                            Email = "timothy@okokapp.nl",
+                            EmailConfirmed = true,
+                            FirstName = "Timothy",
+                            LastName = "OkOk",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "TIMOTHY@OKOKAPP.NL",
+                            NormalizedUserName = "TIMOTHY@OKOKAPP.NL",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFq8w//J58SE+j3N2TOouean3B8Je7b5t9+KCMXt3OJOjbi0HkdFv/7OJAaFvdrVsQ==",
+                            PhoneNumber = "1234567890",
+                            PhoneNumberConfirmed = true,
+                            SecurityStamp = "eebfa0b4-f723-4d06-bbb2-29c2e8e0080f",
+                            TwoFactorEnabled = false,
+                            UserName = "timothy@okokapp.nl"
+                        },
+                        new
+                        {
+                            Id = "d39826b0-083f-4b44-8b18-e40e2b1f71ec",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "106bda8d-1f90-4fac-8f55-674ead6ad7c7",
+                            Email = "yash@okokapp.nl",
+                            EmailConfirmed = true,
+                            FirstName = "Yash",
+                            LastName = "OkOk",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "YASH@OKOKAPP.NL",
+                            NormalizedUserName = "YASH@OKOKAPP.NL",
+                            PasswordHash = "AQAAAAEAACcQAAAAEEJ0bHKqqr6nqWSqGYegT7YRWmwTHK37XYsfzPpM9QZVCDiV96HjDMk4B2LX63w83Q==",
+                            PhoneNumber = "1234567890",
+                            PhoneNumberConfirmed = true,
+                            SecurityStamp = "d0038783-8279-4068-9d84-7c2fa90904a8",
+                            TwoFactorEnabled = false,
+                            UserName = "yash@okokapp.nl"
+                        });
                 });
 
             modelBuilder.Entity("OkOk.Models.Message", b =>
@@ -513,21 +529,6 @@ namespace OkOk.Migrations
                     b.ToTable("Treatments");
                 });
 
-            modelBuilder.Entity("OkOk.Models.Identity.ApplicationUser", b =>
-                {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasDiscriminator().HasValue("ApplicationUser");
-                });
-
             modelBuilder.Entity("OkOk.Models.Identity.ChatApplicationUser", b =>
                 {
                     b.HasBaseType("OkOk.Models.Identity.ApplicationUser");
@@ -609,7 +610,7 @@ namespace OkOk.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("OkOk.Models.Identity.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -618,7 +619,7 @@ namespace OkOk.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("OkOk.Models.Identity.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -633,7 +634,7 @@ namespace OkOk.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("OkOk.Models.Identity.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -642,7 +643,7 @@ namespace OkOk.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("OkOk.Models.Identity.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

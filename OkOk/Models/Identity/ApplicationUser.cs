@@ -9,10 +9,14 @@ namespace OkOk.Models.Identity
         [PersonalData]
         [Required]
         [Display(Name = "Voornaam")]
+        [RegularExpression(@"^[a-zA-Z''-'\s]{1,40}$", 
+         ErrorMessage = "Tekens niet toegestaan.")]
         public string FirstName { get; set; }
         [PersonalData]
         [Required]
         [Display(Name = "Achternaam")]
+        [RegularExpression(@"^[a-zA-Z''-'\s]{1,40}$", 
+         ErrorMessage = "Tekens niet toegestaan.")]
         public string LastName { get; set; }
     }
 }

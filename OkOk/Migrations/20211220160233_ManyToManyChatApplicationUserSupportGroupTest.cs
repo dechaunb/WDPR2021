@@ -136,22 +136,22 @@ namespace OkOk.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "3b251c7a-fdaa-4db8-8d69-f7d6957ecd28", 0, "67170085-262e-4216-a1f6-26c0999f18a0", "IdentityUser", "yash@okokapp.nl", true, false, null, "YASH@OKOKAPP.NL", "YASH@OKOKAPP.NL", "AQAAAAEAACcQAAAAEEV1nrJWk+oX2XRBTl7Nuf1kV5dHP34vsB2haHSzCr2VLH8JrrnV8oG2bnpWgs24MA==", "1234567890", true, "9072ee5f-2276-4065-a4b7-1ac7257ec208", false, "yash@okokapp.nl" });
+                values: new object[] { "3b251c7a-fdaa-4db8-8d69-f7d6957ecd28", 0, "67170085-262e-4216-a1f6-26c0999f18a0", "ApplicationUser", "yash@okokapp.nl", true, false, null, "YASH@OKOKAPP.NL", "YASH@OKOKAPP.NL", "AQAAAAEAACcQAAAAEEV1nrJWk+oX2XRBTl7Nuf1kV5dHP34vsB2haHSzCr2VLH8JrrnV8oG2bnpWgs24MA==", "1234567890", true, "9072ee5f-2276-4065-a4b7-1ac7257ec208", false, "yash@okokapp.nl" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "6718af22-3490-4459-9ace-8c917ded7e18", 0, "404ff9f5-817a-445b-a123-f41175f471c9", "IdentityUser", "dechaun@okokapp.nl", true, false, null, "DECHAUN@OKOKAPP.NL", "DECHAUN@OKOKAPP.NL", "AQAAAAEAACcQAAAAEByTKgTtztGpRgLWmYVLk4iyFR5p42JI5dX39WCzvoscjewc14MsQc3DsyQpOlshqQ==", "1234567890", true, "a360087f-e19e-4ae5-a1fc-959bea84404f", false, "dechaun@okokapp.nl" });
+                values: new object[] { "6718af22-3490-4459-9ace-8c917ded7e18", 0, "404ff9f5-817a-445b-a123-f41175f471c9", "ApplicationUser", "dechaun@okokapp.nl", true, false, null, "DECHAUN@OKOKAPP.NL", "DECHAUN@OKOKAPP.NL", "AQAAAAEAACcQAAAAEByTKgTtztGpRgLWmYVLk4iyFR5p42JI5dX39WCzvoscjewc14MsQc3DsyQpOlshqQ==", "1234567890", true, "a360087f-e19e-4ae5-a1fc-959bea84404f", false, "dechaun@okokapp.nl" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "aeaf6880-93d3-4942-8f0e-7325e10529e4", 0, "9404862c-0cb1-4121-90dc-5cc118e61b02", "IdentityUser", "angelo@okokapp.nl", true, false, null, "ANGELO@OKOKAPP.NL", "ANGELO@OKOKAPP.NL", "AQAAAAEAACcQAAAAEEeswIUuI0fgl/dfzgJmcvE9MLLk7Dc0k/qnevR3Hkx8DDsMEvGH6b4NxY0Zbl7azg==", "1234567890", true, "a9bfbc94-bc81-444a-a471-56ab85978413", false, "angelo@okokapp.nl" });
+                values: new object[] { "aeaf6880-93d3-4942-8f0e-7325e10529e4", 0, "9404862c-0cb1-4121-90dc-5cc118e61b02", "ApplicationUser", "angelo@okokapp.nl", true, false, null, "ANGELO@OKOKAPP.NL", "ANGELO@OKOKAPP.NL", "AQAAAAEAACcQAAAAEEeswIUuI0fgl/dfzgJmcvE9MLLk7Dc0k/qnevR3Hkx8DDsMEvGH6b4NxY0Zbl7azg==", "1234567890", true, "a9bfbc94-bc81-444a-a471-56ab85978413", false, "angelo@okokapp.nl" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "eccb54df-5ac9-4e68-9fba-df19f93e5535", 0, "473cacd5-7854-48d0-bae1-cb7a63c03271", "IdentityUser", "timothy@okokapp.nl", true, false, null, "TIMOTHY@OKOKAPP.NL", "TIMOTHY@OKOKAPP.NL", "AQAAAAEAACcQAAAAEIXO1GThu3Q5RzmZtXxVa6qK67uknVK5pqbwebDRpugMhTWfQx7t0R3rCPT/MwGVig==", "1234567890", true, "be58d4f2-fe30-47d5-a98d-e6cd5a340096", false, "timothy@okokapp.nl" });
+                values: new object[] { "eccb54df-5ac9-4e68-9fba-df19f93e5535", 0, "473cacd5-7854-48d0-bae1-cb7a63c03271", "ApplicationUser", "timothy@okokapp.nl", true, false, null, "TIMOTHY@OKOKAPP.NL", "TIMOTHY@OKOKAPP.NL", "AQAAAAEAACcQAAAAEIXO1GThu3Q5RzmZtXxVa6qK67uknVK5pqbwebDRpugMhTWfQx7t0R3rCPT/MwGVig==", "1234567890", true, "be58d4f2-fe30-47d5-a98d-e6cd5a340096", false, "timothy@okokapp.nl" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
@@ -335,22 +335,22 @@ namespace OkOk.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "54dc975b-4075-4937-b530-a184b92c142e", 0, "7cfc72d2-9f7f-4943-83fc-2d826b61cd81", "IdentityUser", "dechaun@okokapp.nl", true, false, null, "DECHAUN@OKOKAPP.NL", "DECHAUN@OKOKAPP.NL", "AQAAAAEAACcQAAAAEF1JEHaN6STP48qjWKpuP3vt31GIRoQrd+k8ic3+3g5wOLJO347sN7Lo6W7XyMjWrg==", "1234567890", true, "41e4840b-77b3-4898-9364-09f1ec80fab7", false, "dechaun@okokapp.nl" });
+                values: new object[] { "54dc975b-4075-4937-b530-a184b92c142e", 0, "7cfc72d2-9f7f-4943-83fc-2d826b61cd81", "ApplicationUser", "dechaun@okokapp.nl", true, false, null, "DECHAUN@OKOKAPP.NL", "DECHAUN@OKOKAPP.NL", "AQAAAAEAACcQAAAAEF1JEHaN6STP48qjWKpuP3vt31GIRoQrd+k8ic3+3g5wOLJO347sN7Lo6W7XyMjWrg==", "1234567890", true, "41e4840b-77b3-4898-9364-09f1ec80fab7", false, "dechaun@okokapp.nl" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "5fc5eee9-60fd-4e0e-9a46-ffee3ef1b314", 0, "0d3f137c-f247-43f5-b6a5-31e5c949e7bd", "IdentityUser", "timothy@okokapp.nl", true, false, null, "TIMOTHY@OKOKAPP.NL", "TIMOTHY@OKOKAPP.NL", "AQAAAAEAACcQAAAAENmhaQvO/SoETTqHll43VstHAeX6R98M2IoFbZfPkP70gZGw8DI5GzGjTpcUe+vCIQ==", "1234567890", true, "53c3c84f-35b7-424a-be5e-719f8b9d6af8", false, "timothy@okokapp.nl" });
+                values: new object[] { "5fc5eee9-60fd-4e0e-9a46-ffee3ef1b314", 0, "0d3f137c-f247-43f5-b6a5-31e5c949e7bd", "ApplicationUser", "timothy@okokapp.nl", true, false, null, "TIMOTHY@OKOKAPP.NL", "TIMOTHY@OKOKAPP.NL", "AQAAAAEAACcQAAAAENmhaQvO/SoETTqHll43VstHAeX6R98M2IoFbZfPkP70gZGw8DI5GzGjTpcUe+vCIQ==", "1234567890", true, "53c3c84f-35b7-424a-be5e-719f8b9d6af8", false, "timothy@okokapp.nl" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "8a80fefa-44c6-435c-a438-6b87dc70e2ae", 0, "78135484-e3b6-40d7-8775-444c99610f96", "IdentityUser", "angelo@okokapp.nl", true, false, null, "ANGELO@OKOKAPP.NL", "ANGELO@OKOKAPP.NL", "AQAAAAEAACcQAAAAEA0qxEkY+ITTlaheBhY2eJV9K6LOA/eghr4mBZQKxb7J9PLj0V5zMZe7VPH+IoIAUQ==", "1234567890", true, "529830ac-a0fa-4420-8425-be2f2f7f4ba4", false, "angelo@okokapp.nl" });
+                values: new object[] { "8a80fefa-44c6-435c-a438-6b87dc70e2ae", 0, "78135484-e3b6-40d7-8775-444c99610f96", "ApplicationUser", "angelo@okokapp.nl", true, false, null, "ANGELO@OKOKAPP.NL", "ANGELO@OKOKAPP.NL", "AQAAAAEAACcQAAAAEA0qxEkY+ITTlaheBhY2eJV9K6LOA/eghr4mBZQKxb7J9PLj0V5zMZe7VPH+IoIAUQ==", "1234567890", true, "529830ac-a0fa-4420-8425-be2f2f7f4ba4", false, "angelo@okokapp.nl" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "b062a111-d60f-434b-9477-cbd06023d0a4", 0, "295e3392-c3a9-420b-a7e7-c1a4c55747f7", "IdentityUser", "yash@okokapp.nl", true, false, null, "YASH@OKOKAPP.NL", "YASH@OKOKAPP.NL", "AQAAAAEAACcQAAAAEL4MKPSd5yVAOAkrWBcCR4egyUDYqQun5NEHZPIbJYOlS7p3rW9dAzdTC2ujvmmB3g==", "1234567890", true, "9d98efa2-80fc-45b4-b63c-f2432dd9cf80", false, "yash@okokapp.nl" });
+                values: new object[] { "b062a111-d60f-434b-9477-cbd06023d0a4", 0, "295e3392-c3a9-420b-a7e7-c1a4c55747f7", "ApplicationUser", "yash@okokapp.nl", true, false, null, "YASH@OKOKAPP.NL", "YASH@OKOKAPP.NL", "AQAAAAEAACcQAAAAEL4MKPSd5yVAOAkrWBcCR4egyUDYqQun5NEHZPIbJYOlS7p3rW9dAzdTC2ujvmmB3g==", "1234567890", true, "9d98efa2-80fc-45b4-b63c-f2432dd9cf80", false, "yash@okokapp.nl" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
