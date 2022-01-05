@@ -13,9 +13,9 @@ namespace OkOk.Controllers
     public class MessageController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<MessageController> _logger;
 
-        public MessageController(ILogger<HomeController> logger, ApplicationDbContext context)
+        public MessageController(ILogger<MessageController> logger, ApplicationDbContext context)
         {
             _context = context;
             _logger = logger;

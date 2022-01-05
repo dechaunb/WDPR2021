@@ -17,8 +17,10 @@ else
         options.UseSqlServer(builder.Configuration.GetConnectionString("ProductionApplicationDbContext")));
 }
 
-builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true).AddRoles<IdentityRole>()
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddDefaultTokenProviders();
 
 builder.Services.AddIdentityCore<ChatApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
@@ -26,14 +28,36 @@ builder.Services.AddIdentityCore<ChatApplicationUser>(options => options.SignIn.
 builder.Services.AddIdentityCore<ClientApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
-builder.Services.AddIdentityCore<DoctorApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddIdentityCore<DoctorApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddTokenProvider<DataProtectorTokenProvider<DoctorApplicationUser>>(TokenOptions.DefaultProvider);
+
+builder.Services.AddScoped<SignInManager<DoctorApplicationUser>, SignInManager<DoctorApplicationUser>>();
+builder.Services.AddScoped<UserManager<DoctorApplicationUser>, UserManager<DoctorApplicationUser>>();
 
 builder.Services.AddIdentityCore<GuardianApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
+//Identity Services
+// builder.Services.AddScoped<IUserValidator<DoctorApplicationUser>, UserValidator<DoctorApplicationUser>>();
+// builder.Services.AddScoped<IPasswordValidator<DoctorApplicationUser>, PasswordValidator<DoctorApplicationUser>>();
+// builder.Services.AddScoped<IPasswordHasher<DoctorApplicationUser>, PasswordHasher<DoctorApplicationUser>>();
+// builder.Services.AddScoped<ILookupNormalizer, UpperInvariantLookupNormalizer>();
+// builder.Services.AddScoped<IRoleValidator<IdentityRole>, RoleValidator<IdentityRole>>();
+// // No interface for the error describer so we can add errors without rev'ing the interface
+// builder.Services.AddScoped<IdentityErrorDescriber>();
+// builder.Services.AddScoped<ISecurityStampValidator, SecurityStampValidator<DoctorApplicationUser>>();
+// builder.Services.AddScoped<ITwoFactorSecurityStampValidator, TwoFactorSecurityStampValidator<DoctorApplicationUser>>();
+// builder.Services.AddScoped<IUserClaimsPrincipalFactory<DoctorApplicationUser>, UserClaimsPrincipalFactory<DoctorApplicationUser, IdentityRole>>();
+// builder.Services.AddScoped<UserManager<DoctorApplicationUser>>();
+// builder.Services.AddScoped<SignInManager<DoctorApplicationUser>>();
+// builder.Services.AddScoped<RoleManager<IdentityRole>>();
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddRazorPages();
 
 var app = builder.Build();
 
@@ -52,10 +76,7 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapRazorPages();
-});
+app.MapRazorPages();
 
 app.MapControllerRoute(
     name: "default",
