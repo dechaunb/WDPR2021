@@ -39,8 +39,9 @@ namespace OkOk.Data
         {
             base.OnModelCreating(modelBuilder);  
 
-            //Relations
+            
 
+            //Relations
 
             //Treatment
             modelBuilder.Entity<Treatment>()
