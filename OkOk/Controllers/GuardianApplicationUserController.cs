@@ -53,19 +53,19 @@ namespace OkOk.Controllers
             //_context.GuardianApplicationUsers.Add(g);
             _context.SaveChanges();
 
-            foreach (var guardian in _context.GuardianApplicationUsers)
-            {
-                Console.WriteLine(guardian.FirstName);
-            }
-
             //ViewData["Children"] = _context.GuardianApplicationUsers;
-            return View(g);
+            return View(_context.GuardianApplicationUsers.Include(g => g.Children).First());
         }
 
         //[Route("/GuardianApplicationUser/ChildChatFrequency/{id}")]
-        public IActionResult ChildChatFrequency(string id){
-            ViewData["GuardianChild"] = _context.ClientApplicationUsers.Where(c => c.Id == id).FirstOrDefault();
-            return View();
+        public IActionResult ChildChatFrequency(ClientApplicationUser child){
+            if (child.Messages == null){
+                ViewData["SortedMessages"] = null;
+            }
+            else{
+                ViewData["SortedMessages"] = child.Messages.OrderByDescending(m => m.DateTime).ToList();
+            }
+            return View(child);
         }
     }
 }

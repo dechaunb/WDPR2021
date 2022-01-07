@@ -1,0 +1,38 @@
+@model ClientApplicationUser
+<h3>@Model.FirstName @Model.LastName</h3>
+@if(Model == null){
+    <div>Geen Client gevonden</div>
+}
+else{
+    
+    @if(ViewData["SortedMessages"] == null){
+        <div>Geen berichten gevonden</div>
+    }
+    else{      
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Messages.First().DateTime)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Messages.First().SupportGroup.Name)
+                    </th>
+                </tr>
+            </thead>
+        </table>
+        <tbody>
+@foreach (var item in Model.Messages){
+            <tr>
+                <td>
+                    @item.DateTime
+                </td>
+                <td>
+                    @item.SupportGroup.Name
+                </td>
+            </tr>
+}
+        </tbody>
+        
+    }
+}
