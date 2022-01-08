@@ -51,8 +51,27 @@ namespace OkOk.Controllers
                 }
             };
             //_context.GuardianApplicationUsers.Add(g);
+            // foreach(var client in _context.ClientApplicationUsers){
+            //     client.Messages = new List<Message>(){
+            //         new Message(){
+            //             Content = "Hoi",
+            //             DateTime = DateTime.Now,
+            //             SupportGroup = new SupportGroup(){
+            //                 Name = "Groep A",
+            //                 Description = "Eerste groep"
+            //             }
+            //         },
+            //         new Message(){
+            //             Content = "Hallo",
+            //             DateTime = DateTime.Now,
+            //             SupportGroup = new SupportGroup(){
+            //                 Name= "Groep B",
+            //                 Description = "Tweede groep"
+            //             }
+            //         }
+            //     };
+            // }
             _context.SaveChanges();
-
             //ViewData["Children"] = _context.GuardianApplicationUsers;
             return View(_context.GuardianApplicationUsers.Include(g => g.Children).First());
         }

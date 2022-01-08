@@ -22,7 +22,7 @@ else{
             </thead>
         </table>
         <tbody>
-@foreach (var item in Model.Messages){
+@foreach (var item in ViewData["SortedMessages"] as List<Message>){
             <tr>
                 <td>
                     @item.DateTime
