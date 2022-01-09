@@ -19,8 +19,10 @@ namespace OkOk.Models
         public string Description { get; set; }
 
     	//Foreign Keys
+        [NotMapped]
         public Guid ChatUserId { get; set; }
+        [NotMapped]
         public virtual ICollection<ChatApplicationUser> ChatApplicationUsers { get; set; }
-        public virtual ICollection<Message> Messages { get; set; }
+        public virtual ICollection<Message> Received { get; set; }
     }
 }

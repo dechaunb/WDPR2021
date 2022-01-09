@@ -57,8 +57,7 @@ namespace OkOk.Migrations
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     Name = table.Column<string>(type: "TEXT", nullable: false),
-                    Description = table.Column<string>(type: "TEXT", nullable: false),
-                    ChatUserId = table.Column<Guid>(type: "TEXT", nullable: false)
+                    Description = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -75,6 +74,7 @@ namespace OkOk.Migrations
                     Discriminator = table.Column<string>(type: "TEXT", nullable: false),
                     OldEnough = table.Column<bool>(type: "INTEGER", nullable: true),
                     AddressId = table.Column<Guid>(type: "TEXT", nullable: true),
+                    ChatToken = table.Column<Guid>(type: "TEXT", nullable: true),
                     Specialism = table.Column<string>(type: "TEXT", nullable: true),
                     UserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
@@ -261,15 +261,15 @@ namespace OkOk.Migrations
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     Content = table.Column<string>(type: "TEXT", nullable: false),
                     DateTime = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    ChatUserId = table.Column<string>(type: "TEXT", nullable: true),
+                    SenderId = table.Column<string>(type: "TEXT", nullable: true),
                     GroupId = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Messages", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Messages_AspNetUsers_ChatUserId",
-                        column: x => x.ChatUserId,
+                        name: "FK_Messages_AspNetUsers_SenderId",
+                        column: x => x.SenderId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.SetNull);
@@ -361,47 +361,47 @@ namespace OkOk.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "2db6cc93-83ed-4198-bbb4-6925cdbc9683", "1", "Admin", "ADMIN" });
+                values: new object[] { "8d455e97-1fb7-4832-9760-0ed6d40ea03a", "1", "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "2d7895f7-bae6-401b-81ae-ab9cd3797f8d", 0, "8b566023-b6b4-4805-a84d-29c77395f5f0", "ApplicationUser", "dechaun@okokapp.nl", true, "Dechaun", "OkOk", false, null, "DECHAUN@OKOKAPP.NL", "DECHAUN@OKOKAPP.NL", "AQAAAAEAACcQAAAAELlC0YDW0NmvchvxttJQ5x/+QsxEfCeZ0Rw8l4V0XufAxcWEx0gnzEE4yEc3cQN83g==", "1234567890", true, "aeac89ef-ba0e-4c81-9d04-d71b82a0584b", false, "dechaun@okokapp.nl" });
+                values: new object[] { "4774e026-5b9b-4695-9a63-27d552ae23b9", 0, "d15275f4-f9bb-4423-9c6d-a52136db3cd2", "ApplicationUser", "dechaun@okokapp.nl", true, "Dechaun", "OkOk", false, null, "DECHAUN@OKOKAPP.NL", "DECHAUN@OKOKAPP.NL", "AQAAAAEAACcQAAAAEEMAskX5MRzRXIWUI0z45Bpcb5RWahc5lizMXs7sne6KoW/QlEP8LLB8s9+EDwjSQg==", "1234567890", true, "083ef4b3-e360-42b4-be26-1b36f11f1886", false, "dechaun@okokapp.nl" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "cba67af6-a922-4228-b97b-5373d412b69d", 0, "aff9d907-589c-479c-a843-a56191d897be", "ApplicationUser", "angelo@okokapp.nl", true, "Angelo", "OkOk", false, null, "ANGELO@OKOKAPP.NL", "ANGELO@OKOKAPP.NL", "AQAAAAEAACcQAAAAEJ2YYKHOIPFlvP7ydl90hi6cxIR1lmdYgexBXW8J7BYvao85JUvK5nVspg6EdLDFJg==", "1234567890", true, "efd93414-0570-4018-8fe8-108a0acf199f", false, "angelo@okokapp.nl" });
+                values: new object[] { "707dc052-b166-4977-8704-a4ac414a37bd", 0, "7ce52876-b228-47c7-8b49-61953ff6e436", "ApplicationUser", "angelo@okokapp.nl", true, "Angelo", "OkOk", false, null, "ANGELO@OKOKAPP.NL", "ANGELO@OKOKAPP.NL", "AQAAAAEAACcQAAAAEFG3K0Z/c1yhSX2sdIfgA7MfVnhQ/syVA1h8I+vMi0HUhlzPf5hm3bj61jG7T+oiqA==", "1234567890", true, "8129cd3e-26a6-47d9-991c-a572faa58826", false, "angelo@okokapp.nl" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "cd08560b-d0f2-4f26-a4ef-3a537b50c4ce", 0, "4be22ee2-6d9f-4962-8d47-9ccce1113862", "ApplicationUser", "yash@okokapp.nl", true, "Yash", "OkOk", false, null, "YASH@OKOKAPP.NL", "YASH@OKOKAPP.NL", "AQAAAAEAACcQAAAAEJspJ0R9h1lsKSZTOJ0osQ+nRuuxP8pinASuY44JS3BrVB52I+dvwGzLCI4A7DBSGQ==", "1234567890", true, "973ba1b0-f342-407c-ae19-e03ba6158268", false, "yash@okokapp.nl" });
+                values: new object[] { "aadde2d9-2108-4e8a-8723-e10ed23bf10b", 0, "cd275f9a-decd-40d1-83cc-a8a227531a14", "ApplicationUser", "timothy@okokapp.nl", true, "Timothy", "OkOk", false, null, "TIMOTHY@OKOKAPP.NL", "TIMOTHY@OKOKAPP.NL", "AQAAAAEAACcQAAAAEIS1KXYMy3EcBE7MUNeSY2EwgWoHLHtiOAptFK2UxGPd4GMs9DOWGt6oTCKLvaE7vQ==", "1234567890", true, "5de4c47a-6f0d-4029-b7be-dc7ac019c4f9", false, "timothy@okokapp.nl" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "e3395df1-d82c-4dba-81d0-73f9a7a64a4b", 0, "41d16618-89cc-41b2-8ffb-8e50cd95af7f", "ApplicationUser", "timothy@okokapp.nl", true, "Timothy", "OkOk", false, null, "TIMOTHY@OKOKAPP.NL", "TIMOTHY@OKOKAPP.NL", "AQAAAAEAACcQAAAAEI9uHac9of8g3uimN8NZ99I2AH6jsbQA7xmn6c8ZyniD76vwvvf51mpKmMxoD0NjKQ==", "1234567890", true, "53aa99f3-fe8a-45ef-a5a2-d54c69231b12", false, "timothy@okokapp.nl" });
+                values: new object[] { "ce3bd425-b8a5-4254-8e68-0c97997b4da0", 0, "c862a346-9881-4dde-8f7d-8bc47779b918", "ApplicationUser", "yash@okokapp.nl", true, "Yash", "OkOk", false, null, "YASH@OKOKAPP.NL", "YASH@OKOKAPP.NL", "AQAAAAEAACcQAAAAELajOn6x73e1GwrR6Hm03frLm4s9Rvu5HPIbBXse+GrOnyqflsO6rYbA9KHK/iJBXA==", "1234567890", true, "69132d58-2693-49dd-86bd-a86ffe9637af", false, "yash@okokapp.nl" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "2db6cc93-83ed-4198-bbb4-6925cdbc9683", "2d7895f7-bae6-401b-81ae-ab9cd3797f8d" });
+                values: new object[] { "8d455e97-1fb7-4832-9760-0ed6d40ea03a", "4774e026-5b9b-4695-9a63-27d552ae23b9" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "2db6cc93-83ed-4198-bbb4-6925cdbc9683", "cba67af6-a922-4228-b97b-5373d412b69d" });
+                values: new object[] { "8d455e97-1fb7-4832-9760-0ed6d40ea03a", "707dc052-b166-4977-8704-a4ac414a37bd" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "2db6cc93-83ed-4198-bbb4-6925cdbc9683", "cd08560b-d0f2-4f26-a4ef-3a537b50c4ce" });
+                values: new object[] { "8d455e97-1fb7-4832-9760-0ed6d40ea03a", "aadde2d9-2108-4e8a-8723-e10ed23bf10b" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "2db6cc93-83ed-4198-bbb4-6925cdbc9683", "e3395df1-d82c-4dba-81d0-73f9a7a64a4b" });
+                values: new object[] { "8d455e97-1fb7-4832-9760-0ed6d40ea03a", "ce3bd425-b8a5-4254-8e68-0c97997b4da0" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -462,14 +462,14 @@ namespace OkOk.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Messages_ChatUserId",
-                table: "Messages",
-                column: "ChatUserId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Messages_GroupId",
                 table: "Messages",
                 column: "GroupId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Messages_SenderId",
+                table: "Messages",
+                column: "SenderId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SignUpRequests_ClientId",
