@@ -1,3 +1,7 @@
+/*FONTS*/
+@import url('https://assets.behindthework.nl/fonts/arminsoft/stylesheet.css');
+
+
 html {
   font-size: 14px;
 }
@@ -13,6 +17,86 @@ html {
   min-height: 100%;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Armin Soft';
+  font-weight: 600;
+}
+
+p,
+a {
+  font-family: 'Armin Soft';
+}
+
 body {
-  margin-bottom: 60px;
+  margin: 0px 0px 60px 0px;
+}
+
+.bg-okok-purple {
+  background-color: #B26CA1;
+}
+
+.bg-okok-blue {
+  background-color: #24869E;
+}
+
+.bg-okok-dark {
+  background-color: #333333;
+}
+
+.bg-okok-light {
+  background-color: #E6E6E6;
+}
+
+.btn-outline {
+  background-color: transparent !important;
+  border: 1px solid white !important;
+  color: white !important;
+}
+
+.btn-okok-purple {
+  background-color: #B26CA1;
+  color: white;
+}
+
+.btn-okok-white {
+  background-color: white !important;
+  color: #B26CA1 !important;
+}
+
+.hero-index h1{
+  font-size: 3rem;
+}
+
+.hero-index h2{
+  font-size: 1.5rem;
+  font-weight: 400;
+}
+
+.hero-index img {
+  width: 100%;
+}
+
+.text-okok-purple {
+  color: #B26CA1;
+}
+
+.text-okok-blue {
+  color: #24869E;
+}
+
+.text-okok-dark {
+  color: #333333;
+}
+
+.text-okok-light {
+  color: #E6E6E6;
+}
+
+.okok-rounded {
+  border-radius: 4.6px !important;
 }

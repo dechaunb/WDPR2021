@@ -13,18 +13,16 @@ namespace OkOk.Controllers
     public class MessageController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly ILogger<MessageController> _logger;
 
-        public MessageController(ILogger<MessageController> logger, ApplicationDbContext context)
+        public MessageController(ApplicationDbContext context)
         {
             _context = context;
-            _logger = logger;
         }
 
         // GET: Message
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Messages.Include(m => m.ChatApplicationUser).Include(m => m.SupportGroup);
+            var applicationDbContext = _context.Messages.Include(m => m.Sender).Include(m => m.SupportGroup);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -37,7 +35,7 @@ namespace OkOk.Controllers
             }
 
             var message = await _context.Messages
-                .Include(m => m.ChatApplicationUser)
+                .Include(m => m.Sender)
                 .Include(m => m.SupportGroup)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (message == null)
@@ -51,7 +49,7 @@ namespace OkOk.Controllers
         // GET: Message/Create
         public IActionResult Create()
         {
-            ViewData["ChatUserId"] = new SelectList(_context.ChatApplicationUsers, "Id", "Id");
+            ViewData["SenderId"] = new SelectList(_context.ChatApplicationUsers, "Id", "Id");
             ViewData["GroupId"] = new SelectList(_context.SupportGroups, "Id", "Description");
             return View();
         }
@@ -61,7 +59,7 @@ namespace OkOk.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Content,DateTime,ChatUserId,GroupId")] Message message)
+        public async Task<IActionResult> Create([Bind("Id,Content,DateTime,SenderId,GroupId")] Message message)
         {
             if (ModelState.IsValid)
             {
@@ -70,7 +68,7 @@ namespace OkOk.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ChatUserId"] = new SelectList(_context.ChatApplicationUsers, "Id", "Id", message.ChatUserId);
+            ViewData["SenderId"] = new SelectList(_context.ChatApplicationUsers, "Id", "Id", message.SenderId);
             ViewData["GroupId"] = new SelectList(_context.SupportGroups, "Id", "Description", message.GroupId);
             return View(message);
         }
@@ -88,7 +86,7 @@ namespace OkOk.Controllers
             {
                 return NotFound();
             }
-            ViewData["ChatUserId"] = new SelectList(_context.ChatApplicationUsers, "Id", "Id", message.ChatUserId);
+            ViewData["SenderId"] = new SelectList(_context.ChatApplicationUsers, "Id", "Id", message.SenderId);
             ViewData["GroupId"] = new SelectList(_context.SupportGroups, "Id", "Description", message.GroupId);
             return View(message);
         }
@@ -98,7 +96,7 @@ namespace OkOk.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Content,DateTime,ChatUserId,GroupId")] Message message)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Content,DateTime,SenderId,GroupId")] Message message)
         {
             if (id != message.Id)
             {
@@ -125,7 +123,7 @@ namespace OkOk.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ChatUserId"] = new SelectList(_context.ChatApplicationUsers, "Id", "Id", message.ChatUserId);
+            ViewData["SenderId"] = new SelectList(_context.ChatApplicationUsers, "Id", "Id", message.SenderId);
             ViewData["GroupId"] = new SelectList(_context.SupportGroups, "Id", "Description", message.GroupId);
             return View(message);
         }
@@ -139,7 +137,7 @@ namespace OkOk.Controllers
             }
 
             var message = await _context.Messages
-                .Include(m => m.ChatApplicationUser)
+                .Include(m => m.Sender)
                 .Include(m => m.SupportGroup)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (message == null)

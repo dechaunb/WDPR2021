@@ -4,6 +4,6 @@ namespace OkOk.Interfaces
 {
     interface IReceiver
     {
-        ICollection<Message> Messages { get; set; }
+        ICollection<Message> Received { get; set; }
     }
 }

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 using OkOk.Models;
 using OkOk.Models.Identity;
+using OkOk.Interfaces;
 
 namespace OkOk.Data
 {
@@ -88,14 +89,14 @@ namespace OkOk.Data
 
             //Message
             modelBuilder.Entity<Message>()
-                        .HasOne(message => message.ChatApplicationUser)
-                        .WithMany(chatuser => chatuser.Messages)
-                        .HasForeignKey(message => message.ChatUserId)
+                        .HasOne(message => message.Sender)
+                        .WithMany(chatuser => chatuser.Received)
+                        .HasForeignKey(message => message.SenderId)
                         .OnDelete(DeleteBehavior.SetNull);
 
             modelBuilder.Entity<Message>()
                         .HasOne(message => message.SupportGroup)
-                        .WithMany(group => group.Messages)
+                        .WithMany(group => group.Received)
                         .HasForeignKey(message => message.GroupId)
                         .OnDelete(DeleteBehavior.SetNull);
 
