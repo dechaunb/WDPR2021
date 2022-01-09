@@ -22,35 +22,71 @@ namespace OkOk.Controllers
 
         [Route("/Guardian/Index")]
         public IActionResult Index(){
-            GuardianApplicationUser g = new GuardianApplicationUser(){
-                FirstName = "Gerrit",
-                LastName = "A",
-                Children = new List<ClientApplicationUser>(){
-                    new ClientApplicationUser(){
-                        FirstName = "Arie",
-                        LastName = "A",
-                        Address = new Address(){
-                            HouseNumber = 1,
-                            Street = "Straat",
-                            City = "Delft",
-                            ZipCode = "2121DW",
-                            Country = "Nederland"
-                        }
-                    },
-                    new ClientApplicationUser(){
-                        FirstName = "Juliët",
-                        LastName = "A",
-                        Address = new Address(){
-                            HouseNumber = 1,
-                            Street = "Straat",
-                            City = "Delft",
-                            ZipCode = "2121DW",
-                            Country = "Nederland"
-                        }
-                    }
-                }
-            };
-            //_context.GuardianApplicationUsers.Add(g);
+            // GuardianApplicationUser g = new GuardianApplicationUser(){
+            //     FirstName = "Gerard",
+            //     LastName = "A",
+            //     Children = new List<ClientApplicationUser>(){
+            //         new ClientApplicationUser(){
+            //             FirstName = "Leon",
+            //             LastName = "A",
+            //             Address = new Address(){
+            //                 HouseNumber = 1,
+            //                 Street = "Straat",
+            //                 City = "Delft",
+            //                 ZipCode = "2121DW",
+            //                 Country = "Nederland"
+            //             },
+            //             Messages = new List<Message>(){
+            //                 new Message(){
+            //                     Content = "Hoi",
+            //                     DateTime = DateTime.Now,
+            //                     SupportGroup = new SupportGroup(){
+            //                         Name = "Groep A",
+            //                         Description = "Eerste groep"
+            //                     }
+            //                 },
+            //                 new Message(){
+            //                     Content = "Hallo",
+            //                     DateTime = DateTime.Now,
+            //                     SupportGroup = new SupportGroup(){
+            //                         Name= "Groep B",
+            //                         Description = "Tweede groep"
+            //                     }
+            //                 }
+            //             }
+            //         },
+            //         new ClientApplicationUser(){
+            //             FirstName = "Appel",
+            //             LastName = "A",
+            //             Address = new Address(){
+            //                 HouseNumber = 1,
+            //                 Street = "Straat",
+            //                 City = "Delft",
+            //                 ZipCode = "2121DW",
+            //                 Country = "Nederland"
+            //             },
+            //             Messages = new List<Message>(){
+            //                 new Message(){
+            //                     Content = "Hoi",
+            //                     DateTime = DateTime.Now,
+            //                     SupportGroup = new SupportGroup(){
+            //                         Name = "Groep A",
+            //                         Description = "Eerste groep"
+            //                     }
+            //                 },
+            //                 new Message(){
+            //                     Content = "Hallo",
+            //                     DateTime = DateTime.Now,
+            //                     SupportGroup = new SupportGroup(){
+            //                         Name= "Groep B",
+            //                         Description = "Tweede groep"
+            //                     }
+            //                 }
+            //             }
+            //         }
+            //     }
+            // };
+            // _context.GuardianApplicationUsers.Add(g);
             // foreach(var client in _context.ClientApplicationUsers){
             //     client.Messages = new List<Message>(){
             //         new Message(){
@@ -73,10 +109,9 @@ namespace OkOk.Controllers
             // }
             _context.SaveChanges();
             //ViewData["Children"] = _context.GuardianApplicationUsers;
-            return View(_context.GuardianApplicationUsers.Include(g => g.Children).First());
+            return View(_context.GuardianApplicationUsers.Include(g => g.Children).Where(g => g.FirstName == "Gerard").First());
         }
 
-        //[Route("/GuardianApplicationUser/ChildChatFrequency/{id}")]
         public IActionResult ChildChatFrequency(ClientApplicationUser child){
             if (child.Messages == null){
                 ViewData["SortedMessages"] = null;

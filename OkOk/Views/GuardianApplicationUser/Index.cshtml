@@ -21,7 +21,7 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Children) {
+@foreach (ClientApplicationUser item in Model.Children) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Id)
@@ -37,7 +37,7 @@
             </td>
             <td>
                 <div class="col-6 justify-content-center">
-                    <a class="btn btn-primary" asp-action="ChildChatFrequency" asp-route-id="@item">Chatfrequentie</a>
+                    <a class="btn btn-primary" asp-action="ChildChatFrequency" asp-route-child="@item">Chatfrequentie</a>
                 </div>
             </td>
         </tr>
