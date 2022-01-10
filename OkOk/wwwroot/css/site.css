@@ -1,7 +1,15 @@
-/*FONTS*/
+/* Fonts */
 @import url('https://assets.behindthework.nl/fonts/arminsoft/stylesheet.css');
 
+/* Variables */
+:root {
+  --okpurple: #B26CA1;
+  --okblue: #24869E;
+  --okwhite: #ffffff;
+  --okdark: #333333;
+}
 
+/* Basic */
 html {
   font-size: 14px;
 }
@@ -36,6 +44,111 @@ body {
   margin: 0px 0px 60px 0px;
 }
 
+/* Bootstrap Overrides */
+.btn {
+  font-family: 'Armin Soft' !important;
+  font-weight: 500 !important;
+}
+
+.btn:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Solid Buttons */
+.btn-primary {
+  background-color: var(--okpurple) !important;
+  color: white !important;
+  border: none !important;
+}
+
+.btn-primary.dark {
+  background-color: var(--okpurple) !important;
+  color: var(--okdark) !important;
+  border: none !important;
+}
+
+.btn-secondary {
+  background-color: var(--okblue) !important;
+  color: white !important;
+  border: none !important;
+}
+.btn-secondary.dark {
+  background-color: var(--okblue) !important;
+  color: var(--okdark) !important;
+  border: none !important;
+}
+
+.btn-light {
+  background-color: white !important;
+  color: var(--okpurple) !important;
+  border: none !important;
+}
+
+.btn-light.secondary {
+  background-color: white !important;
+  color: var(--okblue) !important;
+  border: none !important;
+}
+
+.btn-dark {
+  background-color: var(--okdark) !important;
+  border: none !important;
+}
+
+/* Outline Buttons */
+.btn-outline-primary {
+  border-color: var(--okpurple) !important;
+  color:var(--okpurple) !important;
+}
+
+.btn-outline-primary:hover {
+  background-color: var(--okpurple) !important;
+  color: white !important;
+}
+
+.btn-outline-secondary {
+  border-color: var(--okblue) !important;
+  color:var(--okblue) !important;
+}
+
+.btn-outline-secondary:hover {
+  background-color: var(--okblue) !important;
+  color: white !important;
+}
+
+.btn-outline-light {
+  border-color: white !important;
+  color:white !important;
+}
+
+.btn-outline-light:hover {
+  background-color: white !important;
+  color: var(--okpurple) !important;
+}
+
+.btn-outline-light.secondary {
+  border-color: white !important;
+  color:white !important;
+}
+
+.btn-outline-light.secondary:hover {
+  background-color: white !important;
+  color: var(--okblue) !important;
+}
+
+.btn-outline-dark {
+  border-color: var(--okdark) !important;
+  color:var(--okdark) !important;
+}
+
+.btn-outline-dark:hover {
+  background-color: var(--okdark) !important;
+  color: white !important;
+}
+
+/*////*/
+
 .bg-okok-purple {
   background-color: #B26CA1;
 }
@@ -50,22 +163,6 @@ body {
 
 .bg-okok-light {
   background-color: #E6E6E6;
-}
-
-.btn-outline {
-  background-color: transparent !important;
-  border: 1px solid white !important;
-  color: white !important;
-}
-
-.btn-okok-purple {
-  background-color: #B26CA1;
-  color: white;
-}
-
-.btn-okok-white {
-  background-color: white !important;
-  color: #B26CA1 !important;
 }
 
 .hero-index h1{

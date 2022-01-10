@@ -10,8 +10,14 @@
                     De applicatie voor orthopedagogen en patiënten
                 </h1>
                 <h2>
-                    Hier komt de ondertitel
+                    Wil je aan de slag als orthopedagoog? Neem dan zo snel mogelijk contact met ons op!
                 </h2>
+                <a class="btn btn-outline-light btn-lg okok-rounded" asp-area="Identity" asp-page="/Account/SignUp">
+                    Aanmelden
+                </a>
+                <a class="btn btn-light btn-lg okok-rounded" asp-area="Home" asp-action="Contact">
+                    Contact opnemen
+                </a>
             </div>
             <div class="col-lg-6 m-0 p-0">
                 <div class="d-flex">
@@ -22,9 +28,35 @@
     </div>
 </div>
 
-<div class="container py-5">
-    <div class="row m-0 p-0 text-okok-black">
-        <h1>Kennismaking</h1>
+<div class="container text-okok-dark py-5">
+    <h1>Kennismaking</h1>
 
+</div>
+
+<div class="container-fluid bg-okok-blue">
+    <div class="container text-white py-5">
+        <h1>Functies</h1>
+        
     </div>
+</div>
+
+<div id="clientGetStarted" class="container d-flex align-content-center py-5">
+    <div class="row w-100 m-0 p-0 d-flex align-items-center">
+        <div class="col-lg-6 m-0 p-0 text-okok-dark">
+            <h1>Wil je beginnen met kennismaking?</h1>
+
+            <a class="btn btn-outline-primary btn-lg okok-rounded" asp-area="Identity" asp-page="/Account/Login">
+                Inloggen
+            </a>
+            <a class="btn btn-primary btn-lg okok-rounded" asp-area="Identity" asp-page="/Account/SignUp">
+                Aanmelden
+            </a>
+        </div>
+        <div class="col-lg-6 m-0 p-0">
+            <div class="d-flex">
+                <img class="img-fluid" alt="" src="~/images/children-playing.svg"/>
+            </div>
+        </div>
+    </div>
+    
 </div>
