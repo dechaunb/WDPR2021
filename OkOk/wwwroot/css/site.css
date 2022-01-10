@@ -5,7 +5,7 @@
 :root {
   --okpurple: #B26CA1;
   --okblue: #24869E;
-  --okwhite: #ffffff;
+  --okwhite: #e6e6e6;
   --okdark: #333333;
 }
 
@@ -147,22 +147,43 @@ body {
   color: white !important;
 }
 
+/* Text Colors */
+.text-primary {
+  color: var(--okpurple) !important;
+}
+
+.text-secondary {
+  color: var(--okblue) !important;
+}
+
+.text-light {
+  color: var(--okwhite) !important;
+}
+
+.text-dark {
+  color: var(--okdark) !important;
+}
+
+/* Background Colors */
+.bg-primary {
+  background-color: var(--okpurple) !important;
+}
+
+.bg-secondary {
+  background-color: var(--okblue) !important;
+}
+
+.bg-light {
+  background-color: var(--okwhite) !important;
+}
+
+.bg-dark {
+  background-color: var(--okdark) !important;
+}
+
 /*////*/
-
-.bg-okok-purple {
-  background-color: #B26CA1;
-}
-
-.bg-okok-blue {
-  background-color: #24869E;
-}
-
-.bg-okok-dark {
-  background-color: #333333;
-}
-
-.bg-okok-light {
-  background-color: #E6E6E6;
+.okok-rounded {
+  border-radius: 4.6px !important;
 }
 
 .hero-index h1{
@@ -176,24 +197,4 @@ body {
 
 .hero-index img {
   width: 100%;
-}
-
-.text-okok-purple {
-  color: #B26CA1;
-}
-
-.text-okok-blue {
-  color: #24869E;
-}
-
-.text-okok-dark {
-  color: #333333;
-}
-
-.text-okok-light {
-  color: #E6E6E6;
-}
-
-.okok-rounded {
-  border-radius: 4.6px !important;
 }

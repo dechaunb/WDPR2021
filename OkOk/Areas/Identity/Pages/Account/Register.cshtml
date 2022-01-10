@@ -1,77 +1,113 @@
 ﻿@page
 @model RegisterModel
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "Aanmelden";
 }
 
-<h1>@ViewData["Title"]</h1>
-
-<div class="row">
-    <div class="col-md-4">
-        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <h2>Create a new account.</h2>
-            <hr />
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-floating">
-                <input asp-for="Input.FirstName" class="form-control" autocomplete="firstname" aria-required="true" />
-                <label asp-for="Input.FirstName"></label>
-                <span asp-validation-for="Input.FirstName" class="text-danger"></span>
-            </div>
-            <div class="form-floating">
-                <input asp-for="Input.LastName" class="form-control" autocomplete="lastname" aria-required="true" />
-                <label asp-for="Input.LastName"></label>
-                <span asp-validation-for="Input.LastName" class="text-danger"></span>
-            </div>
-            <div class="form-floating">
-                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
-                <label asp-for="Input.Email"></label>
-                <span asp-validation-for="Input.Email" class="text-danger"></span>
-            </div>
-            <div class="form-floating">
-                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" />
-                <label asp-for="Input.Password"></label>
-                <span asp-validation-for="Input.Password" class="text-danger"></span>
-            </div>
-            <div class="form-floating">
-                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" />
-                <label asp-for="Input.ConfirmPassword"></label>
-                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-            </div>
-            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
-        </form>
-    </div>
-    <div class="col-md-6 col-md-offset-2">
-        <section>
-            <h3>Use another service to register.</h3>
-            <hr />
-            @{
-                if ((Model.ExternalLogins?.Count ?? 0) == 0)
-                {
-                    <div>
-                        <p>
-                            There are no external authentication services configured. See this <a href="https://go.microsoft.com/fwlink/?LinkID=532715">article
-                            about setting up this ASP.NET application to support logging in via external services</a>.
-                        </p>
+<div class="container py-5">
+    <div class="row justify-content-center m-0 p-0">
+        <div class="col-md-6 m-0 p-0">
+            <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="row g-2 m-0 p-0">
+                <h1 class="text-primary">
+                    @ViewData["Title"]
+                </h1>
+                <h2 class="text-muted">Meld je aan voor OkOk.</h2>
+                <h3 class="text-muted fs-6 fw-normal">
+                    Bij het aanmelden via deze pagina wordt je aanvraag in behandeling genomen. Dit doet de orthopedagoog om te kijken
+                    of hij ruimte heeft in zijn rooster. Na het aanmelden op deze pagina kan je dus ook <b>niet</b> inloggen.
+                </h3>
+                <hr />
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        <input asp-for="Input.FirstName" class="form-control" autocomplete="firstname" aria-required="true" />
+                        <label asp-for="Input.FirstName"></label>
+                        <span asp-validation-for="Input.FirstName" class="text-danger"></span>
                     </div>
-                }
-                else
-                {
-                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
-                        <div>
-                            <p>
-                                @foreach (var provider in Model.ExternalLogins)
-                                {
-                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
-                                }
-                            </p>
-                        </div>
-                    </form>
-                }
-            }
-        </section>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        <input asp-for="Input.LastName" class="form-control" autocomplete="lastname" aria-required="true" />
+                        <label asp-for="Input.LastName"></label>
+                        <span asp-validation-for="Input.LastName" class="text-danger"></span>
+                    </div>
+                </div>
+                
+                <div class="col-12">
+                    <div class="form-floating">
+                        <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
+                        <label asp-for="Input.Email"></label>
+                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                    </div>
+                </div>
+                @* Address *@
+                <div class="col-12 col-md-6">
+                    <div class="form-floating">
+                        <input asp-for="Input.Street" class="form-control" autocomplete="street" aria-required="true" />
+                        <label asp-for="Input.Street"></label>
+                        <span asp-validation-for="Input.Street" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4">
+                    <div class="form-floating">
+                        <input asp-for="Input.HouseNumber" class="form-control" autocomplete="housenumber" aria-required="true" />
+                        <label asp-for="Input.HouseNumber"></label>
+                        <span asp-validation-for="Input.HouseNumber" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-6 col-md-2">
+                    <div class="form-floating">
+                        <input asp-for="Input.HouseNumberAddition" class="form-control" autocomplete="housenumberaddition" aria-required="true" />
+                        <label asp-for="Input.HouseNumberAddition"></label>
+                        <span asp-validation-for="Input.HouseNumberAddition" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-4">
+                    <div class="form-floating">
+                        <input asp-for="Input.ZipCode" class="form-control" autocomplete="zip" aria-required="true" />
+                        <label asp-for="Input.ZipCode"></label>
+                        <span asp-validation-for="Input.ZipCode" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-8">
+                    <div class="form-floating">
+                        <input asp-for="Input.City" class="form-control" autocomplete="city" aria-required="true" />
+                        <label asp-for="Input.City"></label>
+                        <span asp-validation-for="Input.City" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="form-floating">
+                        <input asp-for="Input.Country" class="form-control" autocomplete="country" value="Nederland" aria-required="true"/>
+                        <label asp-for="Input.Country"></label>
+                        <span asp-validation-for="Input.Country" class="text-danger"></span>
+                    </div>
+                </div>
+                
+                <div class="col-12">
+                    <div class="form-floating">
+                        <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" />
+                        <label asp-for="Input.Password"></label>
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="form-floating">
+                        <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" />
+                        <label asp-for="Input.ConfirmPassword"></label>
+                        <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Aanmelden</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
-
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
