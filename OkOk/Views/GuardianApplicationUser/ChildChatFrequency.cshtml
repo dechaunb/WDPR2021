@@ -1,4 +1,4 @@
-@model ChatApplicationUser
+@model ClientApplicationUser
 <h3>@Model.FirstName @Model.LastName</h3>
 @if(Model == null){
     <div>Geen Client gevonden</div>
@@ -20,19 +20,19 @@ else{
                     </th>
                 </tr>
             </thead>
-        </table>
-        <tbody>
-@foreach (var item in ViewData["SortedMessages"] as List<Message>){
-            <tr>
-                <td>
-                    @item.DateTime
-                </td>
-                <td>
-                    @item.SupportGroup.Name
-                </td>
-            </tr>
-}
-        </tbody>
         
+            <tbody>
+@foreach (var item in ViewData["SortedMessages"] as List<Message>){
+                <tr>
+                    <td>
+                        @item.DateTime
+                    </td>
+                    <td>
+                        @item.SupportGroup.Name
+                    </td>
+                </tr>
+    }
+            </tbody>
+        </table>
     }
 }
