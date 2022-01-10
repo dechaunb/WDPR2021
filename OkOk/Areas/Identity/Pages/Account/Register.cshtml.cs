@@ -20,6 +20,7 @@ using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using OkOk.Models.Identity;
 using OkOk.Models;
+using OkOk.Controllers;
 
 namespace OkOk.Areas.Identity.Pages.Account
 {
@@ -31,12 +32,14 @@ namespace OkOk.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<ClientApplicationUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly SignUpRequestController _signUpRequestController;
 
         public RegisterModel(
             UserManager<ClientApplicationUser> userManager,
             IUserStore<ClientApplicationUser> userStore,
             SignInManager<ClientApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
+            SignUpRequestController signUpRequestController,
             IEmailSender emailSender)
         {
             _userManager = userManager;
@@ -45,6 +48,7 @@ namespace OkOk.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _signUpRequestController = signUpRequestController;
         }
 
         
@@ -104,6 +108,10 @@ namespace OkOk.Areas.Identity.Pages.Account
             [Required]
             [Display(Name = "Stad")]
             public string City { get; set; }
+            [Required]
+            [Display(Name = "Geboortedatum")]
+            [DataType(DataType.Date)]
+            public DateTime BirthDate { get; set; }
         }
 
 
@@ -120,10 +128,13 @@ namespace OkOk.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = new ClientApplicationUser {
+                    ChatToken = Guid.NewGuid(),
                     FirstName = Input.FirstName,
                     LastName = Input.LastName,
                     UserName = Input.Email,
                     Email = Input.Email,
+                    LockoutEnabled = true,
+                    OldEnough = (new DateTime(DateTime.Now.Subtract(Input.BirthDate).Ticks).Year - 1) >= 16 ? true : false,
                     Address = new Address()
                     {
                         HouseNumber = Input.HouseNumber,
@@ -132,8 +143,7 @@ namespace OkOk.Areas.Identity.Pages.Account
                         City = Input.City,
                         ZipCode = Input.ZipCode,
                         Country = Input.Country
-                    },
-                    LockoutEnabled = true
+                    }
                 };
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
@@ -142,7 +152,10 @@ namespace OkOk.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("User created a new account with password.");
+                    _logger.LogInformation("User requested new account with password.");
+
+                    await _signUpRequestController.CreateRequestAsync(user);
+                    _logger.LogInformation("Signup request has been made.");
 
                     return LocalRedirect(returnUrl);
                 }

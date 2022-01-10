@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 
 using OkOk.Data;
 using OkOk.Models.Identity;
+using OkOk.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,6 +32,7 @@ builder.Services.AddIdentityCore<ClientApplicationUser>(options => options.SignI
 
 builder.Services.AddScoped<SignInManager<ClientApplicationUser>, SignInManager<ClientApplicationUser>>();
 builder.Services.AddScoped<UserManager<ClientApplicationUser>, UserManager<ClientApplicationUser>>();
+builder.Services.AddScoped<SignUpRequestController, SignUpRequestController>();
 
 builder.Services.AddIdentityCore<DoctorApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddRoles<IdentityRole>()
@@ -42,21 +44,6 @@ builder.Services.AddScoped<UserManager<DoctorApplicationUser>, UserManager<Docto
 
 builder.Services.AddIdentityCore<GuardianApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
-
-//Identity Services
-// builder.Services.AddScoped<IUserValidator<DoctorApplicationUser>, UserValidator<DoctorApplicationUser>>();
-// builder.Services.AddScoped<IPasswordValidator<DoctorApplicationUser>, PasswordValidator<DoctorApplicationUser>>();
-// builder.Services.AddScoped<IPasswordHasher<DoctorApplicationUser>, PasswordHasher<DoctorApplicationUser>>();
-// builder.Services.AddScoped<ILookupNormalizer, UpperInvariantLookupNormalizer>();
-// builder.Services.AddScoped<IRoleValidator<IdentityRole>, RoleValidator<IdentityRole>>();
-// // No interface for the error describer so we can add errors without rev'ing the interface
-// builder.Services.AddScoped<IdentityErrorDescriber>();
-// builder.Services.AddScoped<ISecurityStampValidator, SecurityStampValidator<DoctorApplicationUser>>();
-// builder.Services.AddScoped<ITwoFactorSecurityStampValidator, TwoFactorSecurityStampValidator<DoctorApplicationUser>>();
-// builder.Services.AddScoped<IUserClaimsPrincipalFactory<DoctorApplicationUser>, UserClaimsPrincipalFactory<DoctorApplicationUser, IdentityRole>>();
-// builder.Services.AddScoped<UserManager<DoctorApplicationUser>>();
-// builder.Services.AddScoped<SignInManager<DoctorApplicationUser>>();
-// builder.Services.AddScoped<RoleManager<IdentityRole>>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
