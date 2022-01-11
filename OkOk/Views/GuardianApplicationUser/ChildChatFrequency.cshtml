@@ -1,0 +1,61 @@
+@model ClientApplicationUser
+<a class="btn btn-primary" href="/guardian/index" >Terug</a>
+<h3>@Model.FirstName @Model.LastName</h3>
+@if(Model == null){
+    <div>Geen Client gevonden</div>
+}
+else{
+    
+    @if(ViewData["SortedMessages"] == null){
+        <div>Geen berichten gevonden</div>
+    }
+    else{      
+        @* <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Messages.First().DateTime)
+                    </th>
+                    
+                </tr>
+            </thead>
+        
+            <tbody>
+@foreach (var item in ViewData["SortedMessages"] as List<Message>){
+                <tr>
+                    <td>
+                        @item.DateTime
+                    </td>           
+                </tr>
+    }
+            </tbody>
+        </table> *@
+
+        <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Datum
+                </th>
+                <th>
+                    Aantal berichten
+                </th>
+            </tr> 
+        </thead>
+@foreach (var item in Model.Messages.GroupBy(m => m.DateTime.Date).Select(g => new{dag = g.Key, aantal = g.Count()}).ToList() )
+{
+        <tbody>
+            <tr>
+                <td>
+                    @item.dag.ToString().Split().First()
+                </td>
+                <td>
+                    @item.aantal
+                </td>
+            </tr>
+        </tbody>
+}
+    </table>
+    }
+    
+}
