@@ -1,4 +1,5 @@
 @model ClientApplicationUser
+<a class="btn btn-primary" href="/guardian/index" >Terug</a>
 <h3>@Model.FirstName @Model.LastName</h3>
 @if(Model == null){
     <div>Geen Client gevonden</div>
@@ -9,15 +10,13 @@ else{
         <div>Geen berichten gevonden</div>
     }
     else{      
-        <table>
+        @* <table class="table">
             <thead>
                 <tr>
                     <th>
                         @Html.DisplayNameFor(model => model.Messages.First().DateTime)
                     </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Messages.First().SupportGroup.Name)
-                    </th>
+                    
                 </tr>
             </thead>
         
@@ -26,13 +25,37 @@ else{
                 <tr>
                     <td>
                         @item.DateTime
-                    </td>
-                    <td>
-                        @item.SupportGroup.Name
-                    </td>
+                    </td>           
                 </tr>
     }
             </tbody>
-        </table>
+        </table> *@
+
+        <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Datum
+                </th>
+                <th>
+                    Aantal berichten
+                </th>
+            </tr> 
+        </thead>
+@foreach (var item in Model.Messages.GroupBy(m => m.DateTime.Date).Select(g => new{dag = g.Key, aantal = g.Count()}).ToList() )
+{
+        <tbody>
+            <tr>
+                <td>
+                    @item.dag.ToString().Split().First()
+                </td>
+                <td>
+                    @item.aantal
+                </td>
+            </tr>
+        </tbody>
+}
+    </table>
     }
+    
 }

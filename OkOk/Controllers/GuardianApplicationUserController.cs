@@ -22,6 +22,7 @@ namespace OkOk.Controllers
 
         [Route("/Guardian/Index")]
         public IActionResult Index(){
+            //Hard coded data. Kan weggehaald worden en vervangen worden door de Guardian die op dat moment is ingelogd
             GuardianApplicationUser g = new GuardianApplicationUser(){
                 FirstName = "Gerard",
                 LastName = "A",
@@ -86,33 +87,12 @@ namespace OkOk.Controllers
                     }
                 }
             };
-            // _context.GuardianApplicationUsers.Add(g);
-            // foreach(var client in _context.ClientApplicationUsers){
-            //     client.Messages = new List<Message>(){
-            //         new Message(){
-            //             Content = "Hoi",
-            //             DateTime = DateTime.Now,
-            //             SupportGroup = new SupportGroup(){
-            //                 Name = "Groep A",
-            //                 Description = "Eerste groep"
-            //             }
-            //         },
-            //         new Message(){
-            //             Content = "Hallo",
-            //             DateTime = DateTime.Now,
-            //             SupportGroup = new SupportGroup(){
-            //                 Name= "Groep B",
-            //                 Description = "Tweede groep"
-            //             }
-            //         }
-            //     };
-            // }
             _context.SaveChanges();
+            //Dit moet uiteindelijk veranderd worden naar de ingelogde guardian die is ingelogd!
             return View(_context.GuardianApplicationUsers.Include(g => g.Children).Where(g => g.FirstName == "Gerard").First());
         }
 
         public IActionResult ChildChatFrequency(string id){
-            //ClientApplicationUser c = _context.ClientApplicationUsers.Include(g => g.Messages).Include(g => g.SupportGroups).Single(g => g.Id == id);
             ClientApplicationUser c = _context.ClientApplicationUsers.Include(g => g.Messages).ThenInclude(m => m.SupportGroup).Single(g => g.Id == id);
             if (c.Messages == null){
                 ViewData["SortedMessages"] = null;
