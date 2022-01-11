@@ -37,7 +37,7 @@ namespace OkOk.Controllers
                             ZipCode = "2121DW",
                             Country = "Nederland"
                         },
-                        Messages = new List<Message>(){
+                        Received = new List<Message>(){
                             new Message(){
                                 Content = "Hoi",
                                 DateTime = DateTime.Now,
@@ -66,7 +66,7 @@ namespace OkOk.Controllers
                             ZipCode = "2121DW",
                             Country = "Nederland"
                         },
-                        Messages = new List<Message>(){
+                        Received = new List<Message>(){
                             new Message(){
                                 Content = "Hoi",
                                 DateTime = DateTime.Now,
@@ -93,12 +93,12 @@ namespace OkOk.Controllers
         }
 
         public IActionResult ChildChatFrequency(string id){
-            ClientApplicationUser c = _context.ClientApplicationUsers.Include(g => g.Messages).ThenInclude(m => m.SupportGroup).Single(g => g.Id == id);
-            if (c.Messages == null){
+            ClientApplicationUser c = _context.ClientApplicationUsers.Include(g => g.Received).ThenInclude(m => m.SupportGroup).Single(g => g.Id == id);
+            if (c.Received == null){
                 ViewData["SortedMessages"] = null;
             }
             else{
-                ViewData["SortedMessages"] = c.Messages.OrderByDescending(m => m.DateTime).ToList();
+                ViewData["SortedMessages"] = c.Received.OrderByDescending(m => m.DateTime).ToList();
             }
             
             return View(c);

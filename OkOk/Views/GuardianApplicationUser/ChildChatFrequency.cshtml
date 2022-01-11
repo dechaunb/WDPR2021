@@ -42,7 +42,7 @@ else{
                 </th>
             </tr> 
         </thead>
-@foreach (var item in Model.Messages.GroupBy(m => m.DateTime.Date).Select(g => new{dag = g.Key, aantal = g.Count()}).ToList() )
+@foreach (var item in Model.Received.GroupBy(m => m.DateTime.Date).Select(g => new{dag = g.Key, aantal = g.Count()}).ToList() )
 {
         <tbody>
             <tr>
