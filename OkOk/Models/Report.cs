@@ -13,5 +13,7 @@ namespace OkOk.Models
 
         //Foreign keys
         public MessageReport MessageReport { get; set; }
+
+        public bool Handled{get; set;} = false;
     }
 }

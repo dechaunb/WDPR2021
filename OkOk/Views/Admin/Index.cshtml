@@ -70,3 +70,59 @@
 }
     </tbody>
 </table>
+
+<hr/>
+
+<h2>Meldingen</h2>
+<table class="table">
+    <thead>
+        <th>
+            Message Id
+        </th>
+        <th>
+            Sender Id
+        </th>
+        <th>
+            Message Content
+        </th>
+        <th>
+            Aantal
+        </th>
+        <th>
+
+        </th>
+        
+    </thead>
+    <tbody>
+@if(ViewBag.UnfinishedReports != null){
+@foreach (var item in ViewBag.UnfinishedReports)
+{
+        <tr>
+            <td>
+                @item.MessageId
+            </td>
+            <td>
+                @item.SenderId
+            </td>
+            <td>
+                @item.Content
+            </td>
+            <td>
+                @item.Aantal
+            </td>
+            <td>    
+                @* <a class="btn btn-primary" asp-action="BlockUser" asp-route-id="@item.MessageReport.Message.SenderId">Blokkeren</a>                *@
+                <a class="btn btn-primary" asp-action="BlockClient" asp-route-userId="@item.SenderId" asp-route-messageId="@item.MessageId">Blokkeren</a>    
+            </td>
+        </tr>
+}
+}
+
+
+    </tbody>
+</table>
+
+
+@* UPDATE AspNetUsers
+SET LockoutEnd = NULL
+WHERE Id="12a9ae9d-c6fe-4b1f-9f7e-8523794b2962" *@
