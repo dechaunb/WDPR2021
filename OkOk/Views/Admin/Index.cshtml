@@ -73,55 +73,6 @@
 
 <hr/>
 
-@* <h2>Meldingen</h2>
-<table class="table">
-    <thead>
-        <th>
-            Report Id
-        </th>
-        <th>
-            Message Id
-        </th>
-        <th>
-            Sender Id
-        </th>
-        <th>
-            Message Content
-        </th>
-        <th>
-
-        </th>
-        
-    </thead>
-    <tbody>
-@if(ViewBag.AllReports != null){
-@foreach (var item in ViewBag.AllReports)
-{
-        <tr>
-            <td>
-                @item.Id
-            </td>
-            <td>
-                @item.MessageReport.MessageId
-            </td>
-            <td>
-                @item.MessageReport.Message.SenderId
-            </td>
-            <td>
-                @item.MessageReport.Message.Content
-            </td>
-            <td>    
-                @* <a class="btn btn-primary" asp-action="BlockUser" asp-route-id="@item.MessageReport.Message.SenderId">Blokkeren</a>                *@
-                @* <a class="btn btn-primary" asp-action="BlockClient" asp-route-userId="@item.MessageReport.Message.SenderId" asp-route-messageId="@item.MessageReport.MessageId">Blokkeren</a>    
-            </td>
-        </tr>
-}
-}
-
-
-    </tbody>
-</table>  *@
-
 <h2>Meldingen</h2>
 <table class="table">
     <thead>
@@ -143,7 +94,7 @@
         
     </thead>
     <tbody>
-@if(ViewBag.AllReports != null){
+@if(ViewBag.UnfinishedReports != null){
 @foreach (var item in ViewBag.UnfinishedReports)
 {
         <tr>

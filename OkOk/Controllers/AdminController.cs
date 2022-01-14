@@ -35,8 +35,6 @@ namespace OkOk.Controllers
             var applicationDbContext = _context.DoctorApplicationUsers.Include(d => d.Treatments).Include(d => d.SignUpRequests);
             //MessagesTestData();
             //ReportTestData();
-            ViewBag.AllReports = _context.Reports.Where(r => r.MessageReport.Message.SenderId != null).Include(r => r.MessageReport).ThenInclude(g => g.Message).Where(r =>r.Handled == false).ToList();
-            //--
             ViewBag.UnfinishedReports = _context.Reports.Where(r => r.Handled == false).
             GroupBy(r => r.MessageReport.MessageId).
             Select(g => new{MessageId = g.Key, SenderId= _context.Messages.Where(r => r.Id == g.Key).Select(r => r.SenderId).Single()
@@ -44,6 +42,7 @@ namespace OkOk.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
+        //Dit was om uit te testen of het overzicht van reports werkt. Kan weggehaald worden
         public void MessagesTestData(){
             SupportGroup sg = new SupportGroup(){
                 Name= "Groep B",
@@ -59,18 +58,6 @@ namespace OkOk.Controllers
                     ZipCode = "2121DW",
                     Country = "Nederland"
                 },
-                // Received = new List<Message>(){
-                //     new Message(){
-                //         Content = "Hoi",
-                //         DateTime = DateTime.Now,
-                //         SupportGroup = sg
-                //     },
-                //     new Message(){
-                //         Content = "Hallo",
-                //         DateTime = DateTime.Now,
-                //         SupportGroup = sg
-                //     }
-                // }
             };
             ClientApplicationUser client2 = new ClientApplicationUser(){
                 FirstName = "Gerard",
@@ -106,6 +93,7 @@ namespace OkOk.Controllers
 
         }
 
+        //Dit was om uit te testen of het overzicht van reports werkt. Kan weg gehaald worden
         public void ReportTestData(){
             Message m1 = _context.Messages.Where(m => m.Content == "Lul").First();
             Message m2 = _context.Messages.Where(m => m.Content == "Klootzak").First();
