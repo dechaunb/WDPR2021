@@ -1,0 +1,98 @@
+@page
+@{
+
+    ChatApplicationUser user = ViewBag.User as ChatApplicationUser ;
+
+    string un = user.UserName as string ;
+    string uid = user.Id as string ;
+    string tun = ViewBag.TargetUsername as string ;
+    string tid = ViewBag.TargetId as string ;
+    string tfn = ViewBag.TargetFirstName as string ;
+    List<Message> messages = ViewBag.Messages as List<Message> ;
+
+}
+
+    <p>
+        U praat nu met: @tun
+    </p>
+
+    <div class="row">
+        <div class="col-12">
+            <hr />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <ul id="messagesList" class="list-group p-5">
+                @foreach(Message message in messages){
+                    <li class="list-group-item">
+                        @message.Sender.FirstName zei om @message.DateTime: "@message.Content" 
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">&nbsp;</div>
+        <div class="row">
+            @* <div class="col-2">User</div> *@
+            <div class="col-4"><input  value='@un' type="hidden" id="userInput" /></div>
+            <div class="col-4"><input  value='@uid' type="hidden" id="userIdInput" /></div>
+            <div class="col-4"><input  value='@tun' type="hidden" id="targetInput" /></div>
+            <div class="col-4"><input  value='@tid' type="hidden" id="targetIdInput" /></div>
+
+        </div>
+        <div class="row">
+            <div class="col-2">Message</div>
+            <div class="col-4"><input type="text" id="messageInput" /></div>
+        </div>
+        <div class="row">&nbsp;</div>
+        <div class="row">
+            <div class="col-6">
+                <input type="button" id="sendButton" value="Send Message" />
+            </div>
+        </div>
+    </div>
+
+    <div class= "modal active">
+        <div class="modal-body">
+        </div>
+    </div>  
+
+<script src="~/js/signalr/dist/browser/signalr.js"></script>
+<script src="~/js/chat.js"></script>
+<style>
+    .list-group{
+        max-height: 300px;
+        margin-bottom: 10px;
+        overflow:scroll;
+        
+        -webkit-overflow-scrolling: touch;
+    }
+</style>
+<script>
+
+    window.onload=()=>{
+        var element = document.getElementById("messagesList");
+        element.scrollTop = element.scrollHeight;
+        connection.on("ReceivePrivateMessage", function (user, message){
+            console.log("${user} says ${message}")
+            var li = document.createElement("li");
+            document.getElementById("messagesList").appendChild(li);
+            var naam = "";
+            if (user=="@un"){
+                naam="@user.FirstName"
+            }else{
+                naam = "@tfn";
+            }
+            li.textContent = `${naam} zei om @DateTime.Now: "${message}" `;
+            li.classList.add("list-group-item");
+
+            var element = document.getElementById("messagesList");
+            element.scrollTop = element.scrollHeight;
+            
+        });
+        
+    }
+    
+</script>

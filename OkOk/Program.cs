@@ -1,10 +1,13 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-
+using OkOk.Hubs;
 using OkOk.Data;
 using OkOk.Models.Identity;
+using Microsoft.AspNetCore.SignalR;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddSignalR();
 
 if (builder.Environment.IsDevelopment())
 {
@@ -39,6 +42,7 @@ builder.Services.AddScoped<UserManager<DoctorApplicationUser>, UserManager<Docto
 builder.Services.AddIdentityCore<GuardianApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
+
 //Identity Services
 // builder.Services.AddScoped<IUserValidator<DoctorApplicationUser>, UserValidator<DoctorApplicationUser>>();
 // builder.Services.AddScoped<IPasswordValidator<DoctorApplicationUser>, PasswordValidator<DoctorApplicationUser>>();
@@ -58,8 +62,12 @@ builder.Services.AddIdentityCore<GuardianApplicationUser>(options => options.Sig
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddRazorPages();
+builder.Services.AddSingleton<IUserIdProvider, CustomUserIdProvider>();
+builder.Services.AddSignalR();
+
 
 var app = builder.Build();
+app.MapHub<ChatHub>("/chatHub");
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
