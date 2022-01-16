@@ -7,10 +7,8 @@ namespace OkOk.Hubs
         private readonly static ConnectionMapping<string> _connections = 
             new ConnectionMapping<string>();
 
-
         public async Task SendPrivateMessage(string user, string receiver, string message)
         {
-
             foreach (var connectionId in _connections.GetConnections(receiver))
             {
                 Console.WriteLine("found target user connection");
@@ -21,7 +19,15 @@ namespace OkOk.Hubs
                 Console.WriteLine("found user connection");
                 await Clients.Client(connectionId).SendAsync("ReceivePrivateMessage", user, message);
             }
+        }
+        public async Task SendGroupMessage(string user, string group, string message)
+        {
+            await Clients.Group(group).SendAsync("ReceiveGroupMessage",user,message);
+        }
 
+        public Task JoinGroup(string groupName)
+        {
+            return Groups.AddToGroupAsync(Context.ConnectionId, groupName);
         }
 
         public override async Task OnConnectedAsync()
@@ -42,10 +48,7 @@ namespace OkOk.Hubs
 
             await base.OnDisconnectedAsync(exception);
         }
-
-
         public string GetConnectionId()=> Context.ConnectionId;
-        
     }
 
     public class ConnectionMapping<T>
@@ -114,5 +117,4 @@ namespace OkOk.Hubs
             }
         }
     }
-
 }

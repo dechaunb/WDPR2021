@@ -37,12 +37,21 @@ namespace OkOk.Controllers
             return View();
         }
 
-        //GET:GroupChats
-        public JsonResult GetGroupChats(){
-            var userId = _UserManager.GetUserId(User);
-            ChatApplicationUser user =  _context.ChatApplicationUsers.Include(it=>it.SupportGroups).Single(it=>it.Id==userId);
+        public async Task<IActionResult> GroupHub(string id){
+            var user = await _UserManager.GetUserAsync(User);
+            ViewBag.User= user;
+            ViewBag.GroupName= (await _context.SupportGroups.SingleAsync(it=>it.Id.ToString().ToLower()==id)).Name;
+            ViewBag.GroupId = id;
+            ViewBag.Messages = await GetGroupChatMessages(id);
 
-            List<SupportGroup> groupchats = user.SupportGroups.ToList();
+            return View();
+        }
+
+        //GET:GroupChats
+        public async Task<JsonResult> GetGroupChats(){
+            var user = await _context.ChatApplicationUsers.Include(it=>it.SupportGroups).SingleAsync(it=>it.Id== _UserManager.GetUserId(User));
+
+            var groupchats = user.SupportGroups.Select(it=>new {name=it.Name, id=it.Id});
 
             return Json(groupchats);
         }
@@ -68,18 +77,35 @@ namespace OkOk.Controllers
             return Json(Chats.Select(it=>it.UserName));
         }
 
-        // public async Task<IActionResult> NewPrivateChat(){
-        //     var user = await _context.ChatApplicationUsers.Include(it=>it.SupportGroups).SingleAsync(it=>it.Id== _UserManager.GetUserId(User));
-        //     ViewData["Receivers"] = new SelectList(_context.ChatApplicationUsers.Where(it=>it.Received.Where(it=>it.Receivers.Contains(user)).Count()!=0), "Id", "FirstName");
-        //     return View();
-        // }
+        public async Task<IActionResult> NewGroupChat(){
+            var user = await _context.ChatApplicationUsers.Include(it=>it.SupportGroups).SingleAsync(it=>it.Id== _UserManager.GetUserId(User));
+            ViewBag.List = new SelectList(_context.SupportGroups.Where(it=>!it.ChatApplicationUsers.Contains(user)), "Id", "Name");
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> NewGroupChat(string id){
+            var Group = _context.SupportGroups.Single(it=>it.Id.ToString().ToLower()==id);
+            var user = await _context.ChatApplicationUsers.Include(it=>it.SupportGroups).SingleAsync(it=>it.Id== _UserManager.GetUserId(User));
+            user.SupportGroups.Add(Group);
+            Group.ChatApplicationUsers.Add(user);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(GroupHub),"Message", new {id= id});
+        }
+        public async Task<IActionResult> NewPrivateChat(){
+            var user = await _context.ChatApplicationUsers.Include(it=>it.SupportGroups).SingleAsync(it=>it.Id== _UserManager.GetUserId(User));
+            ViewBag.List = new SelectList(_context.ChatApplicationUsers.Where(it=>it.Received.Where(it=>it.Receivers.Contains(user)).Count()==0), "UserName", "FirstName");
+            return View();
+        }
+        [HttpPost]
+        public IActionResult NewPrivateChat(string username){
+            return RedirectToAction(nameof(Hub),"Message", new {id= username});
+        }
 
 
         //GET:Chats
         public async Task<List<Message>> GetChatMessages(string username){
             var user = await _context.ChatApplicationUsers.Include(it=>it.Received).SingleAsync(it=>it.Id== _UserManager.GetUserId(User));
             var target = await _context.ChatApplicationUsers.Include(it=>it.Received).SingleAsync(it=>it.UserName==username);
-            Console.WriteLine(user.FirstName+target.FirstName);
             
             List<Guid> messages = new List<Guid>();
             List<Message> result = new List<Message>();
@@ -90,19 +116,50 @@ namespace OkOk.Controllers
             return result;
         }
 
-        public async Task PersonalMessageCreate(string contentstring, string receiver, string sender)
+        //GET:Chats
+        public async Task<List<Message>> GetGroupChatMessages(string id){
+            var user = await _context.ChatApplicationUsers.Include(it=>it.Received).SingleAsync(it=>it.Id== _UserManager.GetUserId(User));
+            var target = await _context.SupportGroups.Include(it=>it.Received).SingleAsync(it=>it.Id.ToString().ToLower()==id);
+            
+            List<Message> result = target.Received.ToList();
+
+            return result;
+        }
+
+        // public async Task PersonalMessageCreate(string contentstring, string receiver, string sender)
+        [HttpPost]
+        public async Task PersonalMessageCreate([FromBody]ChatViewModel pm)
         {
-            Console.WriteLine(contentstring+" to "+receiver);
+            Console.WriteLine(pm.contentstring+" to "+pm.receiver);
             Message message = new Message(){
                 Id = Guid.NewGuid(),
-                Content=contentstring,
+                Content=pm.contentstring,
                 DateTime=DateTime.Now,
                 Sender= await _UserManager.GetUserAsync(User)
             };
-            _context.ChatApplicationUsers.Include(it=>it.Received).Single(it=>it.UserName==sender).Received.Add(message);
-            _context.ChatApplicationUsers.Include(it=>it.Received).Single(it=>it.UserName==receiver).Received.Add(message);
+            _context.ChatApplicationUsers.Include(it=>it.Received).Single(it=>it.UserName==pm.sender).Received.Add(message);
+            _context.ChatApplicationUsers.Include(it=>it.Received).Single(it=>it.UserName==pm.receiver).Received.Add(message);
 
             _context.Messages.Add(message);
+            await _context.SaveChangesAsync();
+        }
+        [HttpPost]
+        public async Task GroupMessageCreate([FromBody]ChatViewModel gm)
+        {
+            var group =_context.SupportGroups.Include(it=>it.Received).Single(it=>it.Id.ToString().ToLower()==gm.receiver);
+            var user = await _UserManager.GetUserAsync(User);
+            Console.WriteLine(gm.contentstring+" to "+gm.receiver);
+            Message message = new Message(){
+                Id = Guid.NewGuid(),
+                Content=gm.contentstring,
+                DateTime=DateTime.Now,
+                Sender= user,
+                SenderId=user.Id,
+                GroupId=group.Id
+            };
+            _context.Add(message);
+
+            // _context.Messages.Add(message);
             await _context.SaveChangesAsync();
         }
 
@@ -133,37 +190,37 @@ namespace OkOk.Controllers
             return View(message);
         }
 
-        // GET: Message/Create
-        public async Task<IActionResult> Create()
-        {
-            var sender = await _context.ChatApplicationUsers.Include(it=>it.SupportGroups).SingleAsync(it=>it.Id== _UserManager.GetUserId(User));
-            ViewData["ReceiverId"] = new SelectList(_context.ChatApplicationUsers.Where(it=>it.Received.Where(it=>it.Receivers.Contains(sender)).Count()!=0), "Id", "FirstName");
-            ViewData["SenderId"]=sender.Id;
-            return View();
-        }
+        // // GET: Message/Create
+        // public async Task<IActionResult> Create()
+        // {
+        //     var sender = await _context.ChatApplicationUsers.Include(it=>it.SupportGroups).SingleAsync(it=>it.Id== _UserManager.GetUserId(User));
+        //     ViewData["ReceiverId"] = new SelectList(_context.ChatApplicationUsers.Where(it=>it.Received.Where(it=>it.Receivers.Contains(sender)).Count()!=0), "Id", "FirstName");
+        //     ViewData["SenderId"]=sender.Id;
+        //     return View();
+        // }
 
-        // POST: Message/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Content,DateTime,SenderId,Receivers")] Message message)
-        {
-            var sender = await _context.ChatApplicationUsers.Include(it=>it.SupportGroups).SingleAsync(it=>it.Id== _UserManager.GetUserId(User));
+        // // POST: Message/Create
+        // // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // [HttpPost]
+        // [ValidateAntiForgeryToken]
+        // public async Task<IActionResult> Create([Bind("Id,Content,DateTime,SenderId,Receivers")] Message message)
+        // {
+        //     var sender = await _context.ChatApplicationUsers.Include(it=>it.SupportGroups).SingleAsync(it=>it.Id== _UserManager.GetUserId(User));
 
-            if (ModelState.IsValid)
-            {
-                message.Receivers.Add(sender);
-                message.Id = Guid.NewGuid();
-                _context.Add(message);
+        //     if (ModelState.IsValid)
+        //     {
+        //         message.Receivers.Add(sender);
+        //         message.Id = Guid.NewGuid();
+        //         _context.Add(message);
                 
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Chats));
-            }
-            ViewData["ReceiverId"] = new SelectList(_context.ChatApplicationUsers.Where(it=>it.Received.Where(it=>it.Receivers.Contains(sender)).Count()==0), "Id", "FirstName");
-            ViewData["SenderId"]=sender.Id;
-            return View(message);
-        }
+        //         await _context.SaveChangesAsync();
+        //         return RedirectToAction(nameof(Chats));
+        //     }
+        //     ViewData["ReceiverId"] = new SelectList(_context.ChatApplicationUsers.Where(it=>it.Received.Where(it=>it.Receivers.Contains(sender)).Count()==0), "Id", "FirstName");
+        //     ViewData["SenderId"]=sender.Id;
+        //     return View(message);
+        // }
 
         // GET: Message/Edit/5
         public async Task<IActionResult> Edit(Guid? id)

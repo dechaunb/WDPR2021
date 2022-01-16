@@ -17,7 +17,7 @@ Chats
     <h2>
         groepschats
     </h2>
-    <a class="btn btn-primary" asp-controller="Message" asp-action="Create" >
+    <a class="btn btn-primary" asp-controller="Message" asp-action="NewGroupChat" >
         Nieuw gesprek
     </a>
 </div>
@@ -49,6 +49,18 @@ Chats
 
     }
 
+    function render (target, user) {
+        var li = document.createElement("li");
+        document.getElementById(target).appendChild(li);
+        // We can assign user-supplied strings to an element's textContent because it
+        // is not interpreted as markup. If you're assigning in any other way, you 
+        // should be aware of possible script injection concerns.
+        var a = document.createElement("a");
+        a.setAttribute('href', `@Url.Action("Hub", "Message")?id=${user}`);
+        a.textContent = `${user}`;
+        li.appendChild(a);
+    }
+
     function getGroupChats(){
         fetch("/Message/GetGroupChats" , {
             method: "GET"
@@ -60,22 +72,22 @@ Chats
         })
         .then(j => {
             for (var i = 0; i < j.length; i++) { 
-                render("groupchats",j[i]);
+                renderGroup("groupchats",j[i]);
             }
         })
         .catch(r => alert("Er is een fout opgetreden: " + r));
 
     }
 
-    function render (target, user) {
+    function renderGroup (target, user) {
         var li = document.createElement("li");
         document.getElementById(target).appendChild(li);
         // We can assign user-supplied strings to an element's textContent because it
         // is not interpreted as markup. If you're assigning in any other way, you 
         // should be aware of possible script injection concerns.
         var a = document.createElement("a");
-        a.setAttribute('href', '@Url.Action("Hub", "Message")?id=' + user);
-        a.textContent = `${user}`;
+        a.setAttribute('href', `@Url.Action("GroupHub", "Message")?id=${user.id}`);
+        a.textContent = `${user.name}`;
         li.appendChild(a);
     }
 

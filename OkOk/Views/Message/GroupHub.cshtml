@@ -5,9 +5,8 @@
 
     string un = user.UserName as string ;
     string uid = user.Id as string ;
-    string tun = ViewBag.TargetUsername as string ;
-    string tid = ViewBag.TargetId as string ;
-    string tfn = ViewBag.TargetFirstName as string ;
+    string gn = ViewBag.GroupName as string ;
+    string gid = ViewBag.GroupId as string ;
     List<Message> messages = ViewBag.Messages as List<Message> ;
 
 }
@@ -15,7 +14,7 @@
         <a asp-action="Chats">Terug naar chatlijst</a>
     </div>
     <p>
-        U praat nu met: @tun
+        U praat nu met: @gn
     </p>
 
     <div class="row">
@@ -40,8 +39,8 @@
             @* <div class="col-2">User</div> *@
             <div class="col-4"><input  value='@un' type="hidden" id="userInput" /></div>
             <div class="col-4"><input  value='@uid' type="hidden" id="userIdInput" /></div>
-            <div class="col-4"><input  value='@tun' type="hidden" id="targetInput" /></div>
-            <div class="col-4"><input  value='@tid' type="hidden" id="targetIdInput" /></div>
+            <div class="col-4"><input  value='@gn' type="hidden" id="targetInput" /></div>
+            <div class="col-4"><input  value='@gid' type="hidden" id="targetIdInput" /></div>
 
         </div>
         <div class="row">
@@ -78,12 +77,13 @@
         var user = document.getElementById("userInput").value;
         var message = document.getElementById("messageInput").value;
         var receiver = document.getElementById("targetInput").value;
-        connection.invoke("SendPrivateMessage", user, receiver ,message).catch(function (err) {
+        var receiverId = document.getElementById("targetIdInput").value;
+        connection.invoke("SendGroupMessage", user, receiver ,message).catch(function (err) {
             return console.error(err.toString());
         });
         event.preventDefault();
-        const url ="/Message/PersonalMessageCreate"
-        const data = {"contentstring":message, "receiver":receiver, "sender":user}
+        const url ="/Message/GroupMessageCreate"
+        const data = {"contentstring":message, "receiver":receiverId, "sender":user}
         const header = {
             method: "POST",
             headers: {
@@ -98,21 +98,11 @@
         }).catch(e=>console.log(e))
     });
 
-    connection.start().then(function () {
-        connection.invoke("GetConnectionId").then(function(id){
-            document.getElementById("connectionId").innerText=id;
-        })
-        // connection.invoke("OnConnectedAsync");
-        document.getElementById("sendButton").disabled = false;
-    }).catch(function (err) {
-        return console.error(err.toString());
-    });
-
 
     window.onload=()=>{
         var element = document.getElementById("messagesList");
         element.scrollTop = element.scrollHeight;
-        connection.on("ReceivePrivateMessage", function (user, message){
+        connection.on("ReceiveGroupMessage", function (user, message){
             console.log("${user} says ${message}")
             var li = document.createElement("li");
             document.getElementById("messagesList").appendChild(li);
@@ -120,7 +110,7 @@
             if (user=="@un"){
                 naam="@user.FirstName"
             }else{
-                naam = "@tfn";
+                naam = user;
             }
             li.textContent = `${naam} zei om @DateTime.Now: "${message}" `;
             li.classList.add("list-group-item");
@@ -129,7 +119,19 @@
             element.scrollTop = element.scrollHeight;
             
         });
-        
+
+        connection.start().then(res => {
+            connection.invoke("JoinGroup", "@gn")
+                .catch(err => {
+                    console.log(err);
+                });
+            document.getElementById("sendButton").disabled = false;
+
+        }).catch(err => {
+                    console.log(err);
+                });
+
+
     }
     
 </script>
