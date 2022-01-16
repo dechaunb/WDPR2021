@@ -87,7 +87,7 @@ namespace OkOk.Controllers
             var Group = _context.SupportGroups.Single(it=>it.Id.ToString().ToLower()==id);
             var user = await _context.ChatApplicationUsers.Include(it=>it.SupportGroups).SingleAsync(it=>it.Id== _UserManager.GetUserId(User));
             user.SupportGroups.Add(Group);
-            Group.ChatApplicationUsers.Add(user);
+            // Group.ChatApplicationUsers.Add(user);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(GroupHub),"Message", new {id= id});
         }
@@ -119,7 +119,7 @@ namespace OkOk.Controllers
         //GET:Chats
         public async Task<List<Message>> GetGroupChatMessages(string id){
             var user = await _context.ChatApplicationUsers.Include(it=>it.Received).SingleAsync(it=>it.Id== _UserManager.GetUserId(User));
-            var target = await _context.SupportGroups.Include(it=>it.Received).SingleAsync(it=>it.Id.ToString().ToLower()==id);
+            var target = await _context.SupportGroups.Include(it=>it.Received).ThenInclude(it=>it.Sender).SingleAsync(it=>it.Id.ToString().ToLower()==id);
             
             List<Message> result = target.Received.ToList();
 
