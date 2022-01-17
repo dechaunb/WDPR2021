@@ -56,6 +56,7 @@ namespace OkOk.Controllers
                 thisViewModel.Roles = await GetUserRoles(user);
                 userRolesViewModel.Add(thisViewModel);
             }
+
             return View(userRolesViewModel);
         }
 

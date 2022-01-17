@@ -7,6 +7,8 @@
   --okblue: #24869E;
   --okwhite: #e6e6e6;
   --okdark: #333333;
+  --okwhiteopac: rgb(230, 230, 230, 0.2);
+  --okdarkopac: rgb(51, 51, 51, 0.2);
 }
 
 /* Basic */
@@ -42,6 +44,26 @@ a {
 
 body {
   margin: 0px 0px 60px 0px;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  line-height: 60px;
+}
+
+/* Sidebar Override */
+.nav-link.active {
+  background-color: white !important;
+  color: var(--okdark) !important;
+}
+
+.dropdown-menu .dropdown-item:hover {
+  opacity: 0.8;
+  background-color: var(--okdark);
+  color: white;
 }
 
 /* Bootstrap Overrides */
@@ -147,6 +169,13 @@ body {
   color: white !important;
 }
 
+/* Table */
+.table-primary tr th {
+  background-color: var(--okpurple) !important;
+  border-bottom-width: 0px !important;
+  color: white !important;
+}
+
 /* Text Colors */
 .text-primary {
   color: var(--okpurple) !important;
@@ -181,6 +210,14 @@ body {
   background-color: var(--okdark) !important;
 }
 
+.bg-opac {
+  background-color: var(--okwhiteopac) !important;
+}
+
+.bg-light .bg-opac, .bg-light.bg-opac, .bg-white .bg-opac, .bg-white.bg-opac {
+  background-color: var(--okdarkopac) !important;
+}
+
 /*////*/
 .okok-rounded {
   border-radius: 4.6px !important;
@@ -197,4 +234,19 @@ body {
 
 .hero-index img {
   width: 100%;
+}
+
+
+/* Sidebar Media Query */
+@media screen and (max-width: 575.98px)
+{
+  nav .nav-pills .nav-link, nav .fa-user-doctor  {
+    font-size: 1.5rem;
+  }
+
+  .nav-link.active {
+    background-color: var(--okpurple) !important;
+    color: var(--okwhite) !important;
+    cursor: default !important;
+  }
 }

@@ -28,10 +28,17 @@ namespace OkOk.Controllers
             {
                 //get random value from totals in doctorapplicationusers
                 Random rand = new Random();
-                int toSkip = rand.Next(0, _context.DoctorApplicationUsers.Count());
+                int toSkip = rand.Next(0, await _context.DoctorApplicationUsers.CountAsync());
 
                 //get random doctor with less than 10 unhandled signuprequests
-                DoctorApplicationUser doctorApplicationUser = _context.DoctorApplicationUsers.Include(doc => doc.SignUpRequests).Where(doc => doc.SignUpRequests.Where(sur => sur.Handled == false).Count() < 10).Skip(toSkip).Take(1).First();
+                DoctorApplicationUser doctorApplicationUser = await _context.DoctorApplicationUsers
+                                                                .Include(doc => doc.SignUpRequests)
+                                                                .Where(doc => doc.SignUpRequests
+                                                                    .Where(sur => sur.Handled == false)
+                                                                .Count() < 10)
+                                                                .Skip(toSkip)
+                                                                .Take(1)
+                                                                .FirstAsync();
 
                 SignUpRequest signUpRequest = new SignUpRequest()
                 {
@@ -41,7 +48,7 @@ namespace OkOk.Controllers
                     DoctorApplicationUser = doctorApplicationUser
                 };
                 
-                _context.Add(signUpRequest);
+                await _context.AddAsync(signUpRequest);
                 await _context.SaveChangesAsync();
             }
         }

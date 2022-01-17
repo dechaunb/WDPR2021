@@ -9,9 +9,11 @@ namespace OkOk.Models
     public class MessageReport
     {
         //Foreign Keys
-        public Guid MessageId { get; set; }
+        [Required]
+        public Guid? MessageId { get; set; }
         public Message Message { get; set; }
-        public Guid ReportId { get; set; }
+        [Required]
+        public Guid? ReportId { get; set; }
         public Report Report { get; set; }
     }
 }

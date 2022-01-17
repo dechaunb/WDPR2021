@@ -18,5 +18,11 @@ namespace OkOk.Models.Identity
         [RegularExpression(@"^[a-zA-Z''-'\s]{1,40}$", 
          ErrorMessage = "Tekens niet toegestaan.")]
         public string LastName { get; set; }
+
+        public string FullName()
+        {
+            string FullName = FirstName + " " + LastName;
+            return FullName;
+        }
     }
 }

@@ -18,12 +18,12 @@ else
         options.UseSqlServer(builder.Configuration.GetConnectionString("ProductionApplicationDbContext")));
 }
 
-builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
 
-builder.Services.AddIdentityCore<ChatApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddIdentityCore<ChatApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddIdentityCore<ClientApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
@@ -42,7 +42,7 @@ builder.Services.AddIdentityCore<DoctorApplicationUser>(options => options.SignI
 builder.Services.AddScoped<SignInManager<DoctorApplicationUser>, SignInManager<DoctorApplicationUser>>();
 builder.Services.AddScoped<UserManager<DoctorApplicationUser>, UserManager<DoctorApplicationUser>>();
 
-builder.Services.AddIdentityCore<GuardianApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddIdentityCore<GuardianApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
 // Add services to the container.
