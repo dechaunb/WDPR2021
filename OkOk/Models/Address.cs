@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
+using OkOk.Models.Identity;
 
 namespace OkOk.Models
 {
@@ -27,6 +28,8 @@ namespace OkOk.Models
         [Required]
         [Display(Name = "Land")]
         public string Country { get; set; }
+        [Required]
+        public ClientApplicationUser ClientApplicationUser { get; set; }
 
         public string GetHouseNumber()
         {

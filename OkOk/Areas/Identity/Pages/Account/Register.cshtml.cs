@@ -134,6 +134,7 @@ namespace OkOk.Areas.Identity.Pages.Account
                     UserName = Input.Email,
                     Email = Input.Email,
                     LockoutEnabled = true,
+                    LockoutEnd = DateTime.Now.AddYears(10),
                     OldEnough = (new DateTime(DateTime.Now.Subtract(Input.BirthDate).Ticks).Year - 1) >= 16 ? true : false,
                     Address = new Address()
                     {

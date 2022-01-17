@@ -44,6 +44,12 @@ namespace OkOk.Data
 
             //Relations
 
+            //Address
+            modelBuilder.Entity<Address>()
+                        .HasOne(address => address.ClientApplicationUser)
+                        .WithOne(client => client.Address)
+                        .HasForeignKey<ClientApplicationUser>(client => client.AddressId);
+
             //Treatment
             modelBuilder.Entity<Treatment>()
                         .HasOne(treatment => treatment.ClientApplicationUser)
@@ -177,32 +183,16 @@ namespace OkOk.Data
                 NormalizedUserName = "timothy@okokapp.nl".ToUpper()
             };
 
-            ApplicationUser yash = new ApplicationUser()  
-            {   
-                FirstName = "Yash",
-                LastName = "OkOk",
-                UserName = "yash@okokapp.nl",  
-                Email = "yash@okokapp.nl",  
-                LockoutEnabled = false,  
-                PhoneNumber = "1234567890",
-                EmailConfirmed = true,
-                PhoneNumberConfirmed = true,
-                NormalizedEmail = "yash@okokapp.nl".ToUpper(),
-                NormalizedUserName = "yash@okokapp.nl".ToUpper()
-            };
-
 
   
             PasswordHasher<ApplicationUser> passwordHasher = new PasswordHasher<ApplicationUser>();  
             angelo.PasswordHash = passwordHasher.HashPassword(angelo, "Admin123");
             dechaun.PasswordHash = passwordHasher.HashPassword(dechaun, "Admin123");  
             timothy.PasswordHash = passwordHasher.HashPassword(timothy, "Admin123");  
-            yash.PasswordHash = passwordHasher.HashPassword(yash, "Admin123");  
   
             modelBuilder.Entity<ApplicationUser>().HasData(angelo);
             modelBuilder.Entity<ApplicationUser>().HasData(dechaun);
             modelBuilder.Entity<ApplicationUser>().HasData(timothy);
-            modelBuilder.Entity<ApplicationUser>().HasData(yash);
 
             //SeedRoles
             IdentityRole admin = new IdentityRole()
@@ -233,17 +223,9 @@ namespace OkOk.Data
                 UserId = timothy.Id
             };
 
-            IdentityUserRole<string> yashAdmin = new IdentityUserRole<string>()
-            {
-                RoleId = admin.Id,
-                UserId = yash.Id
-            };
-
-
             modelBuilder.Entity<IdentityUserRole<string>>().HasData(angeloAdmin);  
             modelBuilder.Entity<IdentityUserRole<string>>().HasData(dechaunAdmin);  
             modelBuilder.Entity<IdentityUserRole<string>>().HasData(timothyAdmin);  
-            modelBuilder.Entity<IdentityUserRole<string>>().HasData(yashAdmin);  
         }
     }
 }
