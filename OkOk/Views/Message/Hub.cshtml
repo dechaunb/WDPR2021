@@ -1,0 +1,137 @@
+@page
+@{
+
+    ChatApplicationUser user = ViewBag.User as ChatApplicationUser ;
+
+    string un = user.UserName as string ;
+    string tun = ViewBag.TargetUsername as string ;
+    string tfn = ViewBag.TargetFirstName as string ;
+    List<Message> messages = ViewBag.Messages as List<Message> ;
+
+}
+    <div>
+        <a asp-action="Chats">Terug naar chatlijst</a>
+    </div>
+    <p>
+        U praat nu met: @tun
+    </p>
+
+    <div class="row">
+        <div class="col-12">
+            <hr />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <ul id="messagesList" class="list-group p-5">
+                @foreach(Message message in messages){
+                    <li class="d-flex justify-content-between">
+                        <p class="list-group-item w-75">
+                            @message.Sender.FirstName zei om @message.DateTime: "@message.Content" 
+                        </p>
+                        <button class="report flex-end align-items-center btn" onclick="report('@message.Id')">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                        </button>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">&nbsp;</div>
+        <div class="row">
+            <div class="col-4"><input  value='@un' type="hidden" id="userInput" /></div>
+            <div class="col-4"><input  value='@tun' type="hidden" id="targetInput" /></div>
+        </div>
+        <div class="row">
+            <div class="col-2">Message</div>
+            <div class="col-4"><input type="text" id="messageInput" /></div>
+        </div>
+        <div class="row">&nbsp;</div>
+        <div class="row">
+            <div class="col-6">
+                <input type="button" id="sendButton" value="Send Message" />
+            </div>
+        </div>
+    </div>
+
+    <div class= "modal active">
+        <div class="modal-body">
+        </div>
+    </div>  
+
+<script src="~/js/signalr/dist/browser/signalr.js"></script>
+<script src="~/js/chat.js"></script>
+<style>
+    .list-group{
+        max-height: 300px;
+        margin-bottom: 10px;
+        overflow:scroll;
+        
+        -webkit-overflow-scrolling: touch;
+    }
+</style>
+<script>
+
+    document.getElementById("sendButton").addEventListener("click", function (event) {
+        var user = document.getElementById("userInput").value;
+        var message = document.getElementById("messageInput").value;
+        var receiver = document.getElementById("targetInput").value;
+        connection.invoke("SendPrivateMessage", user, receiver ,message).catch(function (err) {
+            return console.error(err.toString());
+        });
+        event.preventDefault();
+        const url ="/Message/PersonalMessageCreate"
+        const data = {"contentstring":message, "receiver":receiver, "sender":user}
+        const header = {
+            method: "POST",
+            headers: {
+            'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)      
+        }
+        fetch(url, header).then(r => {
+            if(r.status != 201)
+                throw "Status: " + r.status;
+            else console.log(r)
+        }).catch(e=>console.log(e))
+    });
+
+    connection.start().then(function () {
+        document.getElementById("sendButton").disabled = false;
+    }).catch(function (err) {
+        return console.error(err.toString());
+    });
+
+    function report(id) {
+        var url = "/Message/Report/"+id;
+        fetch(url).then(r => {
+            if(r.status != 201)
+                throw "Status: " + r.status;
+            else console.log(r)
+        }).catch(e=>console.log(e))
+    }
+
+    window.onload=()=>{
+        var element = document.getElementById("messagesList");
+        element.scrollTop = element.scrollHeight;
+        connection.on("ReceivePrivateMessage", function (user, message){
+            var li = document.createElement("li");
+            document.getElementById("messagesList").appendChild(li);
+            var naam = "";
+            if (user=="@un"){
+                naam="@user.FirstName"
+            }else{
+                naam = "@tfn";
+            }
+            li.textContent = `${naam} zei om @DateTime.Now: "${message}" `;
+            li.classList.add("list-group-item");
+
+            var element = document.getElementById("messagesList");
+            element.scrollTop = element.scrollHeight;
+            
+        });
+        
+    }
+    
+</script>

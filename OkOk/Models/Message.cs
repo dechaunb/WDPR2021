@@ -23,5 +23,6 @@ namespace OkOk.Models
         public SupportGroup SupportGroup { get; set; }
 
         public virtual ICollection<MessageReport> MessageReports { get; set; }
+        public virtual ICollection<ChatApplicationUser> Receivers { get; set; }
     }
 }

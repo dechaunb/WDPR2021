@@ -96,7 +96,7 @@ namespace OkOk.Data
             //Message
             modelBuilder.Entity<Message>()
                         .HasOne(message => message.Sender)
-                        .WithMany(chatuser => chatuser.Received)
+                        .WithMany(chatuser => chatuser.Sent)
                         .HasForeignKey(message => message.SenderId)
                         .OnDelete(DeleteBehavior.SetNull);
 
@@ -105,6 +105,24 @@ namespace OkOk.Data
                         .WithMany(group => group.Received)
                         .HasForeignKey(message => message.GroupId)
                         .OnDelete(DeleteBehavior.SetNull);
+
+
+            //Create MessageChatapplicationUser Table
+            modelBuilder.Entity<ChatApplicationUser>()
+                        .HasMany(chatuser => chatuser.Received)
+                        .WithMany(message => message.Receivers)
+                        .UsingEntity<Dictionary<string, object>>(
+                            "MessageChatapplicationUser",
+                            j => j
+                                .HasOne<Message>()
+                                .WithMany()
+                                .HasForeignKey("MessageId")
+                                .OnDelete(DeleteBehavior.Cascade),
+                            j => j
+                                .HasOne<ChatApplicationUser>()
+                                .WithMany()
+                                .HasForeignKey("ChatUserId")
+                                .OnDelete(DeleteBehavior.ClientCascade));
 
             //Create GuardianChild Table
             modelBuilder.Entity<GuardianApplicationUser>()

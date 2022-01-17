@@ -1,0 +1,151 @@
+@page
+@{
+
+    ChatApplicationUser user = ViewBag.User as ChatApplicationUser ;
+
+    string un = user.UserName as string ;
+    string uid = user.Id as string ;
+    string gn = ViewBag.GroupName as string ;
+    string gid = ViewBag.GroupId as string ;
+    List<Message> messages = ViewBag.Messages as List<Message> ;
+
+}
+    <div>
+        <a asp-action="Chats">Terug naar chatlijst</a>
+    </div>
+    <p>
+        U praat nu met: @gn
+    </p>
+
+    <div class="row">
+        <div class="col-12">
+            <hr />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <ul id="messagesList" class="list-group p-5">
+                @foreach(Message message in messages){
+                    <li class="d-flex justify-content-between">
+                        <p class="list-group-item w-75">
+                            @message.Sender.FirstName zei om @message.DateTime: "@message.Content" 
+                        </p>
+                        <button class="report flex-end align-items-center btn" onclick="report('@message.Id')">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                        </button>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">&nbsp;</div>
+        <div class="row">
+            @* <div class="col-2">User</div> *@
+            <div class="col-4"><input  value='@un' type="hidden" id="userInput" /></div>
+            <div class="col-4"><input  value='@uid' type="hidden" id="userIdInput" /></div>
+            <div class="col-4"><input  value='@gn' type="hidden" id="targetInput" /></div>
+            <div class="col-4"><input  value='@gid' type="hidden" id="targetIdInput" /></div>
+
+        </div>
+        <div class="row">
+            <div class="col-2">Message</div>
+            <div class="col-4"><input type="text" id="messageInput" /></div>
+        </div>
+        <div class="row">&nbsp;</div>
+        <div class="row">
+            <div class="col-6">
+                <input type="button" id="sendButton" value="Send Message" />
+            </div>
+        </div>
+    </div>
+
+    <div class= "modal active">
+        <div class="modal-body">
+        </div>
+    </div>  
+
+<script src="~/js/signalr/dist/browser/signalr.js"></script>
+<script src="~/js/chat.js"></script>
+<style>
+    .list-group{
+        max-height: 300px;
+        margin-bottom: 10px;
+        overflow:scroll;
+        
+        -webkit-overflow-scrolling: touch;
+    }
+</style>
+<script>
+
+    document.getElementById("sendButton").addEventListener("click", function (event) {
+        var user = document.getElementById("userInput").value;
+        var message = document.getElementById("messageInput").value;
+        var receiver = document.getElementById("targetInput").value;
+        var receiverId = document.getElementById("targetIdInput").value;
+        connection.invoke("SendGroupMessage", user, receiver ,message).catch(function (err) {
+            return console.error(err.toString());
+        });
+        event.preventDefault();
+        const url ="/Message/GroupMessageCreate"
+        const data = {"contentstring":message, "receiver":receiverId, "sender":user}
+        const header = {
+            method: "POST",
+            headers: {
+            'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)      
+        }
+        fetch(url, header).then(r => {
+            if(r.status != 201)
+                throw "Status: " + r.status;
+            else console.log(r)
+        }).catch(e=>console.log(e))
+    });
+
+
+
+    window.onload=()=>{
+        var element = document.getElementById("messagesList");
+        element.scrollTop = element.scrollHeight;
+        connection.on("ReceiveGroupMessage", function (user, message){
+            console.log("${user} says ${message}")
+            var li = document.createElement("li");
+            document.getElementById("messagesList").appendChild(li);
+            var naam = "";
+            if (user=="@un"){
+                naam="@user.FirstName"
+            }else{
+                naam = user;
+            }
+            li.textContent = `${naam} zei om @DateTime.Now: "${message}" `;
+            li.classList.add("list-group-item");
+
+            var element = document.getElementById("messagesList");
+            element.scrollTop = element.scrollHeight;
+            
+        });
+
+        connection.start().then(res => {
+            connection.invoke("JoinGroup", "@gn")
+                .catch(err => {
+                    console.log(err);
+                });
+            document.getElementById("sendButton").disabled = false;
+
+        }).catch(err => {
+                    console.log(err);
+                });
+
+    }
+
+    function report(id) {
+        var url = "/Message/Report/"+id;
+        fetch(url).then(r => {
+            if(r.status != 201)
+                throw "Status: " + r.status;
+            else console.log(r)
+        }).catch(e=>console.log(e))
+    }
+    
+</script>

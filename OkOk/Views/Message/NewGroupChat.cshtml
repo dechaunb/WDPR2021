@@ -1,0 +1,27 @@
+@model List<OkOk.Models.SupportGroup>
+
+@{
+    ViewData["Title"] = "Nieuwe groepschat";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="NewGroupChat">
+            <select class ="form-control" name="id" asp-items='@ViewBag.List'></select>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div> 
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Chats">Terug naar chatlijst</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

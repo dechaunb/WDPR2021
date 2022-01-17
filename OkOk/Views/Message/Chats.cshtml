@@ -1,0 +1,98 @@
+@{
+    ViewData["Title"] = "Chats";
+}
+
+<h1>
+@ViewData["Title"]
+</h1>
+<div class="d-inline-flex p-2">
+    <h2>
+        privechats
+    </h2>
+    <a class="btn btn-primary" asp-controller="Message" asp-action="NewPrivateChat" >
+        Nieuw gesprek
+    </a>
+</div>
+<ul id="chats">
+
+</ul>
+
+<div class="d-inline-flex p-2">
+    <h2>
+        groepschats
+    </h2>
+    <a class="btn btn-primary" asp-controller="Message" asp-action="NewGroupChat" >
+        Nieuw gesprek
+    </a>
+</div>
+<ul id="groupchats">
+
+</ul>
+<script >
+
+    window.onload=()=>{
+        getChats();
+        getGroupChats();
+    }
+
+    function getChats(){
+        fetch("/Message/GetChats" , {
+            method: "GET"
+        }).then(r => {
+            if(r.status == 200)
+                return r.json()
+            else
+                throw "Status: " + r.status;
+        })
+        .then(j => {
+            for (var i = 0; i < j.length; i++) { 
+                render("chats",j[i]);
+            }
+        })
+        .catch(r => alert("Er is een fout opgetreden: " + r));
+
+    }
+
+    function render (target, user) {
+        var li = document.createElement("li");
+        document.getElementById(target).appendChild(li);
+        // We can assign user-supplied strings to an element's textContent because it
+        // is not interpreted as markup. If you're assigning in any other way, you 
+        // should be aware of possible script injection concerns.
+        var a = document.createElement("a");
+        a.setAttribute('href', `@Url.Action("Hub", "Message")?id=${user}`);
+        a.textContent = `${user}`;
+        li.appendChild(a);
+    }
+
+    function getGroupChats(){
+        fetch("/Message/GetGroupChats" , {
+            method: "GET"
+        }).then(r => {
+            if(r.status == 200)
+                return r.json()
+            else
+                throw "Status: " + r.status;
+        })
+        .then(j => {
+            for (var i = 0; i < j.length; i++) { 
+                renderGroup("groupchats",j[i]);
+            }
+        })
+        .catch(r => alert("Er is een fout opgetreden: " + r));
+
+    }
+
+    function renderGroup (target, user) {
+        var li = document.createElement("li");
+        document.getElementById(target).appendChild(li);
+        // We can assign user-supplied strings to an element's textContent because it
+        // is not interpreted as markup. If you're assigning in any other way, you 
+        // should be aware of possible script injection concerns.
+        var a = document.createElement("a");
+        a.setAttribute('href', `@Url.Action("GroupHub", "Message")?id=${user.id}`);
+        a.textContent = `${user.name}`;
+        li.appendChild(a);
+    }
+
+</script>
