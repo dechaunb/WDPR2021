@@ -26,8 +26,13 @@
         <div class="col-6">
             <ul id="messagesList" class="list-group p-5">
                 @foreach(Message message in messages){
-                    <li class="list-group-item">
-                        @message.Sender.FirstName zei om @message.DateTime: "@message.Content" 
+                    <li class="d-flex justify-content-between">
+                        <p class="list-group-item w-75">
+                            @message.Sender.FirstName zei om @message.DateTime: "@message.Content" 
+                        </p>
+                        <button class="report flex-end align-items-center btn" onclick="report('@message.Id')">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                        </button>
                     </li>
                 }
             </ul>
@@ -99,6 +104,7 @@
     });
 
 
+
     window.onload=()=>{
         var element = document.getElementById("messagesList");
         element.scrollTop = element.scrollHeight;
@@ -131,7 +137,15 @@
                     console.log(err);
                 });
 
+    }
 
+    function report(id) {
+        var url = "/Message/Report/"+id;
+        fetch(url).then(r => {
+            if(r.status != 201)
+                throw "Status: " + r.status;
+            else console.log(r)
+        }).catch(e=>console.log(e))
     }
     
 </script>

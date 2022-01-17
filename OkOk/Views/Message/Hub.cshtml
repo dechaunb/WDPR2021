@@ -4,9 +4,7 @@
     ChatApplicationUser user = ViewBag.User as ChatApplicationUser ;
 
     string un = user.UserName as string ;
-    string uid = user.Id as string ;
     string tun = ViewBag.TargetUsername as string ;
-    string tid = ViewBag.TargetId as string ;
     string tfn = ViewBag.TargetFirstName as string ;
     List<Message> messages = ViewBag.Messages as List<Message> ;
 
@@ -27,8 +25,13 @@
         <div class="col-6">
             <ul id="messagesList" class="list-group p-5">
                 @foreach(Message message in messages){
-                    <li class="list-group-item">
-                        @message.Sender.FirstName zei om @message.DateTime: "@message.Content" 
+                    <li class="d-flex justify-content-between">
+                        <p class="list-group-item w-75">
+                            @message.Sender.FirstName zei om @message.DateTime: "@message.Content" 
+                        </p>
+                        <button class="report flex-end align-items-center btn" onclick="report('@message.Id')">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                        </button>
                     </li>
                 }
             </ul>
@@ -37,12 +40,8 @@
     <div class="container">
         <div class="row">&nbsp;</div>
         <div class="row">
-            @* <div class="col-2">User</div> *@
             <div class="col-4"><input  value='@un' type="hidden" id="userInput" /></div>
-            <div class="col-4"><input  value='@uid' type="hidden" id="userIdInput" /></div>
             <div class="col-4"><input  value='@tun' type="hidden" id="targetInput" /></div>
-            <div class="col-4"><input  value='@tid' type="hidden" id="targetIdInput" /></div>
-
         </div>
         <div class="row">
             <div class="col-2">Message</div>
@@ -99,21 +98,24 @@
     });
 
     connection.start().then(function () {
-        connection.invoke("GetConnectionId").then(function(id){
-            document.getElementById("connectionId").innerText=id;
-        })
-        // connection.invoke("OnConnectedAsync");
         document.getElementById("sendButton").disabled = false;
     }).catch(function (err) {
         return console.error(err.toString());
     });
 
+    function report(id) {
+        var url = "/Message/Report/"+id;
+        fetch(url).then(r => {
+            if(r.status != 201)
+                throw "Status: " + r.status;
+            else console.log(r)
+        }).catch(e=>console.log(e))
+    }
 
     window.onload=()=>{
         var element = document.getElementById("messagesList");
         element.scrollTop = element.scrollHeight;
         connection.on("ReceivePrivateMessage", function (user, message){
-            console.log("${user} says ${message}")
             var li = document.createElement("li");
             document.getElementById("messagesList").appendChild(li);
             var naam = "";
