@@ -1,0 +1,59 @@
+@model PaginatedList<Treatment>
+<h3>Behandelingen van @ViewData["DoctorDetailsId"]</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Datum en tijd
+            </th>
+            <th>
+                Descriptie
+            </th>
+            <th>
+                Client
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@if(Model != null){
+foreach (var item in Model)
+{
+        <tr>
+            <td>
+                @item.Id
+            </td>
+            <td>
+                @item.DateTime
+            </td>
+            <td>
+                @item.Description
+            </td>
+            <td>
+                @item.ClientApplicationUser.Email
+            </td>
+        </tr>
+}
+}
+    </tbody>
+</table>
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<a asp-action="DoctorDetails"
+    asp-route-userId= '@ViewData["DoctorDetailsId"]'
+   asp-route-pageNumber="@(Model.PageIndex - 1)"
+   class="btn btn-default @prevDisabled">
+    Previous
+</a>
+<a asp-action="DoctorDetails"
+    asp-route-userId= '@ViewData["DoctorDetailsId"]'
+   asp-route-pageNumber="@(Model.PageIndex + 1)"
+   class="btn btn-default @nextDisabled">
+    Next
+</a>

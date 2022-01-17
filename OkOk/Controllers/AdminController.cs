@@ -33,12 +33,15 @@ namespace OkOk.Controllers
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.DoctorApplicationUsers.Include(d => d.Treatments).Include(d => d.SignUpRequests);
-            //MessagesTestData();
-            //ReportTestData();
+            
+            ViewData["AllClients"] = _context.ClientApplicationUsers.Include(c => c.Treatments).ThenInclude(c => c.DoctorApplicationUser).ToList();
+            
             ViewBag.UnfinishedReports = _context.Reports.Where(r => r.Handled == false).
             GroupBy(r => r.MessageReport.MessageId).
             Select(g => new{MessageId = g.Key, SenderId= _context.Messages.Where(r => r.Id == g.Key).Select(r => r.SenderId).Single()
             ,Aantal = g.Count(), Content= _context.Messages.Where(r => r.Id == g.Key).Select(r => r.Content).Single()}).OrderByDescending(r => r.Aantal).ToList();
+            
+            _context.SaveChanges();
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -58,6 +61,26 @@ namespace OkOk.Controllers
                     ZipCode = "2121DW",
                     Country = "Nederland"
                 },
+                Treatments = new List<Treatment>(){
+                    new Treatment(){
+                        DateTime = DateTime.Now,
+                        Description = " ",
+                        DoctorApplicationUser = new DoctorApplicationUser(){
+                            Specialism = "ADHD",
+                            FirstName = "Henk",
+                            LastName = "Jansen"
+                        }
+                    },
+                    new Treatment(){
+                        DateTime = DateTime.Now,
+                        Description = " ",
+                        DoctorApplicationUser = new DoctorApplicationUser(){
+                            Specialism = "ADD",
+                            FirstName = "Anna",
+                            LastName = "  "
+                        }
+                    }
+                }
             };
             ClientApplicationUser client2 = new ClientApplicationUser(){
                 FirstName = "Gerard",
@@ -229,6 +252,20 @@ namespace OkOk.Controllers
     }
 
     
+    public async Task<IActionResult> DeBlockClient(string userId){
+        var user = await _userManager.FindByIdAsync(userId);
+        if(user != null){
+            user.LockoutEnabled = false;
+            user.LockoutEnd = null;
+        }
+        else{
+            Console.WriteLine("Cliënt niet gevonden");
+        }
+        _context.SaveChanges();
+        return RedirectToAction("Index");
+    }
+
+    
     public async void BlockUser(string userId, string lockedoutReason, Guid messageId){
         var user = await _userManager.FindByIdAsync(userId);
         if(user != null){ 
@@ -258,8 +295,15 @@ namespace OkOk.Controllers
             Console.WriteLine("Cliënt niet gevonden");
         }
          _context.SaveChanges();
-        
     }
-    
+
+    public IActionResult DoctorDetails(string userId, int? pageNumber){
+        DoctorApplicationUser user = _context.DoctorApplicationUsers.Include(d => d.Treatments).ThenInclude(d => d.ClientApplicationUser).Single(d => d.Id == userId);
+        ViewData["DoctorDetailsId"]= user.FirstName + " " + user.LastName;
+        int pageSize = 10;
+        List<Treatment> tq = PaginatedList<Treatment>.CreateAsync(user.Treatments.ToList(), pageNumber ?? 1, pageSize);
+        return View(tq);
+    }
+        
     }
 }

@@ -62,12 +62,69 @@
                 @Html.DisplayFor(modelItem => item.Specialism)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="DoctorDetails" asp-route-userId="@item.Id">Behandelingen</a> 
             </td>
         </tr>
 }
+    </tbody>
+</table>
+
+<hr/>
+
+<h2>Lijst met cliënten</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Voornaam   
+            </th>
+            <th>
+                Achternaam
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                Dokter(s)
+            </th>
+            <th>
+
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in ViewData["AllClients"] as List<ClientApplicationUser>)
+{
+        <tr>
+            <td>
+                @item.Id
+            </td>
+            <td>
+                @item.FirstName
+            </td>
+            <td>
+                @item.LastName
+            </td>
+            <td>
+                @item.Email
+            </td>
+            <td>
+                @* @if(item.Treatments == null){<div> </div>}
+                else{ *@
+                    <div>@string.Join(", ", item.Treatments.Select(t => t.DoctorApplicationUser.Email))</div>
+                @* } *@
+            </td>
+            <td>
+                @if(item.LockoutEnabled){
+                    <a class="btn btn-primary" asp-action="DeBlockClient" asp-route-userId="@item.Id">Deblokkeren</a>
+                }
+            </td>
+        </tr>
+}
+
     </tbody>
 </table>
 
