@@ -79,10 +79,54 @@ namespace OkOk.Controllers
             return Json(groupchats);
         }
 
-        public async Task<IActionResult> NewGroupChat(){
+        public async Task<IActionResult> NewGroupChat(int? pageNumber, string searchString, string currentFilter){
+            ViewData["CurrentFilter"] = searchString;
+
+            if (searchString != null){
+                pageNumber = 1;
+            }else{
+                searchString = currentFilter;
+            }
+
+            if(_context.SupportGroups.Count()<3){
+                _context.Add(
+                    new SupportGroup(){
+                        Id=Guid.NewGuid(),
+                        Name="Groep 1",
+                        Description="ADHD"
+                    }
+                );
+                _context.Add(
+                    new SupportGroup(){
+                        Id=Guid.NewGuid(),
+                        Name="Groep 2",
+                        Description="Autisme"
+                    }
+                );
+                _context.Add(
+                    new SupportGroup(){
+                        Id=Guid.NewGuid(),
+                        Name="Groep 3",
+                        Description="AngstStoornissen"
+                    }
+                );
+                await _context.SaveChangesAsync();
+            }
+
             var user = await _context.ChatApplicationUsers.Include(it=>it.SupportGroups).SingleAsync(it=>it.Id== _UserManager.GetUserId(User));
-            ViewBag.List = new SelectList(_context.SupportGroups.Where(it=>!it.ChatApplicationUsers.Contains(user)), "Id", "Name");
-            return View();
+            var lijst = _context.SupportGroups.Where(it=>!it.ChatApplicationUsers.Contains(user)).ToList();
+            
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                lijst= lijst.Where(s => s.Name.Contains(searchString)
+                                    || s.Description.Contains(searchString)).ToList();
+            }
+
+            ViewBag.clientenLijst=_context.ClientApplicationUsers;
+
+
+            var pageSize= 10;
+            return View(new PaginatedList<SupportGroup>(lijst,lijst.Count(),pageNumber??1,pageSize));
         }
 
         [HttpPost]
