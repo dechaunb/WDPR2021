@@ -30,97 +30,40 @@ namespace OkOk.Controllers
         }
 
         // GET: Message
-        public async Task<IActionResult> Index()
+        public IActionResult Index(int? pageNumberDoctors, int? pageNumberClient, int? pageNumberReport)
         {
+            //Dokterslijst
             var applicationDbContext = _context.DoctorApplicationUsers.Include(d => d.Treatments).Include(d => d.SignUpRequests);
-            //MessagesTestData();
-            //ReportTestData();
-            ViewBag.UnfinishedReports = _context.Reports.Where(r => r.Handled == false).
+            int pageSizeDoctors = 5;
+            List<DoctorApplicationUser> doctorsPaginated = PaginatedList<DoctorApplicationUser>.CreateAsync(applicationDbContext.ToList(), pageNumberDoctors ?? 1, pageSizeDoctors);
+
+            //Cliëntenlijst
+            var clientenLijst = _context.ClientApplicationUsers.Include(c => c.Treatments).ThenInclude(c => c.DoctorApplicationUser).ToList();
+            int pageSizeClients = 5;
+            ViewBag.AllClients = PaginatedList<ClientApplicationUser>.CreateAsync(clientenLijst, pageNumberClient ?? 1, pageSizeClients);
+            
+            //MeldingLijst
+            var meldingLijst = _context.Reports.Where(r => r.Handled == false).
             GroupBy(r => r.MessageReport.MessageId).
             Select(g => new{MessageId = g.Key, SenderId= _context.Messages.Where(r => r.Id == g.Key).Select(r => r.SenderId).Single()
             ,Aantal = g.Count(), Content= _context.Messages.Where(r => r.Id == g.Key).Select(r => r.Content).Single()}).OrderByDescending(r => r.Aantal).ToList();
-            return View(await applicationDbContext.ToListAsync());
-        }
+            int pageSizeReport = 5;
+            List<SummarisedReport> SumReportList = new List<SummarisedReport>();
+            foreach (var item in meldingLijst)
+            {
+                SumReportList.Add(new SummarisedReport(){
+                    MessageId = item.MessageId,
+                    SenderId = item.SenderId,
+                    Amount = item.Aantal,
+                    Content = item.Content
+                });
+            }
 
-        //Dit was om uit te testen of het overzicht van reports werkt. Kan weggehaald worden
-        public void MessagesTestData(){
-            SupportGroup sg = new SupportGroup(){
-                Name= "Groep B",
-                Description = "Tweede groep"
-            };
-            ClientApplicationUser client1 = new ClientApplicationUser(){
-                FirstName = "Leon",
-                LastName = "A",
-                Address = new Address(){
-                    HouseNumber = 1,
-                    Street = "Straat",
-                    City = "Delft",
-                    ZipCode = "2121DW",
-                    Country = "Nederland"
-                },
-            };
-            ClientApplicationUser client2 = new ClientApplicationUser(){
-                FirstName = "Gerard",
-                LastName = "A",
-                Address = new Address(){
-                    HouseNumber = 1,
-                    Street = "Straat",
-                    City = "Delft",
-                    ZipCode = "2121DW",
-                    Country = "Nederland"
-                },
-                Received = new List<Message>(){
-                    new Message(){
-                        Content = "Lul",
-                        DateTime = DateTime.Now,
-                        Sender = client1,
-                        SupportGroup = sg
-                    },
-                    new Message(){
-                        Content = "Klootzak",
-                        DateTime = DateTime.Now,
-                        Sender = client1,
-                        SupportGroup = sg
-                    }
-                }
-            };
-
-            _context.SupportGroups.Add(sg);
-            _context.ChatApplicationUsers.Add(client1);
-            _context.ChatApplicationUsers.Add(client2);
+            ViewBag.UnfinishedReports = meldingLijst;
+            ViewBag.UnfinishedReports= PaginatedList<SummarisedReport>.CreateAsync(SumReportList, pageNumberReport ?? 1, pageSizeReport);
 
             _context.SaveChanges();
-
-        }
-
-        //Dit was om uit te testen of het overzicht van reports werkt. Kan weg gehaald worden
-        public void ReportTestData(){
-            Message m1 = _context.Messages.Where(m => m.Content == "Lul").First();
-            Message m2 = _context.Messages.Where(m => m.Content == "Klootzak").First();
-
-            Report report1 = new Report(){
-                MessageReport = new MessageReport(){
-                    MessageId = m1.Id,
-                    Message = m1,
-                }
-            };
-            Report report2 = new Report(){
-                MessageReport = new MessageReport(){
-                    MessageId = m2.Id,
-                    Message = m2
-                }
-            };
-
-            Report report3 = new Report(){
-                MessageReport = new MessageReport(){
-                    MessageId = m1.Id,
-                    Message = m1
-                }
-            };
-            _context.Reports.Add(report1);
-            _context.Reports.Add(report2);
-            _context.Reports.Add(report3);
-            _context.SaveChanges();
+            return View(doctorsPaginated);
         }
 
         public async Task<IActionResult> Roles()
@@ -230,6 +173,20 @@ namespace OkOk.Controllers
     }
 
     
+    public async Task<IActionResult> DeBlockClient(string userId){
+        var user = await _userManager.FindByIdAsync(userId);
+        if(user != null){
+            user.LockoutEnabled = false;
+            user.LockoutEnd = null;
+        }
+        else{
+            Console.WriteLine("Cliënt niet gevonden");
+        }
+        _context.SaveChanges();
+        return RedirectToAction("Index");
+    }
+
+    
     public async void BlockUser(string userId, string lockedoutReason, Guid messageId){
         var user = await _userManager.FindByIdAsync(userId);
         if(user != null){ 
@@ -259,8 +216,15 @@ namespace OkOk.Controllers
             Console.WriteLine("Cliënt niet gevonden");
         }
          _context.SaveChanges();
-        
     }
-    
+
+    public IActionResult DoctorDetails(string userId, int? pageNumber){
+        DoctorApplicationUser user = _context.DoctorApplicationUsers.Include(d => d.Treatments).ThenInclude(d => d.ClientApplicationUser).Single(d => d.Id == userId);
+        ViewData["DoctorDetailsId"]= user.FirstName + " " + user.LastName;
+        int pageSize = 10;
+        List<Treatment> tq = PaginatedList<Treatment>.CreateAsync(user.Treatments.ToList(), pageNumber ?? 1, pageSize);
+        return View(tq);
+    }
+        
     }
 }

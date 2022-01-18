@@ -1,4 +1,4 @@
-@model IEnumerable<DoctorApplicationUser>
+@model PaginatedList<DoctorApplicationUser>
 
 @{
     ViewData["Title"] = "Index";
@@ -26,19 +26,19 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Id)
+                Id
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FirstName)
+                Voornaam
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.LastName)
+                Achternaam
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Email)
+                Email
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Specialism)
+                Specialisme
             </th>
             <th></th>
         </tr>
@@ -62,14 +62,109 @@
                 @Html.DisplayFor(modelItem => item.Specialism)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="DoctorDetails" asp-route-userId="@item.Id">Behandelingen</a> 
             </td>
         </tr>
 }
     </tbody>
 </table>
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<a asp-action="Index"
+   asp-route-pageNumberDoctors="@(Model.PageIndex - 1)"
+   asp-route-pageNumberClient='@ViewBag.AllClients.PageIndex'
+   asp-route-pageNumberReport='@ViewBag.UnfinishedReports.PageIndex'
+   class="btn btn-default @prevDisabled">
+    Vorige
+</a>
+<a asp-action="Index"
+   asp-route-pageNumberDoctors="@(Model.PageIndex + 1)"
+   asp-route-pageNumberClient='@ViewBag.AllClients.PageIndex'
+   asp-route-pageNumberReport='@ViewBag.UnfinishedReports.PageIndex'
+   class="btn btn-default @nextDisabled">
+    Volgende
+</a>
+
+<hr/>
+
+<h2>Lijst met cliënten</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Voornaam   
+            </th>
+            <th>
+                Achternaam
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                Dokter(s)
+            </th>
+            <th>
+
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in ViewBag.AllClients as List<ClientApplicationUser>)
+{
+        <tr>
+            <td>
+                @item.Id
+            </td>
+            <td>
+                @item.FirstName
+            </td>
+            <td>
+                @item.LastName
+            </td>
+            <td>
+                @item.Email
+            </td>
+            <td>
+                @* @if(item.Treatments == null){<div> </div>}
+                else{ *@
+                    <div>@string.Join(", ", item.Treatments.Select(t => t.DoctorApplicationUser.Email))</div>
+                @* } *@
+            </td>
+            <td>
+                @if(item.LockoutEnabled){
+                    <a class="btn btn-primary" asp-action="DeBlockClient" asp-route-userId="@item.Id">Deblokkeren</a>
+                }
+            </td>
+        </tr>
+}
+
+    </tbody>
+</table>
+@{
+    var prevDisabledClient = !ViewBag.AllClients.HasPreviousPage ? "disabled" : "";
+    var nextDisabledClient = !ViewBag.AllClients.HasNextPage ? "disabled" : "";
+}
+
+<a asp-action="Index"
+   asp-route-pageNumberDoctors="@Model.PageIndex"
+   asp-route-pageNumberClient='@(ViewBag.AllClients.PageIndex - 1)'
+   asp-route-pageNumberReport='@ViewBag.UnfinishedReports.PageIndex'
+   class="btn btn-default @prevDisabledClient">
+    Vorige
+</a>
+<a asp-action="Index"
+   asp-route-pageNumberDoctors="@Model.PageIndex"
+   asp-route-pageNumberClient='@(ViewBag.AllClients.PageIndex + 1)'
+   asp-route-pageNumberReport='@ViewBag.UnfinishedReports.PageIndex'
+   class="btn btn-default @nextDisabledClient">
+    Volgende
+</a>
 
 <hr/>
 
@@ -108,7 +203,7 @@
                 @item.Content
             </td>
             <td>
-                @item.Aantal
+                @item.Amount
             </td>
             <td>    
                 @* <a class="btn btn-primary" asp-action="BlockUser" asp-route-id="@item.MessageReport.Message.SenderId">Blokkeren</a>                *@
@@ -117,10 +212,27 @@
         </tr>
 }
 }
-
-
     </tbody>
 </table>
+@{
+    var prevDisabledReport = !ViewBag.AllClients.HasPreviousPage ? "disabled" : "";
+    var nextDisabledReport = !ViewBag.AllClients.HasNextPage ? "disabled" : "";
+}
+
+<a asp-action="Index"
+   asp-route-pageNumberDoctors="@Model.PageIndex"
+   asp-route-pageNumberClient='@ViewBag.AllClients.PageIndex'
+   asp-route-pageNumberReport='@(ViewBag.UnfinishedReports.PageIndex - 1)'
+   class="btn btn-default @prevDisabledReport">
+    Vorige
+</a>
+<a asp-action="Index"
+   asp-route-pageNumberDoctors="@Model.PageIndex"
+   asp-route-pageNumberClient='@ViewBag.AllClients.PageIndex'
+   asp-route-pageNumberReport='@(ViewBag.UnfinishedReports.PageIndex + 1)'
+   class="btn btn-default @nextDisabledReport">
+    Volgende
+</a>
 
 
 @* UPDATE AspNetUsers
