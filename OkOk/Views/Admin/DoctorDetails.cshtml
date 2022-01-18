@@ -49,11 +49,11 @@ foreach (var item in Model)
     asp-route-userId= '@ViewData["DoctorDetailsId"]'
    asp-route-pageNumber="@(Model.PageIndex - 1)"
    class="btn btn-default @prevDisabled">
-    Previous
+    Vorige
 </a>
 <a asp-action="DoctorDetails"
     asp-route-userId= '@ViewData["DoctorDetailsId"]'
    asp-route-pageNumber="@(Model.PageIndex + 1)"
    class="btn btn-default @nextDisabled">
-    Next
+    Volgende
 </a>

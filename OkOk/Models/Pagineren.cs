@@ -41,5 +41,10 @@ namespace OkOk.Models
             var items = source.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
             return new PaginatedList<T>(items, count, pageIndex, pageSize);
         }
+
+        internal static dynamic CreateAsync(List<object> meldingLijst, int v, int pageSizeClients)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

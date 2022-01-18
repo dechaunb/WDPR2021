@@ -30,19 +30,40 @@ namespace OkOk.Controllers
         }
 
         // GET: Message
-        public async Task<IActionResult> Index()
+        public IActionResult Index(int? pageNumberDoctors, int? pageNumberClient, int? pageNumberReport)
         {
+            //Dokterslijst
             var applicationDbContext = _context.DoctorApplicationUsers.Include(d => d.Treatments).Include(d => d.SignUpRequests);
+            int pageSizeDoctors = 5;
+            List<DoctorApplicationUser> doctorsPaginated = PaginatedList<DoctorApplicationUser>.CreateAsync(applicationDbContext.ToList(), pageNumberDoctors ?? 1, pageSizeDoctors);
+
+            //Cliëntenlijst
+            var clientenLijst = _context.ClientApplicationUsers.Include(c => c.Treatments).ThenInclude(c => c.DoctorApplicationUser).ToList();
+            int pageSizeClients = 5;
+            ViewBag.AllClients = PaginatedList<ClientApplicationUser>.CreateAsync(clientenLijst, pageNumberClient ?? 1, pageSizeClients);
             
-            ViewData["AllClients"] = _context.ClientApplicationUsers.Include(c => c.Treatments).ThenInclude(c => c.DoctorApplicationUser).ToList();
-            
-            ViewBag.UnfinishedReports = _context.Reports.Where(r => r.Handled == false).
+            //MeldingLijst
+            var meldingLijst = _context.Reports.Where(r => r.Handled == false).
             GroupBy(r => r.MessageReport.MessageId).
             Select(g => new{MessageId = g.Key, SenderId= _context.Messages.Where(r => r.Id == g.Key).Select(r => r.SenderId).Single()
             ,Aantal = g.Count(), Content= _context.Messages.Where(r => r.Id == g.Key).Select(r => r.Content).Single()}).OrderByDescending(r => r.Aantal).ToList();
-            
+            int pageSizeReport = 5;
+            List<SummarisedReport> SumReportList = new List<SummarisedReport>();
+            foreach (var item in meldingLijst)
+            {
+                SumReportList.Add(new SummarisedReport(){
+                    MessageId = item.MessageId,
+                    SenderId = item.SenderId,
+                    Amount = item.Aantal,
+                    Content = item.Content
+                });
+            }
+
+            ViewBag.UnfinishedReports = meldingLijst;
+            ViewBag.UnfinishedReports= PaginatedList<SummarisedReport>.CreateAsync(SumReportList, pageNumberReport ?? 1, pageSizeReport);
+
             _context.SaveChanges();
-            return View(await applicationDbContext.ToListAsync());
+            return View(doctorsPaginated);
         }
 
         //Dit was om uit te testen of het overzicht van reports werkt. Kan weggehaald worden
