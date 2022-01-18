@@ -11,13 +11,8 @@ using OkOk.Data;
 namespace OkOk.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-<<<<<<< HEAD:OkOk/Migrations/20220112162157_LockedOutReason.Designer.cs
-    [Migration("20220112162157_LockedOutReason")]
-    partial class LockedOutReason
-=======
-    [Migration("20220112111318_initialcreate")]
-    partial class initialcreate
->>>>>>> Feature/Chat:OkOk/Migrations/20220112111318_initialcreate.Designer.cs
+    [Migration("20220118103728_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -97,11 +92,7 @@ namespace OkOk.Migrations
                     b.HasData(
                         new
                         {
-<<<<<<< HEAD:OkOk/Migrations/20220112162157_LockedOutReason.Designer.cs
-                            Id = "af19af82-a608-462a-92b5-dae351070f22",
-=======
-                            Id = "52a55c95-e9a2-4d64-8ff4-ea0a4a29a304",
->>>>>>> Feature/Chat:OkOk/Migrations/20220112111318_initialcreate.Designer.cs
+                            Id = "7fc5c0d9-7c58-4542-a1f9-b9b5d16e6255",
                             ConcurrencyStamp = "1",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
@@ -195,43 +186,18 @@ namespace OkOk.Migrations
                     b.HasData(
                         new
                         {
-<<<<<<< HEAD:OkOk/Migrations/20220112162157_LockedOutReason.Designer.cs
-                            UserId = "fd73af46-b9b1-43db-94c8-505b5cc7c31f",
-                            RoleId = "af19af82-a608-462a-92b5-dae351070f22"
+                            UserId = "d2625ac3-b544-434d-81b0-b1e267504ea7",
+                            RoleId = "7fc5c0d9-7c58-4542-a1f9-b9b5d16e6255"
                         },
                         new
                         {
-                            UserId = "5874f7ed-e3b2-487a-823f-df7fe8d1d81a",
-                            RoleId = "af19af82-a608-462a-92b5-dae351070f22"
+                            UserId = "53f62527-7337-4ba7-aea1-190f03808d9d",
+                            RoleId = "7fc5c0d9-7c58-4542-a1f9-b9b5d16e6255"
                         },
                         new
                         {
-                            UserId = "63fda3aa-cf2d-4ad6-91cf-8bf1073ade7e",
-                            RoleId = "af19af82-a608-462a-92b5-dae351070f22"
-                        },
-                        new
-                        {
-                            UserId = "0048e49d-7be3-4642-8058-8e78c2fd406d",
-                            RoleId = "af19af82-a608-462a-92b5-dae351070f22"
-=======
-                            UserId = "f770293c-597e-4525-bb11-1c8b1f8daa74",
-                            RoleId = "52a55c95-e9a2-4d64-8ff4-ea0a4a29a304"
-                        },
-                        new
-                        {
-                            UserId = "fb741f09-4d0b-4eaa-beb0-fd9f5c71ae82",
-                            RoleId = "52a55c95-e9a2-4d64-8ff4-ea0a4a29a304"
-                        },
-                        new
-                        {
-                            UserId = "f1b22a52-0c3f-458d-8ff3-d63824548405",
-                            RoleId = "52a55c95-e9a2-4d64-8ff4-ea0a4a29a304"
-                        },
-                        new
-                        {
-                            UserId = "7f72017a-96d6-410c-9a69-0098e9d9dc89",
-                            RoleId = "52a55c95-e9a2-4d64-8ff4-ea0a4a29a304"
->>>>>>> Feature/Chat:OkOk/Migrations/20220112111318_initialcreate.Designer.cs
+                            UserId = "f1bbc63e-b551-4792-84c2-e02f43cca68f",
+                            RoleId = "7fc5c0d9-7c58-4542-a1f9-b9b5d16e6255"
                         });
                 });
 
@@ -372,15 +338,9 @@ namespace OkOk.Migrations
                     b.HasData(
                         new
                         {
-<<<<<<< HEAD:OkOk/Migrations/20220112162157_LockedOutReason.Designer.cs
-                            Id = "fd73af46-b9b1-43db-94c8-505b5cc7c31f",
+                            Id = "d2625ac3-b544-434d-81b0-b1e267504ea7",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9dee6739-03c5-400b-a42e-5e2ad96e9df1",
-=======
-                            Id = "f770293c-597e-4525-bb11-1c8b1f8daa74",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "6bdffa01-f940-41df-bf94-ee455875a59c",
->>>>>>> Feature/Chat:OkOk/Migrations/20220112111318_initialcreate.Designer.cs
+                            ConcurrencyStamp = "5f51ba52-4ead-459f-b64b-07d5dcbb7450",
                             Email = "angelo@okokapp.nl",
                             EmailConfirmed = true,
                             FirstName = "Angelo",
@@ -388,31 +348,18 @@ namespace OkOk.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ANGELO@OKOKAPP.NL",
                             NormalizedUserName = "ANGELO@OKOKAPP.NL",
-<<<<<<< HEAD:OkOk/Migrations/20220112162157_LockedOutReason.Designer.cs
-                            PasswordHash = "AQAAAAEAACcQAAAAEBqw7zfhdGhqo5S/WW604SDyW1/WOZq/rph83c3Vj3ug5fsD2HKXI7ZZr/GipG6AgA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDO0KoQX3geOUVyPCjxFr5zIa0x36Sa9GWNDfF0ZYcn8vwkEOxtFkqqGJCOX1+Pl0g==",
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "14cc3885-85d5-4a6d-ab8c-d716917bacda",
-=======
-                            PasswordHash = "AQAAAAEAACcQAAAAEMXxN75SP4F3UTpI2LAqmFl7l5XBOyiZG9itXnyMcLRle6osf4+754LmvnLCvXRqVA==",
-                            PhoneNumber = "1234567890",
-                            PhoneNumberConfirmed = true,
-                            SecurityStamp = "c21f245c-3595-4728-9578-8afc42a7bd13",
->>>>>>> Feature/Chat:OkOk/Migrations/20220112111318_initialcreate.Designer.cs
+                            SecurityStamp = "99f94423-02ab-44fc-83e5-ea37e3810fc0",
                             TwoFactorEnabled = false,
                             UserName = "angelo@okokapp.nl"
                         },
                         new
                         {
-<<<<<<< HEAD:OkOk/Migrations/20220112162157_LockedOutReason.Designer.cs
-                            Id = "5874f7ed-e3b2-487a-823f-df7fe8d1d81a",
+                            Id = "53f62527-7337-4ba7-aea1-190f03808d9d",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "3208d057-a254-4b6b-9911-ea90e03c78bd",
-=======
-                            Id = "fb741f09-4d0b-4eaa-beb0-fd9f5c71ae82",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "2b5146b3-feba-41b4-adb0-3e31d6fc7ff3",
->>>>>>> Feature/Chat:OkOk/Migrations/20220112111318_initialcreate.Designer.cs
+                            ConcurrencyStamp = "8db079dc-7bbb-4175-bc84-a589d03f91fc",
                             Email = "dechaun@okokapp.nl",
                             EmailConfirmed = true,
                             FirstName = "Dechaun",
@@ -420,31 +367,18 @@ namespace OkOk.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "DECHAUN@OKOKAPP.NL",
                             NormalizedUserName = "DECHAUN@OKOKAPP.NL",
-<<<<<<< HEAD:OkOk/Migrations/20220112162157_LockedOutReason.Designer.cs
-                            PasswordHash = "AQAAAAEAACcQAAAAEIYvhXHNQ68n1ZDZJF5PGgOwtj2bPKuP5Q28rBljyTNjn2AqMy/HgV9vaeqjMLxpXA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKMltFh3o/ZO/pX8zcK9J6BqMMjjpq0+vuO2/LP8/hGY3+qctYomy4X5mjPE1uo1rA==",
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "cfe43a04-0917-4aae-9d44-e36d1be468e2",
-=======
-                            PasswordHash = "AQAAAAEAACcQAAAAEHFrTkY11zNwm3lCxatI2+3zBbv+kmO/+1c0wvr1b9YxG9EeKzs5JmiX/gPdm/57+w==",
-                            PhoneNumber = "1234567890",
-                            PhoneNumberConfirmed = true,
-                            SecurityStamp = "2525a4d9-c639-4bc5-9172-dd2715bfbf82",
->>>>>>> Feature/Chat:OkOk/Migrations/20220112111318_initialcreate.Designer.cs
+                            SecurityStamp = "8949840a-3c52-4262-be4e-07143a3f74a5",
                             TwoFactorEnabled = false,
                             UserName = "dechaun@okokapp.nl"
                         },
                         new
                         {
-<<<<<<< HEAD:OkOk/Migrations/20220112162157_LockedOutReason.Designer.cs
-                            Id = "63fda3aa-cf2d-4ad6-91cf-8bf1073ade7e",
+                            Id = "f1bbc63e-b551-4792-84c2-e02f43cca68f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "1af2d5d3-7480-436a-817f-7bfc87a860c6",
-=======
-                            Id = "f1b22a52-0c3f-458d-8ff3-d63824548405",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "be5ceff0-15c9-4ea8-a6a9-dc04840469c2",
->>>>>>> Feature/Chat:OkOk/Migrations/20220112111318_initialcreate.Designer.cs
+                            ConcurrencyStamp = "3649ba95-4d6f-4485-bcef-ada4290f0765",
                             Email = "timothy@okokapp.nl",
                             EmailConfirmed = true,
                             FirstName = "Timothy",
@@ -452,51 +386,12 @@ namespace OkOk.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "TIMOTHY@OKOKAPP.NL",
                             NormalizedUserName = "TIMOTHY@OKOKAPP.NL",
-<<<<<<< HEAD:OkOk/Migrations/20220112162157_LockedOutReason.Designer.cs
-                            PasswordHash = "AQAAAAEAACcQAAAAEDiuCKXNRw0k0dGNFNDVA2SOwmt1u8aPghc0y2rhB9Zp0XyDp8d6fNcsrQcfxIqT4w==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIKkHp2u6GMlOHykrVySqlIOAo9DK0y+MbMMn4mJy3gRe6HnTM0HLHRAvbMitteZIQ==",
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "4badbb5a-56f6-4767-aa56-5ea3ebcb9ba8",
-=======
-                            PasswordHash = "AQAAAAEAACcQAAAAEPFr8lnPlFJf8722BPOsZEEiyJ7jP+RnLW3BdtPlH/RDAfGO85znN17CqAtSyLk+ug==",
-                            PhoneNumber = "1234567890",
-                            PhoneNumberConfirmed = true,
-                            SecurityStamp = "ab398f84-6d99-4fa3-9be1-c27a45988611",
->>>>>>> Feature/Chat:OkOk/Migrations/20220112111318_initialcreate.Designer.cs
+                            SecurityStamp = "c0ef3f07-4aa6-4b35-964f-3a087ac6750c",
                             TwoFactorEnabled = false,
                             UserName = "timothy@okokapp.nl"
-                        },
-                        new
-                        {
-<<<<<<< HEAD:OkOk/Migrations/20220112162157_LockedOutReason.Designer.cs
-                            Id = "0048e49d-7be3-4642-8058-8e78c2fd406d",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "3fd02b1f-8084-4817-b8c7-9ef4cc37948c",
-=======
-                            Id = "7f72017a-96d6-410c-9a69-0098e9d9dc89",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "f712962e-c67e-46d7-9b2f-851cf2c60fa6",
->>>>>>> Feature/Chat:OkOk/Migrations/20220112111318_initialcreate.Designer.cs
-                            Email = "yash@okokapp.nl",
-                            EmailConfirmed = true,
-                            FirstName = "Yash",
-                            LastName = "OkOk",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "YASH@OKOKAPP.NL",
-                            NormalizedUserName = "YASH@OKOKAPP.NL",
-<<<<<<< HEAD:OkOk/Migrations/20220112162157_LockedOutReason.Designer.cs
-                            PasswordHash = "AQAAAAEAACcQAAAAEKNosDRJ3kwSwse0dAAWUiiwEX86vC0u4KiEzIBXRKzz2x1jlInHt7gpx9xzZPSygQ==",
-                            PhoneNumber = "1234567890",
-                            PhoneNumberConfirmed = true,
-                            SecurityStamp = "13165b1b-b253-4b9a-8804-9ddfc903ad66",
-=======
-                            PasswordHash = "AQAAAAEAACcQAAAAEAevYuycnjsAr2rU74PC/jZsE8O6DpI8iM86/ZM5AMGx2JQRplBklJRJl0uhReMS4w==",
-                            PhoneNumber = "1234567890",
-                            PhoneNumberConfirmed = true,
-                            SecurityStamp = "c465c5f4-0872-47cd-856c-da2a5b87829d",
->>>>>>> Feature/Chat:OkOk/Migrations/20220112111318_initialcreate.Designer.cs
-                            TwoFactorEnabled = false,
-                            UserName = "yash@okokapp.nl"
                         });
                 });
 
@@ -551,6 +446,9 @@ namespace OkOk.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
+                    b.Property<bool>("Handled")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
 
                     b.ToTable("Reports");
@@ -567,6 +465,7 @@ namespace OkOk.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("DoctorId")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("Handled")
@@ -648,7 +547,8 @@ namespace OkOk.Migrations
                 {
                     b.HasBaseType("OkOk.Models.Identity.ChatApplicationUser");
 
-                    b.Property<Guid>("AddressId")
+                    b.Property<Guid?>("AddressId")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<Guid>("ChatToken")
@@ -657,7 +557,8 @@ namespace OkOk.Migrations
                     b.Property<bool>("OldEnough")
                         .HasColumnType("INTEGER");
 
-                    b.HasIndex("AddressId");
+                    b.HasIndex("AddressId")
+                        .IsUnique();
 
                     b.HasDiscriminator().HasValue("ClientApplicationUser");
                 });
@@ -817,7 +718,8 @@ namespace OkOk.Migrations
                     b.HasOne("OkOk.Models.Identity.DoctorApplicationUser", "DoctorApplicationUser")
                         .WithMany("SignUpRequests")
                         .HasForeignKey("DoctorId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .IsRequired();
 
                     b.Navigation("ClientApplicationUser");
 
@@ -846,12 +748,18 @@ namespace OkOk.Migrations
             modelBuilder.Entity("OkOk.Models.Identity.ClientApplicationUser", b =>
                 {
                     b.HasOne("OkOk.Models.Address", "Address")
-                        .WithMany()
-                        .HasForeignKey("AddressId")
+                        .WithOne("ClientApplicationUser")
+                        .HasForeignKey("OkOk.Models.Identity.ClientApplicationUser", "AddressId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Address");
+                });
+
+            modelBuilder.Entity("OkOk.Models.Address", b =>
+                {
+                    b.Navigation("ClientApplicationUser")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("OkOk.Models.Message", b =>
