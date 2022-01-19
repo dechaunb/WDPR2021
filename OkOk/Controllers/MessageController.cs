@@ -11,10 +11,11 @@ using OkOk.Models.Identity;
 using Microsoft.AspNetCore.Identity;
 using OkOk.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using Newtonsoft.Json;
 
 namespace OkOk.Controllers
 {
-    [Authorize(Roles="Hulpverlener,Client")]
+    [Authorize(Roles="Doctor,Client")]
     public class MessageController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -28,11 +29,6 @@ namespace OkOk.Controllers
 
         public IActionResult Chats(){
             return View();
-        }
-
-        private bool MessageExists(Guid id)
-        {
-            return _context.Messages.Any(e => e.Id == id);
         }
 
         public async Task<IActionResult> Index()
@@ -54,22 +50,18 @@ namespace OkOk.Controllers
         public async Task<IActionResult> GroupHub(string id){
             var user = await _UserManager.GetUserAsync(User);
             ViewBag.User= user;
-            ViewBag.GroupName= (await _context.SupportGroups.SingleAsync(it=>it.Id.ToString().ToLower()==id)).Name;
+            var group = (await _context.SupportGroups.Include(it=>it.ChatApplicationUsers).Include(it=>it.Received).ThenInclude(it=>it.Sender).SingleAsync(it=>it.Id.ToString().ToLower()==id));
+            ViewBag.GroupName= group.Name;
             ViewBag.GroupId = id;
-            ViewBag.Messages = await GetGroupChatMessages(id);
+            ViewBag.Messages = group.Received.OrderBy(it=>it.DateTime).ToList();
+            ViewBag.Users = JsonConvert.SerializeObject((await _context.SupportGroups.Include(it=>it.ChatApplicationUsers).SingleAsync(it=>it.Id.ToString().ToLower()==id)).ChatApplicationUsers.Select(it=>new{
+                UserName=it.UserName,
+                FirstName=it.FirstName
+            }).ToArray());
+
 
             return View();
         }
-
-        public async Task<List<Message>> GetGroupChatMessages(string id){
-            
-            var target = await _context.SupportGroups.Include(it=>it.Received).ThenInclude(it=>it.Sender).SingleAsync(it=>it.Id.ToString().ToLower()==id);
-            
-            List<Message> result = target.Received.ToList();
-
-            return result;
-        }
-
 
         public async Task<JsonResult> GetGroupChats(){
             var user = await _context.ChatApplicationUsers.Include(it=>it.SupportGroups).SingleAsync(it=>it.Id== _UserManager.GetUserId(User));
@@ -79,10 +71,55 @@ namespace OkOk.Controllers
             return Json(groupchats);
         }
 
-        public async Task<IActionResult> NewGroupChat(){
+        public async Task<IActionResult> NewGroupChat(int? pageNumber, string searchString, string currentFilter){
+            ViewData["CurrentFilter"] = searchString;
+            ViewBag.CanCreate = User.IsInRole("Doctor");
+
+            if (searchString != null){
+                pageNumber = 1;
+            }else{
+                searchString = currentFilter;
+            }
+
+            if(_context.SupportGroups.Count()<3){
+                _context.Add(
+                    new SupportGroup(){
+                        Id=Guid.NewGuid(),
+                        Name="Groep 1",
+                        Description="ADHD"
+                    }
+                );
+                _context.Add(
+                    new SupportGroup(){
+                        Id=Guid.NewGuid(),
+                        Name="Groep 2",
+                        Description="Autisme"
+                    }
+                );
+                _context.Add(
+                    new SupportGroup(){
+                        Id=Guid.NewGuid(),
+                        Name="Groep 3",
+                        Description="AngstStoornissen"
+                    }
+                );
+                await _context.SaveChangesAsync();
+            }
+
             var user = await _context.ChatApplicationUsers.Include(it=>it.SupportGroups).SingleAsync(it=>it.Id== _UserManager.GetUserId(User));
-            ViewBag.List = new SelectList(_context.SupportGroups.Where(it=>!it.ChatApplicationUsers.Contains(user)), "Id", "Name");
-            return View();
+            var lijst = _context.SupportGroups.Where(it=>!it.ChatApplicationUsers.Contains(user)).ToList();
+            
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                lijst= lijst.Where(s => s.Name.Contains(searchString)
+                                    || s.Description.Contains(searchString)).ToList();
+            }
+
+            ViewBag.clientenLijst=_context.ClientApplicationUsers;
+
+
+            var pageSize= 10;
+            return View(new PaginatedList<SupportGroup>(lijst,lijst.Count(),pageNumber??1,pageSize));
         }
 
         [HttpPost]
@@ -104,6 +141,7 @@ namespace OkOk.Controllers
                 DateTime=DateTime.Now,
                 Sender= user,
                 SenderId=user.Id,
+                SupportGroup=group,
                 GroupId=group.Id,
                 Receivers=group.ChatApplicationUsers
             };
@@ -177,9 +215,5 @@ namespace OkOk.Controllers
             _context.Messages.Add(message);
             await _context.SaveChangesAsync();
         }
-
-
-
-
     }
 }

@@ -1,22 +1,78 @@
-@model List<OkOk.Models.SupportGroup>
+@model PaginatedList<OkOk.Models.SupportGroup>
 
 @{
     ViewData["Title"] = "Nieuwe groepschat";
 }
 
 <h1>@ViewData["Title"]</h1>
-
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="NewGroupChat">
-            <select class ="form-control" name="id" asp-items='@ViewBag.List'></select>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div> 
-        </form>
+@if(ViewBag.CanCreate){
+    <a asp-controller="SupportGroup" asp-action="Index">
+        Beheer beschikbare groepen
+    </a>    
+} 
+<form asp-action="NewGroupChat" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Vind Onderwerp/Naam: <input type="text" name="SearchString" value='@ViewData["CurrentFilter"]' />
+            <input type="submit" value="Search" class="btn btn-default" /> |
+            <a asp-action="NewGroupChat">Back to Full List</a>
+        </p>
     </div>
-</div>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Datum en tijd
+            </th>
+            <th>
+                Descriptie
+            </th>
+            <th>
+                
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@if(Model != null){
+    foreach (SupportGroup item in Model)
+    {
+        <tr>
+            <td>
+                @item.Name
+            </td>
+            <td>
+                @item.Description
+            </td>
+            <td>
+                <form asp-action="NewGroupChat">
+                    <input type="hidden" name="id" value="@item.Id"></input>
+                    <div class="form-group">
+                        <input type="submit" value="Voeg toe" class="btn btn-primary" />
+                    </div> 
+                </form>
+            </td>
+        </tr>
+    }
+}
+    </tbody>
+</table>
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<a asp-action="NewGroupChat"
+   asp-route-pageNumber="@(Model.PageIndex - 1)"
+   class="btn btn-default @prevDisabled">
+    Vorige
+</a>
+<a asp-action="NewGroupChat"
+   asp-route-pageNumber="@(Model.PageIndex + 1)"
+   class="btn btn-default @nextDisabled">
+    Volgende
+</a>
 
 <div>
     <a asp-action="Chats">Terug naar chatlijst</a>
