@@ -15,7 +15,7 @@ using Newtonsoft.Json;
 
 namespace OkOk.Controllers
 {
-    [Authorize(Roles="Hulpverlener,Client")]
+    [Authorize(Roles="Doctor,Client")]
     public class MessageController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -29,11 +29,6 @@ namespace OkOk.Controllers
 
         public IActionResult Chats(){
             return View();
-        }
-
-        private bool MessageExists(Guid id)
-        {
-            return _context.Messages.Any(e => e.Id == id);
         }
 
         public async Task<IActionResult> Index()
@@ -58,8 +53,7 @@ namespace OkOk.Controllers
             var group = (await _context.SupportGroups.Include(it=>it.ChatApplicationUsers).Include(it=>it.Received).ThenInclude(it=>it.Sender).SingleAsync(it=>it.Id.ToString().ToLower()==id));
             ViewBag.GroupName= group.Name;
             ViewBag.GroupId = id;
-            // ViewBag.Messages = await GetGroupChatMessages(id);
-            ViewBag.Messages = group.Received.ToList();
+            ViewBag.Messages = group.Received.OrderBy(it=>it.DateTime).ToList();
             ViewBag.Users = JsonConvert.SerializeObject((await _context.SupportGroups.Include(it=>it.ChatApplicationUsers).SingleAsync(it=>it.Id.ToString().ToLower()==id)).ChatApplicationUsers.Select(it=>new{
                 UserName=it.UserName,
                 FirstName=it.FirstName
@@ -68,16 +62,6 @@ namespace OkOk.Controllers
 
             return View();
         }
-
-        // public async Task<List<Message>> GetGroupChatMessages(string id){
-            
-        //     var target = await _context.SupportGroups.Include(it=>it.Received).ThenInclude(it=>it.Sender).SingleAsync(it=>it.Id.ToString().ToLower()==id);
-            
-        //     List<Message> result = target.Received.ToList();
-
-        //     return result;
-        // }
-
 
         public async Task<JsonResult> GetGroupChats(){
             var user = await _context.ChatApplicationUsers.Include(it=>it.SupportGroups).SingleAsync(it=>it.Id== _UserManager.GetUserId(User));
@@ -89,6 +73,7 @@ namespace OkOk.Controllers
 
         public async Task<IActionResult> NewGroupChat(int? pageNumber, string searchString, string currentFilter){
             ViewData["CurrentFilter"] = searchString;
+            ViewBag.CanCreate = User.IsInRole("Doctor");
 
             if (searchString != null){
                 pageNumber = 1;
@@ -156,6 +141,7 @@ namespace OkOk.Controllers
                 DateTime=DateTime.Now,
                 Sender= user,
                 SenderId=user.Id,
+                SupportGroup=group,
                 GroupId=group.Id,
                 Receivers=group.ChatApplicationUsers
             };
@@ -229,9 +215,5 @@ namespace OkOk.Controllers
             _context.Messages.Add(message);
             await _context.SaveChangesAsync();
         }
-
-
-
-
     }
 }

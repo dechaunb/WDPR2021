@@ -5,7 +5,11 @@
 }
 
 <h1>@ViewData["Title"]</h1>
-
+@if(ViewBag.CanCreate){
+    <a asp-controller="SupportGroup" asp-action="Index">
+        Beheer beschikbare groepen
+    </a>    
+} 
 <form asp-action="NewGroupChat" method="get">
     <div class="form-actions no-color">
         <p>
@@ -25,9 +29,6 @@
                 Descriptie
             </th>
             <th>
-                >16
-            </th>
-            <th>
                 
             </th>
         </tr>
@@ -42,9 +43,6 @@
             </td>
             <td>
                 @item.Description
-            </td>
-            <td>
-                ?
             </td>
             <td>
                 <form asp-action="NewGroupChat">
