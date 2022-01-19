@@ -11,6 +11,7 @@ using OkOk.Models.Identity;
 using Microsoft.AspNetCore.Identity;
 using OkOk.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using Newtonsoft.Json;
 
 namespace OkOk.Controllers
 {
@@ -54,21 +55,28 @@ namespace OkOk.Controllers
         public async Task<IActionResult> GroupHub(string id){
             var user = await _UserManager.GetUserAsync(User);
             ViewBag.User= user;
-            ViewBag.GroupName= (await _context.SupportGroups.SingleAsync(it=>it.Id.ToString().ToLower()==id)).Name;
+            var group = (await _context.SupportGroups.Include(it=>it.ChatApplicationUsers).Include(it=>it.Received).ThenInclude(it=>it.Sender).SingleAsync(it=>it.Id.ToString().ToLower()==id));
+            ViewBag.GroupName= group.Name;
             ViewBag.GroupId = id;
-            ViewBag.Messages = await GetGroupChatMessages(id);
+            // ViewBag.Messages = await GetGroupChatMessages(id);
+            ViewBag.Messages = group.Received.ToList();
+            ViewBag.Users = JsonConvert.SerializeObject((await _context.SupportGroups.Include(it=>it.ChatApplicationUsers).SingleAsync(it=>it.Id.ToString().ToLower()==id)).ChatApplicationUsers.Select(it=>new{
+                UserName=it.UserName,
+                FirstName=it.FirstName
+            }).ToArray());
+
 
             return View();
         }
 
-        public async Task<List<Message>> GetGroupChatMessages(string id){
+        // public async Task<List<Message>> GetGroupChatMessages(string id){
             
-            var target = await _context.SupportGroups.Include(it=>it.Received).ThenInclude(it=>it.Sender).SingleAsync(it=>it.Id.ToString().ToLower()==id);
+        //     var target = await _context.SupportGroups.Include(it=>it.Received).ThenInclude(it=>it.Sender).SingleAsync(it=>it.Id.ToString().ToLower()==id);
             
-            List<Message> result = target.Received.ToList();
+        //     List<Message> result = target.Received.ToList();
 
-            return result;
-        }
+        //     return result;
+        // }
 
 
         public async Task<JsonResult> GetGroupChats(){
