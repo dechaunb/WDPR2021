@@ -8,7 +8,7 @@
     string gn = ViewBag.GroupName as string ;
     string gid = ViewBag.GroupId as string ;
     List<Message> messages = ViewBag.Messages as List<Message> ;
-
+    List<ChatApplicationUser> users = ViewBag.Users as List<ChatApplicationUser> ;
 }
     <div>
         <a asp-action="Chats">Terug naar chatlijst</a>
@@ -26,14 +26,7 @@
         <div class="col-6">
             <ul id="messagesList" class="list-group p-5">
                 @foreach(Message message in messages){
-                    <li class="d-flex justify-content-between">
-                        <p class="list-group-item w-75">
-                            @message.Sender.FirstName zei om @message.DateTime: "@message.Content" 
-                        </p>
-                        <button class="report flex-end align-items-center btn" onclick="report('@message.Id')">
-                            <i class="fa-solid fa-triangle-exclamation"></i>
-                        </button>
-                    </li>
+                    @await Html.PartialAsync("MessagePartial", message);
                 }
             </ul>
         </div>
@@ -76,6 +69,7 @@
         -webkit-overflow-scrolling: touch;
     }
 </style>
+
 <script>
 
     document.getElementById("sendButton").addEventListener("click", function (event) {
@@ -103,41 +97,55 @@
         }).catch(e=>console.log(e))
     });
 
-
+    function getNameByUsername(username){
+        var l = '@ViewBag.users'
+        var list=JSON.parse(l.replace(/&quot;/g,'"'))
+        for (var i = 0; i < list.length; i++){
+            if (username === list[i].UserName) return list[i].FirstName;
+        }
+        return "Not Found"
+    }
 
     window.onload=()=>{
         var element = document.getElementById("messagesList");
         element.scrollTop = element.scrollHeight;
-        connection.on("ReceiveGroupMessage", function (user, message){
-            console.log("${user} says ${message}")
+        connection.on("ReceiveGroupMessage", function (username, message){
             var li = document.createElement("li");
-            document.getElementById("messagesList").appendChild(li);
-            var naam = "";
-            if (user=="@un"){
-                naam="@user.FirstName"
-            }else{
-                naam = user;
-            }
-            li.textContent = `${naam} zei om @DateTime.Now: "${message}" `;
-            li.classList.add("list-group-item");
+            var p = document.createElement("p");
+            li.appendChild(p);
+            var button = document.createElement("button");
+            li.appendChild(button);
+            var i = document.createElement("i");
+            button.appendChild(i);
 
-            var element = document.getElementById("messagesList");
+            var naam = getNameByUsername(username)
+
+            p.textContent = `${naam} zei om @DateTime.Now: "${message}" `;
+            li.classList.add("d-flex","align-items-center","justify-content-between");
+            p.classList.add("list-group-item","m-2","w-75");
+            button.classList.add("report","flex-end","align-items-center","btn","text-primary");
+            i.classList.add("fa-solid","fa-triangle-exclamation");
+
+            document.getElementById("messagesList").appendChild(li);
             element.scrollTop = element.scrollHeight;
             
         });
 
-        connection.start().then(res => {
-            connection.invoke("JoinGroup", "@gn")
-                .catch(err => {
-                    console.log(err);
-                });
-            document.getElementById("sendButton").disabled = false;
-
-        }).catch(err => {
-                    console.log(err);
-                });
 
     }
+    connection.start().then(res => {
+        document.getElementById("sendButton").disabled = false;
+        connection.invoke("JoinGroup", "@gn")
+            .catch(err => {
+                console.log("connection with group failed")
+                console.log(err);
+            });
+
+    }).catch(err => {
+                console.log("connection with group failed")
+                console.log(err);
+            });
+
 
     function report(id) {
         var url = "/Message/Report/"+id;
