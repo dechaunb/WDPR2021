@@ -49,13 +49,13 @@ namespace OkOk.Migrations
                     b.HasData(
                         new
                         {
-                            ChildId = "720407f4-7258-4ea7-9b48-248236068846",
-                            GuardianId = "58380249-7ae0-4acb-8a6f-ea8538cf71d4"
+                            ChildId = "1e120e00-0ef7-443c-8dd3-f09753c9f3fc",
+                            GuardianId = "eaa74cdb-3c47-48cf-8d2a-5aa9610dc437"
                         },
                         new
                         {
-                            ChildId = "2dd3a743-1183-4ce5-b5b8-b63398f7cd20",
-                            GuardianId = "840ef66d-11a4-47a8-af7e-9ad16ab34d67"
+                            ChildId = "8eee0687-e7c2-4b44-8120-e5140f3844e1",
+                            GuardianId = "cc79d039-7fcb-474c-b24d-aaaed317be81"
                         });
                 });
 
@@ -102,25 +102,21 @@ namespace OkOk.Migrations
                     b.HasData(
                         new
                         {
-<<<<<<< HEAD
-                            Id = "edfb3daa-fba1-4bf2-853c-8c55cfbdede9",
-=======
-                            Id = "7fc5c0d9-7c58-4542-a1f9-b9b5d16e6255",
->>>>>>> 2c562443547b477c0cebdba24a68f7f3cfdae3c6
+                            Id = "0924445e-57c0-4a24-9669-41723a4dd725",
                             ConcurrencyStamp = "1",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "39ceb643-fa38-4f80-89b6-d7906f3e1df9",
+                            Id = "86821904-0651-4cf5-afa8-ae3cedcc9e54",
                             ConcurrencyStamp = "1",
                             Name = "Doctor",
                             NormalizedName = "DOCTOR"
                         },
                         new
                         {
-                            Id = "fe0f0271-dc88-4274-b980-befced3a17bc",
+                            Id = "43fcfd8c-ffa8-4631-bf8a-c44fa5fc6772",
                             ConcurrencyStamp = "1",
                             Name = "Client",
                             NormalizedName = "CLIENT"
@@ -214,53 +210,38 @@ namespace OkOk.Migrations
                     b.HasData(
                         new
                         {
-<<<<<<< HEAD
-                            UserId = "30ba2c54-c4d3-4bfb-8400-8e9c1eb9a177",
-                            RoleId = "edfb3daa-fba1-4bf2-853c-8c55cfbdede9"
+                            UserId = "1bde3423-e929-44c8-9bbd-46801fbe8db0",
+                            RoleId = "0924445e-57c0-4a24-9669-41723a4dd725"
                         },
                         new
                         {
-                            UserId = "d6ce7a95-df3d-4008-929a-c7867e05216a",
-                            RoleId = "edfb3daa-fba1-4bf2-853c-8c55cfbdede9"
+                            UserId = "8d3532f8-3f69-4a85-bf67-efedbb1cb2e0",
+                            RoleId = "0924445e-57c0-4a24-9669-41723a4dd725"
                         },
                         new
                         {
-                            UserId = "aebddf58-ffc4-445d-8606-a0cf78a5263d",
-                            RoleId = "edfb3daa-fba1-4bf2-853c-8c55cfbdede9"
+                            UserId = "7b4f042d-c602-47f8-8055-99d47b2823eb",
+                            RoleId = "0924445e-57c0-4a24-9669-41723a4dd725"
                         },
                         new
                         {
-                            UserId = "2b7ef106-96bc-4faa-ab48-5ab29e9a9447",
-                            RoleId = "39ceb643-fa38-4f80-89b6-d7906f3e1df9"
+                            UserId = "bb1e7949-970c-4562-aa28-84d0fd78ebcf",
+                            RoleId = "86821904-0651-4cf5-afa8-ae3cedcc9e54"
                         },
                         new
                         {
-                            UserId = "c427ade3-3d27-4023-8fd5-46fbab6e7a6f",
-                            RoleId = "39ceb643-fa38-4f80-89b6-d7906f3e1df9"
+                            UserId = "2ee042d6-0b84-44b9-b3fe-906d5212ae4f",
+                            RoleId = "86821904-0651-4cf5-afa8-ae3cedcc9e54"
                         },
                         new
                         {
-                            UserId = "720407f4-7258-4ea7-9b48-248236068846",
-                            RoleId = "fe0f0271-dc88-4274-b980-befced3a17bc"
+                            UserId = "1e120e00-0ef7-443c-8dd3-f09753c9f3fc",
+                            RoleId = "43fcfd8c-ffa8-4631-bf8a-c44fa5fc6772"
                         },
                         new
                         {
-                            UserId = "2dd3a743-1183-4ce5-b5b8-b63398f7cd20",
-                            RoleId = "fe0f0271-dc88-4274-b980-befced3a17bc"
-=======
-                            UserId = "d2625ac3-b544-434d-81b0-b1e267504ea7",
-                            RoleId = "7fc5c0d9-7c58-4542-a1f9-b9b5d16e6255"
-                        },
-                        new
-                        {
-                            UserId = "53f62527-7337-4ba7-aea1-190f03808d9d",
-                            RoleId = "7fc5c0d9-7c58-4542-a1f9-b9b5d16e6255"
-                        },
-                        new
-                        {
-                            UserId = "f1bbc63e-b551-4792-84c2-e02f43cca68f",
-                            RoleId = "7fc5c0d9-7c58-4542-a1f9-b9b5d16e6255"
->>>>>>> 2c562443547b477c0cebdba24a68f7f3cfdae3c6
+                            UserId = "8eee0687-e7c2-4b44-8120-e5140f3844e1",
+                            RoleId = "43fcfd8c-ffa8-4631-bf8a-c44fa5fc6772"
                         });
                 });
 
@@ -320,7 +301,7 @@ namespace OkOk.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("029214ef-1367-4d6c-aab1-7f7d7f0ed813"),
+                            Id = new Guid("677cdac0-ba63-4733-8e09-41a045061db7"),
                             City = "Dorp",
                             Country = "Nederland",
                             HouseNumber = 1,
@@ -329,7 +310,7 @@ namespace OkOk.Migrations
                         },
                         new
                         {
-                            Id = new Guid("ade6035d-2456-4a17-a031-e6a3c1e633c9"),
+                            Id = new Guid("64962e21-66cf-40ec-b12a-37de59de6c7c"),
                             City = "Dorp",
                             Country = "Nederland",
                             HouseNumber = 1,
@@ -421,15 +402,9 @@ namespace OkOk.Migrations
                     b.HasData(
                         new
                         {
-<<<<<<< HEAD
-                            Id = "30ba2c54-c4d3-4bfb-8400-8e9c1eb9a177",
+                            Id = "1bde3423-e929-44c8-9bbd-46801fbe8db0",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c1057ab8-73cc-429d-89f1-6241d08a10a6",
-=======
-                            Id = "d2625ac3-b544-434d-81b0-b1e267504ea7",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "5f51ba52-4ead-459f-b64b-07d5dcbb7450",
->>>>>>> 2c562443547b477c0cebdba24a68f7f3cfdae3c6
+                            ConcurrencyStamp = "fe5b6ff7-d4b6-42b9-aaa0-c15f40121a9a",
                             Email = "angelo@okokapp.nl",
                             EmailConfirmed = true,
                             FirstName = "Angelo",
@@ -437,31 +412,18 @@ namespace OkOk.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ANGELO@OKOKAPP.NL",
                             NormalizedUserName = "ANGELO@OKOKAPP.NL",
-<<<<<<< HEAD
-                            PasswordHash = "AQAAAAEAACcQAAAAEO/G8R9gE6Pw4HdHTpghxakrSAqaMxqF4Hx7b4t3QFEmZn9ha8Mn96kYpqbejRsduQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECCc2QfGLi8rXCdFauBY8O879HFjZvFWE3iPrAzPmp9TFKPdBo5rwX62FvtzPBnuEw==",
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "6f786448-ef21-4f14-97f3-5d8a9e3b4761",
-=======
-                            PasswordHash = "AQAAAAEAACcQAAAAEDO0KoQX3geOUVyPCjxFr5zIa0x36Sa9GWNDfF0ZYcn8vwkEOxtFkqqGJCOX1+Pl0g==",
-                            PhoneNumber = "1234567890",
-                            PhoneNumberConfirmed = true,
-                            SecurityStamp = "99f94423-02ab-44fc-83e5-ea37e3810fc0",
->>>>>>> 2c562443547b477c0cebdba24a68f7f3cfdae3c6
+                            SecurityStamp = "7696c203-0e2f-429c-9b0b-7e3ba5fcc3ac",
                             TwoFactorEnabled = false,
                             UserName = "angelo@okokapp.nl"
                         },
                         new
                         {
-<<<<<<< HEAD
-                            Id = "d6ce7a95-df3d-4008-929a-c7867e05216a",
+                            Id = "8d3532f8-3f69-4a85-bf67-efedbb1cb2e0",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "37714b5a-063d-4790-9228-29ed60e59826",
-=======
-                            Id = "53f62527-7337-4ba7-aea1-190f03808d9d",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "8db079dc-7bbb-4175-bc84-a589d03f91fc",
->>>>>>> 2c562443547b477c0cebdba24a68f7f3cfdae3c6
+                            ConcurrencyStamp = "dd943147-895b-4582-93aa-b3a95e11e375",
                             Email = "dechaun@okokapp.nl",
                             EmailConfirmed = true,
                             FirstName = "Dechaun",
@@ -469,31 +431,18 @@ namespace OkOk.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "DECHAUN@OKOKAPP.NL",
                             NormalizedUserName = "DECHAUN@OKOKAPP.NL",
-<<<<<<< HEAD
-                            PasswordHash = "AQAAAAEAACcQAAAAELvymvyFe0hgkHFV/3i0Ly5YD7h/gtaCI7UWSrN6zT+IQxLx+ulZw+nxrHBlsRObUA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEC02CJOXJUUslgOGyxDm/uuKs6861TKDw7etNDt0JKmHCKzrREoO64LgAbI0qQ2mqQ==",
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "e9d9aa7e-8e56-4375-866a-a09c35b472ee",
-=======
-                            PasswordHash = "AQAAAAEAACcQAAAAEKMltFh3o/ZO/pX8zcK9J6BqMMjjpq0+vuO2/LP8/hGY3+qctYomy4X5mjPE1uo1rA==",
-                            PhoneNumber = "1234567890",
-                            PhoneNumberConfirmed = true,
-                            SecurityStamp = "8949840a-3c52-4262-be4e-07143a3f74a5",
->>>>>>> 2c562443547b477c0cebdba24a68f7f3cfdae3c6
+                            SecurityStamp = "add4cd5c-8278-4c0f-baa5-932fe0bea702",
                             TwoFactorEnabled = false,
                             UserName = "dechaun@okokapp.nl"
                         },
                         new
                         {
-<<<<<<< HEAD
-                            Id = "aebddf58-ffc4-445d-8606-a0cf78a5263d",
+                            Id = "7b4f042d-c602-47f8-8055-99d47b2823eb",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "73bd2770-3e41-4dee-8dbb-24c4eb791b8e",
-=======
-                            Id = "f1bbc63e-b551-4792-84c2-e02f43cca68f",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "3649ba95-4d6f-4485-bcef-ada4290f0765",
->>>>>>> 2c562443547b477c0cebdba24a68f7f3cfdae3c6
+                            ConcurrencyStamp = "c51e14d2-c37e-42d9-a8b5-2eea3b714fac",
                             Email = "timothy@okokapp.nl",
                             EmailConfirmed = true,
                             FirstName = "Timothy",
@@ -501,17 +450,10 @@ namespace OkOk.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "TIMOTHY@OKOKAPP.NL",
                             NormalizedUserName = "TIMOTHY@OKOKAPP.NL",
-<<<<<<< HEAD
-                            PasswordHash = "AQAAAAEAACcQAAAAEMHdzYtHRk+XegMgyoq+LcecH7obD8zbSawIKJYzEQ4H2H26xGOVoe5RG1BAvPfYog==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDrjfWrTQqm3eeqvQrxtZgKhnJ7YySltlO+KjV/d1xla82v5g+7l81RtWsrrBSeBlQ==",
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "5cf9d104-abb3-46fb-8e05-b061f79a5138",
-=======
-                            PasswordHash = "AQAAAAEAACcQAAAAEIKkHp2u6GMlOHykrVySqlIOAo9DK0y+MbMMn4mJy3gRe6HnTM0HLHRAvbMitteZIQ==",
-                            PhoneNumber = "1234567890",
-                            PhoneNumberConfirmed = true,
-                            SecurityStamp = "c0ef3f07-4aa6-4b35-964f-3a087ac6750c",
->>>>>>> 2c562443547b477c0cebdba24a68f7f3cfdae3c6
+                            SecurityStamp = "93abfcb7-8f5d-45dd-804b-addb685e5697",
                             TwoFactorEnabled = false,
                             UserName = "timothy@okokapp.nl"
                         });
@@ -548,31 +490,31 @@ namespace OkOk.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("78583d2a-fc58-4670-a0f8-9c2e5e860b5f"),
+                            Id = new Guid("c53584f7-8a6d-4c2e-8535-10851dfba056"),
                             Content = "Dit is een geseede message [1]",
-                            DateTime = new DateTime(2022, 1, 20, 20, 41, 15, 557, DateTimeKind.Local).AddTicks(2798),
-                            SenderId = "720407f4-7258-4ea7-9b48-248236068846"
+                            DateTime = new DateTime(2022, 1, 20, 20, 47, 17, 983, DateTimeKind.Local).AddTicks(1382),
+                            SenderId = "1e120e00-0ef7-443c-8dd3-f09753c9f3fc"
                         },
                         new
                         {
-                            Id = new Guid("27372a87-0b13-4567-82e0-7ddad7210b5d"),
+                            Id = new Guid("9f151af1-6060-41df-a25e-73825fee6771"),
                             Content = "Dit is een geseede message [2]",
-                            DateTime = new DateTime(2022, 1, 20, 20, 41, 15, 557, DateTimeKind.Local).AddTicks(2808),
-                            SenderId = "720407f4-7258-4ea7-9b48-248236068846"
+                            DateTime = new DateTime(2022, 1, 20, 20, 47, 17, 983, DateTimeKind.Local).AddTicks(1559),
+                            SenderId = "1e120e00-0ef7-443c-8dd3-f09753c9f3fc"
                         },
                         new
                         {
-                            Id = new Guid("212f8194-0019-4a32-acf7-aea61f497571"),
+                            Id = new Guid("49ab8a91-1b53-4c29-8972-7e864596807e"),
                             Content = "Dit is een geseede message [3]",
-                            DateTime = new DateTime(2022, 1, 20, 20, 41, 15, 557, DateTimeKind.Local).AddTicks(2810),
-                            SenderId = "2dd3a743-1183-4ce5-b5b8-b63398f7cd20"
+                            DateTime = new DateTime(2022, 1, 20, 20, 47, 17, 983, DateTimeKind.Local).AddTicks(1562),
+                            SenderId = "8eee0687-e7c2-4b44-8120-e5140f3844e1"
                         },
                         new
                         {
-                            Id = new Guid("c18f2561-63c1-45ab-9ea6-fbdfc3f003b5"),
+                            Id = new Guid("7fe5398d-a358-445e-978a-bb6274549783"),
                             Content = "Dit is een geseede message [4]",
-                            DateTime = new DateTime(2022, 1, 20, 20, 41, 15, 557, DateTimeKind.Local).AddTicks(2813),
-                            SenderId = "2dd3a743-1183-4ce5-b5b8-b63398f7cd20"
+                            DateTime = new DateTime(2022, 1, 20, 20, 47, 17, 983, DateTimeKind.Local).AddTicks(1566),
+                            SenderId = "8eee0687-e7c2-4b44-8120-e5140f3844e1"
                         });
                 });
 
@@ -594,23 +536,23 @@ namespace OkOk.Migrations
                     b.HasData(
                         new
                         {
-                            MessageId = new Guid("78583d2a-fc58-4670-a0f8-9c2e5e860b5f"),
-                            ReportId = new Guid("11a7f39b-fb24-475c-8e1e-c1639e98abac")
+                            MessageId = new Guid("c53584f7-8a6d-4c2e-8535-10851dfba056"),
+                            ReportId = new Guid("8410b868-dc2a-40f2-956b-c6bffcac7f25")
                         },
                         new
                         {
-                            MessageId = new Guid("78583d2a-fc58-4670-a0f8-9c2e5e860b5f"),
-                            ReportId = new Guid("0b158b7a-2b6a-45ef-ba92-4bc96838c0ab")
+                            MessageId = new Guid("c53584f7-8a6d-4c2e-8535-10851dfba056"),
+                            ReportId = new Guid("c6e901c9-a118-45bb-b598-2fd91d32cec2")
                         },
                         new
                         {
-                            MessageId = new Guid("78583d2a-fc58-4670-a0f8-9c2e5e860b5f"),
-                            ReportId = new Guid("c2452f1f-4fde-4c6c-8234-ef077aada3f5")
+                            MessageId = new Guid("c53584f7-8a6d-4c2e-8535-10851dfba056"),
+                            ReportId = new Guid("16ea97e6-449c-4a2f-a956-936257a55850")
                         },
                         new
                         {
-                            MessageId = new Guid("212f8194-0019-4a32-acf7-aea61f497571"),
-                            ReportId = new Guid("00b24115-2f00-46f0-ada2-deb01be556c8")
+                            MessageId = new Guid("49ab8a91-1b53-4c29-8972-7e864596807e"),
+                            ReportId = new Guid("66914dce-6438-42c4-9451-41f576c81234")
                         });
                 });
 
@@ -630,22 +572,22 @@ namespace OkOk.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("11a7f39b-fb24-475c-8e1e-c1639e98abac"),
+                            Id = new Guid("8410b868-dc2a-40f2-956b-c6bffcac7f25"),
                             Handled = false
                         },
                         new
                         {
-                            Id = new Guid("0b158b7a-2b6a-45ef-ba92-4bc96838c0ab"),
+                            Id = new Guid("c6e901c9-a118-45bb-b598-2fd91d32cec2"),
                             Handled = false
                         },
                         new
                         {
-                            Id = new Guid("c2452f1f-4fde-4c6c-8234-ef077aada3f5"),
+                            Id = new Guid("16ea97e6-449c-4a2f-a956-936257a55850"),
                             Handled = false
                         },
                         new
                         {
-                            Id = new Guid("00b24115-2f00-46f0-ada2-deb01be556c8"),
+                            Id = new Guid("66914dce-6438-42c4-9451-41f576c81234"),
                             Handled = false
                         });
                 });
@@ -679,16 +621,16 @@ namespace OkOk.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("6c990b1e-783b-454f-b957-ad49464b40be"),
-                            ClientId = "720407f4-7258-4ea7-9b48-248236068846",
-                            DoctorId = "2b7ef106-96bc-4faa-ab48-5ab29e9a9447",
+                            Id = new Guid("a66fb693-87c4-473d-9878-40dcf0fe2663"),
+                            ClientId = "1e120e00-0ef7-443c-8dd3-f09753c9f3fc",
+                            DoctorId = "bb1e7949-970c-4562-aa28-84d0fd78ebcf",
                             Handled = false
                         },
                         new
                         {
-                            Id = new Guid("6584592f-e0e3-470f-8283-a6b30764c070"),
-                            ClientId = "2dd3a743-1183-4ce5-b5b8-b63398f7cd20",
-                            DoctorId = "2b7ef106-96bc-4faa-ab48-5ab29e9a9447",
+                            Id = new Guid("68e1ca26-b0b1-41f9-b382-c106822564d8"),
+                            ClientId = "8eee0687-e7c2-4b44-8120-e5140f3844e1",
+                            DoctorId = "bb1e7949-970c-4562-aa28-84d0fd78ebcf",
                             Handled = false
                         });
                 });
@@ -743,147 +685,147 @@ namespace OkOk.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("303ca8fc-b0af-462e-ae3b-bbb0ee931486"),
-                            ClientId = "720407f4-7258-4ea7-9b48-248236068846",
+                            Id = new Guid("5385b5b7-45b6-41d3-b1a7-a7f83475233e"),
+                            ClientId = "1e120e00-0ef7-443c-8dd3-f09753c9f3fc",
                             DateTime = new DateTime(2022, 1, 20, 10, 30, 0, 0, DateTimeKind.Unspecified),
                             Description = "Intake",
-                            DoctorId = "2b7ef106-96bc-4faa-ab48-5ab29e9a9447"
+                            DoctorId = "bb1e7949-970c-4562-aa28-84d0fd78ebcf"
                         },
                         new
                         {
-                            Id = new Guid("e248e973-aa75-4e5c-ac9e-ffbd34630220"),
-                            ClientId = "720407f4-7258-4ea7-9b48-248236068846",
+                            Id = new Guid("1313a704-9282-4f20-8a8f-6a73b4174139"),
+                            ClientId = "1e120e00-0ef7-443c-8dd3-f09753c9f3fc",
                             DateTime = new DateTime(2022, 1, 20, 11, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Behandeling",
-                            DoctorId = "2b7ef106-96bc-4faa-ab48-5ab29e9a9447"
+                            DoctorId = "bb1e7949-970c-4562-aa28-84d0fd78ebcf"
                         },
                         new
                         {
-                            Id = new Guid("5d258558-fbbc-46cd-815d-c4c371c92463"),
-                            ClientId = "720407f4-7258-4ea7-9b48-248236068846",
+                            Id = new Guid("d6e3d22e-80d6-4fff-83b5-59e0f4a8389f"),
+                            ClientId = "1e120e00-0ef7-443c-8dd3-f09753c9f3fc",
                             DateTime = new DateTime(2022, 1, 20, 11, 30, 0, 0, DateTimeKind.Unspecified),
                             Description = "Behandeling",
-                            DoctorId = "2b7ef106-96bc-4faa-ab48-5ab29e9a9447"
+                            DoctorId = "bb1e7949-970c-4562-aa28-84d0fd78ebcf"
                         },
                         new
                         {
-                            Id = new Guid("ea917d24-b4a7-48d1-9b59-ba650f70d131"),
-                            ClientId = "720407f4-7258-4ea7-9b48-248236068846",
+                            Id = new Guid("1ad2a1f2-c061-4852-a915-b9ce570e0ffd"),
+                            ClientId = "1e120e00-0ef7-443c-8dd3-f09753c9f3fc",
                             DateTime = new DateTime(2022, 1, 11, 10, 30, 0, 0, DateTimeKind.Unspecified),
                             Description = "Intake",
-                            DoctorId = "2b7ef106-96bc-4faa-ab48-5ab29e9a9447"
+                            DoctorId = "bb1e7949-970c-4562-aa28-84d0fd78ebcf"
                         },
                         new
                         {
-                            Id = new Guid("cbaa749b-d856-4048-9bbc-ec00bb2ec525"),
-                            ClientId = "720407f4-7258-4ea7-9b48-248236068846",
+                            Id = new Guid("82def934-13f8-4eb9-97ef-56a87bcd6f04"),
+                            ClientId = "1e120e00-0ef7-443c-8dd3-f09753c9f3fc",
                             DateTime = new DateTime(2022, 1, 11, 11, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Behandeling",
-                            DoctorId = "2b7ef106-96bc-4faa-ab48-5ab29e9a9447"
+                            DoctorId = "bb1e7949-970c-4562-aa28-84d0fd78ebcf"
                         },
                         new
                         {
-                            Id = new Guid("1aa7035d-5abe-4b9a-a876-aa8a7b120f77"),
-                            ClientId = "720407f4-7258-4ea7-9b48-248236068846",
+                            Id = new Guid("e1d4b88f-95f4-40e8-af41-9c6f46d56633"),
+                            ClientId = "1e120e00-0ef7-443c-8dd3-f09753c9f3fc",
                             DateTime = new DateTime(2022, 1, 11, 11, 30, 0, 0, DateTimeKind.Unspecified),
                             Description = "Behandeling",
-                            DoctorId = "2b7ef106-96bc-4faa-ab48-5ab29e9a9447"
+                            DoctorId = "bb1e7949-970c-4562-aa28-84d0fd78ebcf"
                         },
                         new
                         {
-                            Id = new Guid("e599e441-8f00-47fc-8a8f-c8bf3efc4ee3"),
-                            ClientId = "720407f4-7258-4ea7-9b48-248236068846",
+                            Id = new Guid("e93c0ab4-82cc-4cfc-ad3f-b017b217047a"),
+                            ClientId = "1e120e00-0ef7-443c-8dd3-f09753c9f3fc",
                             DateTime = new DateTime(2022, 2, 28, 10, 30, 0, 0, DateTimeKind.Unspecified),
                             Description = "Intake",
-                            DoctorId = "2b7ef106-96bc-4faa-ab48-5ab29e9a9447"
+                            DoctorId = "bb1e7949-970c-4562-aa28-84d0fd78ebcf"
                         },
                         new
                         {
-                            Id = new Guid("7175bbd6-e382-459d-96fd-a20b49dd7a12"),
-                            ClientId = "720407f4-7258-4ea7-9b48-248236068846",
+                            Id = new Guid("638b2a9e-33ef-4b66-8ed5-a8d2543aa11a"),
+                            ClientId = "1e120e00-0ef7-443c-8dd3-f09753c9f3fc",
                             DateTime = new DateTime(2022, 2, 28, 11, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Behandeling",
-                            DoctorId = "2b7ef106-96bc-4faa-ab48-5ab29e9a9447"
+                            DoctorId = "bb1e7949-970c-4562-aa28-84d0fd78ebcf"
                         },
                         new
                         {
-                            Id = new Guid("09496113-9235-44e3-8a42-7869a9e418e5"),
-                            ClientId = "720407f4-7258-4ea7-9b48-248236068846",
+                            Id = new Guid("388bf9c2-c682-4868-b96d-e208ca34b8c6"),
+                            ClientId = "1e120e00-0ef7-443c-8dd3-f09753c9f3fc",
                             DateTime = new DateTime(2022, 2, 28, 11, 30, 0, 0, DateTimeKind.Unspecified),
                             Description = "Behandeling",
-                            DoctorId = "2b7ef106-96bc-4faa-ab48-5ab29e9a9447"
+                            DoctorId = "bb1e7949-970c-4562-aa28-84d0fd78ebcf"
                         },
                         new
                         {
-                            Id = new Guid("15dad6c5-078f-4baf-98a6-d72383e2fd22"),
-                            ClientId = "2dd3a743-1183-4ce5-b5b8-b63398f7cd20",
+                            Id = new Guid("d09b22ca-b135-4cee-a311-c35cdccf336e"),
+                            ClientId = "8eee0687-e7c2-4b44-8120-e5140f3844e1",
                             DateTime = new DateTime(2022, 1, 20, 10, 30, 0, 0, DateTimeKind.Unspecified),
                             Description = "Intake",
-                            DoctorId = "c427ade3-3d27-4023-8fd5-46fbab6e7a6f"
+                            DoctorId = "2ee042d6-0b84-44b9-b3fe-906d5212ae4f"
                         },
                         new
                         {
-                            Id = new Guid("3675e088-e70d-42c5-aee9-208f6b7d3855"),
-                            ClientId = "2dd3a743-1183-4ce5-b5b8-b63398f7cd20",
+                            Id = new Guid("f3c50074-7bf0-43dd-a5f3-d348a2c2de3e"),
+                            ClientId = "8eee0687-e7c2-4b44-8120-e5140f3844e1",
                             DateTime = new DateTime(2022, 1, 20, 11, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Behandeling",
-                            DoctorId = "c427ade3-3d27-4023-8fd5-46fbab6e7a6f"
+                            DoctorId = "2ee042d6-0b84-44b9-b3fe-906d5212ae4f"
                         },
                         new
                         {
-                            Id = new Guid("7b7f5624-e10e-455b-9391-4031e02d83f9"),
-                            ClientId = "2dd3a743-1183-4ce5-b5b8-b63398f7cd20",
+                            Id = new Guid("ccbc229a-7f1b-45ee-bee4-da3f59200269"),
+                            ClientId = "8eee0687-e7c2-4b44-8120-e5140f3844e1",
                             DateTime = new DateTime(2022, 1, 20, 11, 30, 0, 0, DateTimeKind.Unspecified),
                             Description = "Behandeling",
-                            DoctorId = "c427ade3-3d27-4023-8fd5-46fbab6e7a6f"
+                            DoctorId = "2ee042d6-0b84-44b9-b3fe-906d5212ae4f"
                         },
                         new
                         {
-                            Id = new Guid("3db7e857-9f68-4eca-90b2-929e39ebc548"),
-                            ClientId = "2dd3a743-1183-4ce5-b5b8-b63398f7cd20",
+                            Id = new Guid("afc45e9c-136d-486c-ba72-9f8d21b2f122"),
+                            ClientId = "8eee0687-e7c2-4b44-8120-e5140f3844e1",
                             DateTime = new DateTime(2022, 1, 11, 10, 30, 0, 0, DateTimeKind.Unspecified),
                             Description = "Intake",
-                            DoctorId = "c427ade3-3d27-4023-8fd5-46fbab6e7a6f"
+                            DoctorId = "2ee042d6-0b84-44b9-b3fe-906d5212ae4f"
                         },
                         new
                         {
-                            Id = new Guid("89b85bd0-8991-447c-a0c0-54dc9b05527b"),
-                            ClientId = "2dd3a743-1183-4ce5-b5b8-b63398f7cd20",
+                            Id = new Guid("a19870a7-7959-4870-bc1f-19a3830bdd73"),
+                            ClientId = "8eee0687-e7c2-4b44-8120-e5140f3844e1",
                             DateTime = new DateTime(2022, 1, 11, 11, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Behandeling",
-                            DoctorId = "c427ade3-3d27-4023-8fd5-46fbab6e7a6f"
+                            DoctorId = "2ee042d6-0b84-44b9-b3fe-906d5212ae4f"
                         },
                         new
                         {
-                            Id = new Guid("e6bab421-592d-410d-b5d9-11a1752e2337"),
-                            ClientId = "2dd3a743-1183-4ce5-b5b8-b63398f7cd20",
+                            Id = new Guid("50a1b7d2-1abf-434e-a2ef-5d050ec2c8c5"),
+                            ClientId = "8eee0687-e7c2-4b44-8120-e5140f3844e1",
                             DateTime = new DateTime(2022, 1, 11, 11, 30, 0, 0, DateTimeKind.Unspecified),
                             Description = "Behandeling",
-                            DoctorId = "c427ade3-3d27-4023-8fd5-46fbab6e7a6f"
+                            DoctorId = "2ee042d6-0b84-44b9-b3fe-906d5212ae4f"
                         },
                         new
                         {
-                            Id = new Guid("0e288c5e-7986-4b48-9135-135c3ad2db83"),
-                            ClientId = "2dd3a743-1183-4ce5-b5b8-b63398f7cd20",
+                            Id = new Guid("6ef7cb92-8399-4785-884b-0b6184d1b85c"),
+                            ClientId = "8eee0687-e7c2-4b44-8120-e5140f3844e1",
                             DateTime = new DateTime(2022, 2, 28, 10, 30, 0, 0, DateTimeKind.Unspecified),
                             Description = "Intake",
-                            DoctorId = "c427ade3-3d27-4023-8fd5-46fbab6e7a6f"
+                            DoctorId = "2ee042d6-0b84-44b9-b3fe-906d5212ae4f"
                         },
                         new
                         {
-                            Id = new Guid("90f352d5-4943-4462-bc08-64716a49ebf3"),
-                            ClientId = "2dd3a743-1183-4ce5-b5b8-b63398f7cd20",
+                            Id = new Guid("3c512acc-0aed-4187-9db7-85834ebd098e"),
+                            ClientId = "8eee0687-e7c2-4b44-8120-e5140f3844e1",
                             DateTime = new DateTime(2022, 2, 28, 11, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Behandeling",
-                            DoctorId = "c427ade3-3d27-4023-8fd5-46fbab6e7a6f"
+                            DoctorId = "2ee042d6-0b84-44b9-b3fe-906d5212ae4f"
                         },
                         new
                         {
-                            Id = new Guid("8d26def2-9522-44b5-ac00-3255a3d83aa6"),
-                            ClientId = "2dd3a743-1183-4ce5-b5b8-b63398f7cd20",
+                            Id = new Guid("54423453-115c-422b-a29d-a932f86c86d4"),
+                            ClientId = "8eee0687-e7c2-4b44-8120-e5140f3844e1",
                             DateTime = new DateTime(2022, 2, 28, 11, 30, 0, 0, DateTimeKind.Unspecified),
                             Description = "Behandeling",
-                            DoctorId = "c427ade3-3d27-4023-8fd5-46fbab6e7a6f"
+                            DoctorId = "2ee042d6-0b84-44b9-b3fe-906d5212ae4f"
                         });
                 });
 
@@ -903,9 +845,9 @@ namespace OkOk.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "58380249-7ae0-4acb-8a6f-ea8538cf71d4",
+                            Id = "eaa74cdb-3c47-48cf-8d2a-5aa9610dc437",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9d73e26e-13b1-4391-bb02-becd852528e4",
+                            ConcurrencyStamp = "5a08f9a2-da58-4d46-b541-262e5ac0bb59",
                             Email = "guardianone@okokapp.nl",
                             EmailConfirmed = true,
                             FirstName = "Guardian",
@@ -913,18 +855,18 @@ namespace OkOk.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "GUARDIANONE@OKOKAPP.NL",
                             NormalizedUserName = "GUARDIANONE@OKOKAPP.NL",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMD6GwhItXzVRl2/KLPqTa3KSP4DrEDL0ljXCxRR0qgnq0fpxtaStzWLD9eD35Pchg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFqrgWSMVO8VPXhbXU1IQyIGeJKqmwLAJpREWH8c7NOz1kU67/ms1+HtAMo+tJm03w==",
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "a7fe3c40-1cec-4097-add9-ed97773d4cbf",
+                            SecurityStamp = "386f5822-dfe6-49b1-8196-3a6e82084496",
                             TwoFactorEnabled = false,
                             UserName = "guardianone@okokapp.nl"
                         },
                         new
                         {
-                            Id = "840ef66d-11a4-47a8-af7e-9ad16ab34d67",
+                            Id = "cc79d039-7fcb-474c-b24d-aaaed317be81",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "861dbd65-e997-4408-aba3-4f02c71be89f",
+                            ConcurrencyStamp = "cebfe319-15e6-40ad-a29c-4ccb63ef7200",
                             Email = "guardiantwo@okokapp.nl",
                             EmailConfirmed = true,
                             FirstName = "Guardian",
@@ -932,10 +874,10 @@ namespace OkOk.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "GUARDIANTWO@OKOKAPP.NL",
                             NormalizedUserName = "GUARDIANTWO@OKOKAPP.NL",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOxdyogu7IEz6aNa7rwtOqx3UkvIB/8e8eboXV9UhiX2OkrCpVIdv6vVQzkywhk59Q==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOr3g/1GaXJ5XPmvgu9jA5ykt144Nl7k2USklQEel32mdxZYPPlOwkkgkrziS57VyA==",
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "3bb5a64f-3d43-4f4c-bc65-dcbc2ec774ed",
+                            SecurityStamp = "79ee3200-bcd3-430c-b3bd-a8b353b2938b",
                             TwoFactorEnabled = false,
                             UserName = "guardiantwo@okokapp.nl"
                         });
@@ -947,12 +889,6 @@ namespace OkOk.Migrations
 
                     b.Property<Guid?>("AddressId")
                         .IsRequired()
-<<<<<<< HEAD
-=======
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("ChatToken")
->>>>>>> 2c562443547b477c0cebdba24a68f7f3cfdae3c6
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("OldEnough")
@@ -966,9 +902,9 @@ namespace OkOk.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "720407f4-7258-4ea7-9b48-248236068846",
+                            Id = "1e120e00-0ef7-443c-8dd3-f09753c9f3fc",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "fa9ca50b-859a-4af2-ac15-bcfbe2eb7206",
+                            ConcurrencyStamp = "4af8b5f1-ba4c-412e-b1d5-41ab08d0e2c5",
                             Email = "clientone@okokapp.nl",
                             EmailConfirmed = true,
                             FirstName = "Client",
@@ -976,20 +912,20 @@ namespace OkOk.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "CLIENTONE@OKOKAPP.NL",
                             NormalizedUserName = "CLIENTONE@OKOKAPP.NL",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBvFLEpuns6yWwnO1hImF2wL6NcydVm4iIsq762M0JhUKaKa8gtTLhopA/PFk2BuGg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENraWpy6QbWFnTUoDw7YvhPY2PXjF1leAIWx9yK9YIUfDCSfytpb4ge3c10i4v8QBg==",
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "1bfa4280-47fb-4f6c-aa74-d52811c11a88",
+                            SecurityStamp = "b02ff5b2-3f91-4703-9d8b-b1abf67a5e47",
                             TwoFactorEnabled = false,
                             UserName = "clientone@okokapp.nl",
-                            AddressId = new Guid("029214ef-1367-4d6c-aab1-7f7d7f0ed813"),
+                            AddressId = new Guid("677cdac0-ba63-4733-8e09-41a045061db7"),
                             OldEnough = false
                         },
                         new
                         {
-                            Id = "2dd3a743-1183-4ce5-b5b8-b63398f7cd20",
+                            Id = "8eee0687-e7c2-4b44-8120-e5140f3844e1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "1ccb3467-afea-49da-8bfb-37500340e046",
+                            ConcurrencyStamp = "ff386128-02b0-476a-8f01-74b32a457a97",
                             Email = "clienttwo@okokapp.nl",
                             EmailConfirmed = true,
                             FirstName = "Client",
@@ -997,13 +933,13 @@ namespace OkOk.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "CLIENTTWO@OKOKAPP.NL",
                             NormalizedUserName = "CLIENTTWO@OKOKAPP.NL",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPgACdJi6hpzCZi/ElCBAUflbbmmYfp5zT4iniebHQ2D5YQfXfYj10dxHKPylYy0UA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEEumUuOVOHaPkR/WMRiF7GJ2K/UAGJBlrJIHjuRln2Q5+jq77U+lNFOJQ31rXTfoVw==",
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "0afb5393-5021-488e-9668-086e0e88a17e",
+                            SecurityStamp = "d85a5850-ef5a-4b78-9207-2d02345aebfc",
                             TwoFactorEnabled = false,
                             UserName = "clienttwo@okokapp.nl",
-                            AddressId = new Guid("ade6035d-2456-4a17-a031-e6a3c1e633c9"),
+                            AddressId = new Guid("64962e21-66cf-40ec-b12a-37de59de6c7c"),
                             OldEnough = false
                         });
                 });
@@ -1021,9 +957,9 @@ namespace OkOk.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "2b7ef106-96bc-4faa-ab48-5ab29e9a9447",
+                            Id = "bb1e7949-970c-4562-aa28-84d0fd78ebcf",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "df3d6bf6-1857-44e1-94e0-d27d50424167",
+                            ConcurrencyStamp = "c2921e20-8bcd-4dd6-a2bc-6ecb8b481a09",
                             Email = "doctorone@okokapp.nl",
                             EmailConfirmed = true,
                             FirstName = "Doctor",
@@ -1031,19 +967,19 @@ namespace OkOk.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "DOCTORONE@OKOKAPP.NL",
                             NormalizedUserName = "DOCTORONE@OKOKAPP.NL",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOXqXJ71fE4FC2kuqRk5gFaj8bXiPhmUlk5sA7hnIgiqZ+uqqS5sUiD3peb3RSfZWg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEC0hdj2wz5NrFZZXga+XYpBKYuGWz/Ce0K/sbl2eZNn5KT+bZXpjcBSOXEa7ltprSw==",
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "0f6c1d49-e0c8-4e48-8e08-5bfdd563dc72",
+                            SecurityStamp = "24c0c779-dc33-41d4-8fe9-3f522d765231",
                             TwoFactorEnabled = false,
                             UserName = "doctorone@okokapp.nl",
                             Specialism = "Autisme"
                         },
                         new
                         {
-                            Id = "c427ade3-3d27-4023-8fd5-46fbab6e7a6f",
+                            Id = "2ee042d6-0b84-44b9-b3fe-906d5212ae4f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "67c20998-b855-47c2-94ec-a642da562ba2",
+                            ConcurrencyStamp = "4918c1f2-2204-4130-83ed-ece40601b647",
                             Email = "doctortwo@okokapp.nl",
                             EmailConfirmed = true,
                             FirstName = "Doctor",
@@ -1051,10 +987,10 @@ namespace OkOk.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "DOCTORTWO@OKOKAPP.NL",
                             NormalizedUserName = "DOCTORTWO@OKOKAPP.NL",
-                            PasswordHash = "AQAAAAEAACcQAAAAEKf6iEP52W+IuV3gQSr3rJFTHeTWQe0incf+uMh2P5PaaPiso0Lwhn4Crpx3I7sRAw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEF0LkuusQpaaBi7WMjAPo5yiUHG3Ojczwax8GgntgmQ9w7psMEeKYeNxpuTdhiWwPA==",
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "80ac755c-bea2-495d-8d1c-0f823c1e2227",
+                            SecurityStamp = "6f5023f4-5c1d-42d5-bdcc-bc5e230a1c77",
                             TwoFactorEnabled = false,
                             UserName = "doctortwo@okokapp.nl",
                             Specialism = "Autisme"
@@ -1237,11 +1173,7 @@ namespace OkOk.Migrations
                     b.HasOne("OkOk.Models.Address", "Address")
                         .WithOne("ClientApplicationUser")
                         .HasForeignKey("OkOk.Models.Identity.ClientApplicationUser", "AddressId")
-<<<<<<< HEAD
                         .OnDelete(DeleteBehavior.SetNull)
-=======
-                        .OnDelete(DeleteBehavior.Cascade)
->>>>>>> 2c562443547b477c0cebdba24a68f7f3cfdae3c6
                         .IsRequired();
 
                     b.Navigation("Address");
@@ -1249,12 +1181,7 @@ namespace OkOk.Migrations
 
             modelBuilder.Entity("OkOk.Models.Address", b =>
                 {
-<<<<<<< HEAD
                     b.Navigation("ClientApplicationUser");
-=======
-                    b.Navigation("ClientApplicationUser")
-                        .IsRequired();
->>>>>>> 2c562443547b477c0cebdba24a68f7f3cfdae3c6
                 });
 
             modelBuilder.Entity("OkOk.Models.Message", b =>
