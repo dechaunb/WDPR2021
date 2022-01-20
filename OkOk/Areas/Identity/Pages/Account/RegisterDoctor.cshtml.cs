@@ -110,12 +110,22 @@ namespace OkOk.Areas.Identity.Pages.Account
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
-                await _userManager.AddToRoleAsync(user, "Client");
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("Admin created a new doctor with password.");
+
+                    
+                    var roleResult = await _userManager.AddToRoleAsync(user, "Doctor");
+                    if(roleResult.Succeeded)
+                    {
+                        _logger.LogInformation("Doctor added to role 'Doctor'.");
+                    }
+                    foreach (var error in roleResult.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
 
                     return LocalRedirect(returnUrl);
                 }

@@ -635,9 +635,14 @@ namespace OkOk.Data
                 NormalizedName = "Client".ToUpper() 
             };
 
-            modelBuilder.Entity<IdentityRole>().HasData(admin);  
-            modelBuilder.Entity<IdentityRole>().HasData(doctor);  
-            modelBuilder.Entity<IdentityRole>().HasData(client);  
+            IdentityRole guardian = new IdentityRole()
+            {
+                Name = "Guardian", 
+                ConcurrencyStamp = "1", 
+                NormalizedName = "Guardian".ToUpper() 
+            };
+
+            modelBuilder.Entity<IdentityRole>().HasData(admin, doctor, client, guardian);  
 
             //SeedUserRoles
             IdentityUserRole<string> angeloAdmin = new IdentityUserRole<string>()
@@ -682,13 +687,22 @@ namespace OkOk.Data
                 UserId = clientTwo.Id
             };
 
-            modelBuilder.Entity<IdentityUserRole<string>>().HasData(angeloAdmin);  
-            modelBuilder.Entity<IdentityUserRole<string>>().HasData(dechaunAdmin);  
-            modelBuilder.Entity<IdentityUserRole<string>>().HasData(timothyAdmin);
-            modelBuilder.Entity<IdentityUserRole<string>>().HasData(doctorOneDoctor);  
-            modelBuilder.Entity<IdentityUserRole<string>>().HasData(doctorTwoDoctor);  
-            modelBuilder.Entity<IdentityUserRole<string>>().HasData(clientOneClient);  
-            modelBuilder.Entity<IdentityUserRole<string>>().HasData(clientTwoClient);  
+            IdentityUserRole<string> guardianOneGuardian = new IdentityUserRole<string>()
+            {
+                RoleId = guardian.Id,
+                UserId = guardianOne.Id
+            };
+
+            IdentityUserRole<string> guardianTwoGuardian = new IdentityUserRole<string>()
+            {
+                RoleId = guardian.Id,
+                UserId = guardianTwo.Id
+            };
+
+            modelBuilder.Entity<IdentityUserRole<string>>().HasData(angeloAdmin, dechaunAdmin, timothyAdmin);  
+            modelBuilder.Entity<IdentityUserRole<string>>().HasData(doctorOneDoctor, doctorTwoDoctor);  
+            modelBuilder.Entity<IdentityUserRole<string>>().HasData(clientOneClient, clientTwoClient);  
+            modelBuilder.Entity<IdentityUserRole<string>>().HasData(guardianOneGuardian, guardianTwoGuardian);  
         }
     }
 }

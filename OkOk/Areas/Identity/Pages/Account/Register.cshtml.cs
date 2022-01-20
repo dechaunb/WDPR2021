@@ -157,6 +157,16 @@ namespace OkOk.Areas.Identity.Pages.Account
                     await _signUpRequestController.CreateRequestAsync(user);
                     _logger.LogInformation("Signup request has been made.");
 
+                    var roleResult = await _userManager.AddToRoleAsync(user, "Client");
+                    if(roleResult.Succeeded)
+                    {
+                        _logger.LogInformation("Client added to role 'Client'.");
+                    }
+                    foreach (var error in roleResult.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+
                     return LocalRedirect(returnUrl);
                 }
                 foreach (var error in result.Errors)
