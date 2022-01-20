@@ -30,9 +30,11 @@
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
+                @if(!item.OldEnough){
                 <div class="col-6 justify-content-center">
                     <a class="btn btn-primary" asp-action="ChildChatFrequency" asp-route-id="@item.Id">Chatfrequentie</a>
                 </div>
+                }
             </td>
         </tr>
 }
