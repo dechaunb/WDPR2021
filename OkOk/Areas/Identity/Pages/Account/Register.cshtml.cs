@@ -128,7 +128,6 @@ namespace OkOk.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = new ClientApplicationUser {
-                    ChatToken = Guid.NewGuid(),
                     FirstName = Input.FirstName,
                     LastName = Input.LastName,
                     UserName = Input.Email,

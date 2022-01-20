@@ -14,7 +14,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace OkOk.Controllers
 {
-    [Authorize(Roles="Hulpverlener,Client")]
+    [Authorize(Roles="Doctor,Client")]
     public class MessageController : Controller
     {
         private readonly ApplicationDbContext _context;

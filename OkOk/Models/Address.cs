@@ -28,7 +28,6 @@ namespace OkOk.Models
         [Required]
         [Display(Name = "Land")]
         public string Country { get; set; }
-        [Required]
         public ClientApplicationUser ClientApplicationUser { get; set; }
 
         public string GetHouseNumber()
