@@ -31,48 +31,52 @@ namespace OkOk.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var applicationDbContext = _context.Messages.Include(m => m.Sender).Include(m => m.SupportGroup);
-            return View(await applicationDbContext.ToListAsync());
+            return View();
         }
 
         //Report button action
         public async Task Report(string id){
-            Message message = await _context.Messages.SingleAsync(it=>it.Id.ToString().ToLower()==id);
-            _context.MessageReports.Add(new MessageReport(){MessageId=message.Id, Report=new Report()});
-            _context.Update(message);
-            await _context.SaveChangesAsync();
+            if (await _context.Messages.AnyAsync(it=>it.Id.ToString().ToLower()==id)){
+                Message message = await _context.Messages.SingleAsync(it=>it.Id.ToString().ToLower()==id);
+                _context.MessageReports.Add(new MessageReport(){MessageId=message.Id, Report=new Report()});
+                _context.Update(message);
+                await _context.SaveChangesAsync();
+            }
         }
 
         //Groups Chats
 
         public async Task<IActionResult> GroupHub(string id){
-            var user = await _UserManager.GetUserAsync(User);
-            ViewBag.User= user;
-            var group = (await _context.SupportGroups.Include(it=>it.ChatApplicationUsers).Include(it=>it.Received).ThenInclude(it=>it.Sender).SingleAsync(it=>it.Id.ToString().ToLower()==id));
-            ViewBag.GroupName= group.Name;
-            ViewBag.GroupId = id;
-            ViewBag.Messages = group.Received.OrderBy(it=>it.DateTime).ToList();
-            ViewBag.Users = JsonConvert.SerializeObject((await _context.SupportGroups.Include(it=>it.ChatApplicationUsers).SingleAsync(it=>it.Id.ToString().ToLower()==id)).ChatApplicationUsers.Select(it=>new{
-                UserName=it.UserName,
-                FirstName=it.FirstName
-            }).ToArray());
+            if (_context.SupportGroups.Any(e => e.Id.ToString().ToLower() == id)){
+                var user = await _UserManager.GetUserAsync(User);
+                ViewBag.User= user;
+                SupportGroup group = (await _context.SupportGroups.Include(it=>it.ChatApplicationUsers).Include(it=>it.Received).ThenInclude(it=>it.Sender).SingleAsync(it=>it.Id.ToString().ToLower()==id));
+                ViewBag.GroupName= group.Name;
+                ViewBag.GroupId = id;
+                ViewBag.Messages = group.Received.OrderBy(it=>it.DateTime).ToList();
+                ViewBag.Users = JsonConvert.SerializeObject((await _context.SupportGroups.Include(it=>it.ChatApplicationUsers).SingleAsync(it=>it.Id.ToString().ToLower()==id)).ChatApplicationUsers.Select(it=>new{
+                    UserName=it.UserName,
+                    FirstName=it.FirstName
+                }).ToArray());
+                return View();
 
-
-            return View();
+            }else return NotFound();
         }
 
         public async Task<JsonResult> GetGroupChats(){
             var user = await _context.ChatApplicationUsers.Include(it=>it.SupportGroups).SingleAsync(it=>it.Id== _UserManager.GetUserId(User));
 
-            var groupchats = user.SupportGroups.Select(it=>new {name=it.Name, id=it.Id});
+            var groupchats = user.SupportGroups.Select(it=>new {name=it.Name, id=it.Id.ToString()});
 
             return Json(groupchats);
         }
 
         public async Task<IActionResult> NewGroupChat(int? pageNumber, string searchString, string currentFilter){
             ViewData["CurrentFilter"] = searchString;
+            var user = await _context.ChatApplicationUsers.Include(it=>it.SupportGroups).SingleAsync(it=>it.Id== _UserManager.GetUserId(User));            
+
             ViewBag.CanCreate = User.IsInRole("Doctor");
 
             if (searchString != null){
@@ -106,7 +110,6 @@ namespace OkOk.Controllers
                 await _context.SaveChangesAsync();
             }
 
-            var user = await _context.ChatApplicationUsers.Include(it=>it.SupportGroups).SingleAsync(it=>it.Id== _UserManager.GetUserId(User));
             var lijst = _context.SupportGroups.Where(it=>!it.ChatApplicationUsers.Contains(user)).ToList();
             
             if (!String.IsNullOrEmpty(searchString))
@@ -152,13 +155,17 @@ namespace OkOk.Controllers
 
         //Personal Chats
         public async Task<IActionResult> Hub(string id){
-            var user = await _UserManager.GetUserAsync(User);
-            ViewBag.User= user;
-            ViewBag.TargetFirstName= (await _context.ChatApplicationUsers.SingleAsync(it=>it.UserName==id)).FirstName;
-            ViewBag.TargetUsername = id;
-            ViewBag.Messages = await GetChatMessages(id);
+            if (_context.ChatApplicationUsers.Any(it=>it.UserName==id)){
+                var target = await _context.ChatApplicationUsers.SingleAsync(it=>it.UserName==id);
+                var user = await _UserManager.GetUserAsync(User);
+                ViewBag.User= user;
+                ViewBag.TargetFirstName= target.FirstName;
+                ViewBag.TargetUsername = id;
+                ViewBag.Messages = await GetChatMessages(id);
 
-            return View();
+                return View();
+            }
+            else return NotFound();
         }
 
         public async Task<JsonResult> GetChats(){
@@ -180,7 +187,7 @@ namespace OkOk.Controllers
 
         public async Task<IActionResult> NewPrivateChat(){
             var user = await _context.ChatApplicationUsers.Include(it=>it.SupportGroups).SingleAsync(it=>it.Id== _UserManager.GetUserId(User));
-            ViewBag.List = new SelectList(_context.ChatApplicationUsers.Where(it=>it.Received.Where(it=>it.Receivers.Contains(user)).Count()==0), "UserName", "FirstName");
+            ViewBag.List = new SelectList(_context.ChatApplicationUsers.Where(it=>it.Received.Where(it=>it.Receivers.Contains(user)).Count()==0&&it.Id!=user.Id), "UserName", "FirstName");
             return View();
         }
 
