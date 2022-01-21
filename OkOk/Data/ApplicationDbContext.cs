@@ -30,7 +30,7 @@ namespace OkOk.Data
         public DbSet<SupportGroup> SupportGroups { get; set; }
         public DbSet<Treatment> Treatments { get; set; }
         
-        public ApplicationDbContext (DbContextOptions<ApplicationDbContext> options)
+        public ApplicationDbContext (DbContextOptions options)
             : base(options)
         {
 
