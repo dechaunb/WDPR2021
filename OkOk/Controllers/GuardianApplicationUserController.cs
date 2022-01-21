@@ -13,87 +13,28 @@ using OkOk.Models;
 
 namespace OkOk.Controllers
 {
+    [Authorize(Roles = "Guardian")]
     public class GuardianApplicationUserController : Controller{
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public GuardianApplicationUserController(ApplicationDbContext context){
+        public GuardianApplicationUserController(UserManager<ApplicationUser> userManager, ApplicationDbContext context){
             _context = context;
+            _userManager = userManager;
         }
 
         [Route("/Guardian/Index")]
         public IActionResult Index(){
-            //Hard coded data. Kan weggehaald worden en vervangen worden door de Guardian die op dat moment is ingelogd
-            GuardianApplicationUser g = new GuardianApplicationUser(){
-                FirstName = "Gerard",
-                LastName = "A",
-                Children = new List<ClientApplicationUser>(){
-                    new ClientApplicationUser(){
-                        FirstName = "Leon",
-                        LastName = "A",
-                        Address = new Address(){
-                            HouseNumber = 1,
-                            Street = "Straat",
-                            City = "Delft",
-                            ZipCode = "2121DW",
-                            Country = "Nederland"
-                        },
-                        Received = new List<Message>(){
-                            new Message(){
-                                Content = "Hoi",
-                                DateTime = DateTime.Now,
-                                SupportGroup = new SupportGroup(){
-                                    Name = "Groep A",
-                                    Description = "Eerste groep"
-                                }
-                            },
-                            new Message(){
-                                Content = "Hallo",
-                                DateTime = DateTime.Now,
-                                SupportGroup = new SupportGroup(){
-                                    Name= "Groep B",
-                                    Description = "Tweede groep"
-                                }
-                            }
-                        }
-                    },
-                    new ClientApplicationUser(){
-                        FirstName = "Appel",
-                        LastName = "A",
-                        Address = new Address(){
-                            HouseNumber = 1,
-                            Street = "Straat",
-                            City = "Delft",
-                            ZipCode = "2121DW",
-                            Country = "Nederland"
-                        },
-                        Received = new List<Message>(){
-                            new Message(){
-                                Content = "Hoi",
-                                DateTime = DateTime.Now,
-                                SupportGroup = new SupportGroup(){
-                                    Name = "Groep A",
-                                    Description = "Eerste groep"
-                                }
-                            },
-                            new Message(){
-                                Content = "Hallo",
-                                DateTime = DateTime.Now,
-                                SupportGroup = new SupportGroup(){
-                                    Name= "Groep B",
-                                    Description = "Tweede groep"
-                                }
-                            }
-                        }
-                    }
-                }
-            };
-            _context.SaveChanges();
-            //Dit moet uiteindelijk veranderd worden naar de ingelogde guardian die is ingelogd!
-            return View(_context.GuardianApplicationUsers.Include(g => g.Children).Where(g => g.FirstName == "Gerard").First());
+            var userId = _userManager.GetUserId(User);
+            var loggedInUser = _context.GuardianApplicationUsers.Include(g => g.Children).Single(g => g.Id == userId);
+            return View(loggedInUser);
+            //_context.GuardianApplicationUsers.Include(g => g.Children).Where(g => g.FirstName == "Gerard").First()
         }
 
         public IActionResult ChildChatFrequency(string id){
-            ClientApplicationUser c = _context.ClientApplicationUsers.Include(g => g.Received).ThenInclude(m => m.SupportGroup).Single(g => g.Id == id);
+            var userId = _userManager.GetUserId(User);
+            var loggedInUser = _context.GuardianApplicationUsers.Include(g => g.Children).ThenInclude(g => g.Received).ThenInclude(m => m.SupportGroup).Single(g => g.Id == userId);
+            ClientApplicationUser c = loggedInUser.Children.Single(g => g.Id == id);
             if (c.Received == null){
                 ViewData["SortedMessages"] = null;
             }

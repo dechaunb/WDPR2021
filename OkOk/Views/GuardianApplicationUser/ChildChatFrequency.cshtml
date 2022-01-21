@@ -5,32 +5,10 @@
     <div>Geen Client gevonden</div>
 }
 else{
-    
     @if(ViewData["SortedMessages"] == null){
         <div>Geen berichten gevonden</div>
     }
-    else{      
-        @* <table class="table">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Messages.First().DateTime)
-                    </th>
-                    
-                </tr>
-            </thead>
-        
-            <tbody>
-@foreach (var item in ViewData["SortedMessages"] as List<Message>){
-                <tr>
-                    <td>
-                        @item.DateTime
-                    </td>           
-                </tr>
-    }
-            </tbody>
-        </table> *@
-
+    else if(!Model.OldEnough){    
         <table class="table">
         <thead>
             <tr>
@@ -56,6 +34,10 @@ else{
         </tbody>
 }
     </table>
+    }
+    else{
+        <h3>Oops er ging iets mis</h3>
+        <p>Dit kind is ouder dan 16, u heeft geen rechten om de frequentie te bekijken</p>
     }
     
 }
