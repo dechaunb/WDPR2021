@@ -295,9 +295,11 @@ public class UnitTest1
         c.SaveChanges();
 
         //Act
-        var result = (ViewResult) acon.DoctorDetails(c.DoctorApplicationUsers.Select(d => d.Id).First().ToString() ,1);
+        string id = c.DoctorApplicationUsers.Select(d => d.Id).First();
+        
+        var result = (ViewResult) acon.DoctorDetails(id ,1);
 
         //Assert
-        Xunit.Assert.Equal(1, result.ViewData.ToList().Count());
+        Xunit.Assert.Equal(1, result.ViewData.Count());
     }   
 }
