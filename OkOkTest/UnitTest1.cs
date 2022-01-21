@@ -66,7 +66,6 @@ public class UnitTest1
                 ZipCode = "2927AB",
                 Country = "Nederland"
             },
-            ChatToken = new Guid(){},
 
         };
         ClientApplicationUser client2 =  new ClientApplicationUser(){
@@ -80,7 +79,6 @@ public class UnitTest1
                 ZipCode = "2927AB",
                 Country = "Nederland"
             },
-            ChatToken = new Guid(){},
         };
         c.ClientApplicationUsers.Add(client1);
         c.ClientApplicationUsers.Add(client2);
@@ -112,7 +110,6 @@ public class UnitTest1
                 ZipCode = "2927AB",
                 Country = "Nederland"
             },
-            ChatToken = new Guid(){},
 
         };
         Report report1 = new Report(){
@@ -167,7 +164,6 @@ public class UnitTest1
                 ZipCode = "2927AB",
                 Country = "Nederland"
             },
-            ChatToken = new Guid(){},
 
         };
         Report report1 = new Report(){
@@ -222,7 +218,6 @@ public class UnitTest1
                 ZipCode = "2927AB",
                 Country = "Nederland"
             },
-            ChatToken = new Guid(){},
 
         };
         Report report1 = new Report(){
@@ -285,7 +280,6 @@ public class UnitTest1
                     ZipCode = "2927AB",
                     Country = "Nederland"
                 },
-                ChatToken = new Guid(){},
             },
             DoctorApplicationUser = d1
         };
