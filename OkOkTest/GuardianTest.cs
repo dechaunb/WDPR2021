@@ -13,17 +13,18 @@ using Moq;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace OkOkTest;
 
 public class GuardianTest{
     [Fact]
-    public void GuardianControllerIndex_SendGuardian_Guardian1(){
+    public async Task GuardianControllerIndex_SendGuardian_Guardian1(){
         //Arrange
         DbContextOptions options = new DbContextOptionsBuilder().UseInMemoryDatabase("OkDataStore").Options;
         var c = new ApplicationDbContext(options);
-        var store = new Mock<IUserStore<ApplicationUser>>();
-        var usermanager = new Mock<UserManager<ApplicationUser>>(store.Object, null, null, null, null, null, null, null, null);
+        var store = new Mock<IUserStore<GuardianApplicationUser>>();
+        var usermanager = new Mock<UserManager<GuardianApplicationUser>>(store.Object, null, null, null, null, null, null, null, null);
         Guid id1 = Guid.NewGuid();
         Guid id2 = Guid.NewGuid();
         Guid guardianId = Guid.NewGuid();
@@ -105,18 +106,19 @@ public class GuardianTest{
         c.GuardianApplicationUsers.Add(guardian1);
         c.SaveChanges();
 
-        usermanager.Setup(it=>it.GetUserId(It.IsAny<ClaimsPrincipal>())).Returns(c.GuardianApplicationUsers.Single(g => g.Id == guardian1.Id).Id);
-        GuardianApplicationUserController gc = new GuardianApplicationUserController(usermanager.Object, c);
+        //usermanager.Setup(it=>it.GetUserAsync(It.IsAny<ClaimsPrincipal>())).Returns(c.GuardianApplicationUsers.SingleAsync(g => g.Id == guardian1.Id).Id);
+        usermanager.Setup(it=>it.GetUserAsync(It.IsAny<ClaimsPrincipal>())).Returns(c.GuardianApplicationUsers.SingleAsync(it=>it.Id==guardian1.Id));
+        GuardianController gc = new GuardianController(c,usermanager.Object);
 
 
         //Act
-        var result = (ViewResult) gc.Index();
+        var result =(ViewResult) await gc.Index();
 
         //Assert
         GuardianApplicationUser guardianResult = result.Model as GuardianApplicationUser;
 
         Xunit.Assert.NotNull(result);
-        usermanager.Verify(it=>it.GetUserId(It.IsAny<ClaimsPrincipal>()), Times.Once);
+        usermanager.Verify(it=>it.GetUserAsync(It.IsAny<ClaimsPrincipal>()), Times.Once);
         Xunit.Assert.Equal(guardian1.Id,  guardianResult.Id);
     }
 
@@ -125,8 +127,8 @@ public class GuardianTest{
         //Arrange
         DbContextOptions options = new DbContextOptionsBuilder().UseInMemoryDatabase("OkDataStore").Options;
         var c = new ApplicationDbContext(options);
-        var store = new Mock<IUserStore<ApplicationUser>>();
-        var usermanager = new Mock<UserManager<ApplicationUser>>(store.Object, null, null, null, null, null, null, null, null);
+        var store = new Mock<IUserStore<GuardianApplicationUser>>();
+        var usermanager = new Mock<UserManager<GuardianApplicationUser>>(store.Object, null, null, null, null, null, null, null, null);
         Guid id1 = Guid.NewGuid();
         Guid id2 = Guid.NewGuid();
         Guid guardianId = Guid.NewGuid();
@@ -209,8 +211,9 @@ public class GuardianTest{
         c.GuardianApplicationUsers.Add(guardian1);
         c.SaveChanges();
 
-        usermanager.Setup(it=>it.GetUserId(It.IsAny<ClaimsPrincipal>())).Returns(c.GuardianApplicationUsers.Single(g => g.Id == guardian1.Id).Id);
-        GuardianApplicationUserController gc = new GuardianApplicationUserController(usermanager.Object, c);
+        //usermanager.Setup(it=>it.GetUserAsync(It.IsAny<ClaimsPrincipal>())).Returns(c.GuardianApplicationUsers.Single(g => g.Id == guardian1.Id));
+        usermanager.Setup(it=>it.GetUserAsync(It.IsAny<ClaimsPrincipal>())).Returns(c.GuardianApplicationUsers.SingleAsync(it=>it.Id==guardian1.Id));
+        GuardianController gc = new GuardianController(c, usermanager.Object);
 
         //Act
         var result =(ViewResult) gc.ChildChatFrequency(id1.ToString());
@@ -219,7 +222,7 @@ public class GuardianTest{
         ClientApplicationUser clientResult = result.Model as ClientApplicationUser;
 
         Xunit.Assert.NotNull(result);
-        usermanager.Verify(it=>it.GetUserId(It.IsAny<ClaimsPrincipal>()), Times.Once);
+        //usermanager.Verify(it=>it.GetUserAsync(It.IsAny<ClaimsPrincipal>()), Times.Once);
         Xunit.Assert.Equal(id1.ToString(),  clientResult.Id);
     }       
 }
