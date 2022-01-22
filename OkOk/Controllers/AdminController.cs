@@ -30,7 +30,7 @@ namespace OkOk.Controllers
         }
 
         // GET: Message
-        public IActionResult Index(int? pageNumberDoctors, int? pageNumberClient, int? pageNumberReport, string? searchString)
+        public IActionResult Index(int? pageNumberDoctors, int? pageNumberClient, int? pageNumberReport, string searchString)
         {
             //Dokterslijst
             var applicationDbContext = _context.DoctorApplicationUsers.Include(d => d.Treatments).Include(d => d.SignUpRequests);
