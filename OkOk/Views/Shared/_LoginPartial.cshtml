@@ -6,14 +6,31 @@
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
 {
-    <li class="nav-item">
-        <a id="manage" class="nav-link btn btn-outline-light" asp-area="Identity" asp-page="/Account/Manage/Index" title="Dashboard">Hi, @UserManager.GetUserName(User)!</a>
-    </li>
-    <li class="nav-item ms-3">
-        <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button id="logout" type="submit" class="nav-link btn btn-light">Uitloggen</button>
-        </form>
-    </li>
+    @if(await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), "Client"))
+    {
+        <li class="nav-item">
+            <a asp-controller="Client" asp-action="Index" title="Dashboard" id="dashboard" class="nav-link btn btn-outline-light"><i class="fa-regular fa-grid-2 me-2"></i>Dashboard</a>
+        </li>
+    }
+    @if(await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), "Guardian"))
+    {
+        <li class="nav-item">
+            <a asp-controller="Guardian" asp-action="Index" title="Dashboard" id="dashboard" class="nav-link btn btn-outline-light"><i class="fa-regular fa-grid-2 me-2"></i>Dashboard</a>
+        </li>
+    }
+    @if(await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), "Doctor"))
+    {
+        <li class="nav-item">
+            <a asp-controller="Doctor" asp-action="Index" title="Dashboard" id="dashboard" class="nav-link btn btn-outline-light"><i class="fa-regular fa-grid-2 me-2"></i>Dashboard</a>
+        </li>
+    }
+    @if(await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), "Admin"))
+    {
+        <li class="nav-item">
+            <a asp-controller="Admin" asp-action="Index" title="Dashboard" id="dashboard" class="nav-link btn btn-outline-light"><i class="fa-regular fa-grid-2 me-2"></i>Dashboard</a>
+        </li>
+    }
+    
 }
 else
 {

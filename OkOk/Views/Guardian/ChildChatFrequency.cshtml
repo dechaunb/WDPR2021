@@ -1,0 +1,43 @@
+@model OkOk.Models.Identity.ClientApplicationUser
+@{
+    ViewData["Title"] = "Ouderoverzicht";
+}
+
+<div class="container">
+    <h1>
+        @Html.DisplayFor(modelItem => modelItem.FirstName) 
+        @Html.DisplayFor(modelItem => modelItem.LastName)
+    </h1>
+
+    <a asp-action="Index" class="btn btn-primary" >Terug</a>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Datum
+                </th>
+                <th>
+                    Aantal berichten
+                </th>
+            </tr> 
+        </thead>
+        
+        <tbody>
+        @foreach (var item in Model.Sent.GroupBy(message => message.DateTime.Date)
+                                            .Select(group => new{day = group.Key, amount = group.Count()})
+                                            .ToList())
+{
+            <tr>
+                <td>
+                    @item.day.ToString("dddd dd MMMM yyyy")
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.amount)
+                </td>
+            </tr>
+}
+
+        </tbody>
+    </table>
+</div>
