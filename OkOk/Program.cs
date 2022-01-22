@@ -28,6 +28,7 @@ builder.Services.AddIdentityCore<ChatApplicationUser>(options => options.SignIn.
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddIdentityCore<ClientApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddTokenProvider<DataProtectorTokenProvider<ClientApplicationUser>>(TokenOptions.DefaultProvider);
 
@@ -44,7 +45,12 @@ builder.Services.AddScoped<SignInManager<DoctorApplicationUser>, SignInManager<D
 builder.Services.AddScoped<UserManager<DoctorApplicationUser>, UserManager<DoctorApplicationUser>>();
 
 builder.Services.AddIdentityCore<GuardianApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddTokenProvider<DataProtectorTokenProvider<GuardianApplicationUser>>(TokenOptions.DefaultProvider);
+
+builder.Services.AddScoped<SignInManager<GuardianApplicationUser>, SignInManager<GuardianApplicationUser>>();
+builder.Services.AddScoped<UserManager<GuardianApplicationUser>, UserManager<GuardianApplicationUser>>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

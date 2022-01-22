@@ -1,47 +1,72 @@
 @model GuardianApplicationUser
 @{
     ViewData["Title"] = "Ouderoverzicht";
+    Layout = "_GuardianLayout";
 }
 
-<div class="container">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.FirstName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.LastName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Email)
-                </th>
-                <th>
+<header>
+    <div class="m-0 p-0 row gx-xl-3 gx-2">
+        <div class="col-12">
+            <h1 class="text-dark fs-3">
+                @{
+                    ApplicationUser applicationUser = await UserManager.GetUserAsync(User);
+                    string fullName = applicationUser.FullName();
+                }
+                Welkom, @fullName
+            </h1>
+            <h2 class="fs-6 fw-normal text-muted">Een fijne dag toegewenst.</h2>
+        </div>
+    </div>
+</header>
 
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.Children)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.FirstName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.LastName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Email)
-                    </td>
-                    <td>
-                        <div class="col-6 justify-content-center">
-                            <a class="btn btn-primary" asp-action="ChildChatFrequency"
-                            asp-route-id="@item.Id">Chatfrequentie</a>
+<div class="container-fluid py-2 m-0 p-0 text-dark">
+    <h1 class="visually-hidden">Acties Uitvoeren</h1>
+    <div class="row m-0 p-0 g-xl-3 g-2 d-flex align-items-start align-content-start">
+        <div class="col-12 mt-0">
+            <div class="row m-0 p-0">
+                <div class="col-12 py-3 px-0 d-flex justify-content-between">
+                    <div class="d-flex align-items-end align-content-end m-0 p-0">
+                        <h2 class="fs-4 m-0">Kinderen</h2>
+                    </div>
+                    <div class="d-flex align-items-end align-content-end m-0 p-0">
+                        <a class="text-decoration-none text-secondary fs-6" asp-area="Identity" asp-page="/Account/RegisterChild">Registreer een kind <i class="fa-regular fa-angle-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-12 okok-rounded bg-opac p-3 px-0">
+                    @foreach(var item in Model.Children)
+                    {
+                    <div class="row m-0 p-2 px-3">
+                        <div class="col-10 px-0">
+                            <div class="d-flex m-0 p-0">
+                                <h3 class="fs-5">
+                                    @Html.DisplayFor(modelItem => item.FirstName) 
+                                    @Html.DisplayFor(modelItem => item.LastName)
+                                </h3>
+                            </div>
+                            <div class="d-flex m-0 p-0">
+                                <h4 class="fs-6 fw-normal text-muted">
+                                    @Html.DisplayFor(modelItem => item.Email)
+                                </h4>
+                            </div>
                         </div>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+                        <div class="col-2 px-0 d-flex justify-content-end">
+                            <div class="d-flex m-0 p-0">
+                                @if(!item.OldEnough)
+                                {
+                                <a asp-action="ChildChatFrequency" asp-route-id="@item.Id" class="text-secondary d-flex align-content-center align-items-center text-decoration-none fs-3" title="Toon chatfrequentie van @item.FirstName @item.LastName">
+                                    <i class="fa-regular fa-messages me-5"></i>
+                                </a>
+                                }
+                                <a asp-action="Child" asp-route-id="@item.Id" class="text-secondary d-flex align-content-center align-items-center text-decoration-none fs-3" title="Toon meer informatie over @item.FirstName @item.LastName">
+                                    <i class="fa-regular fa-square-info"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

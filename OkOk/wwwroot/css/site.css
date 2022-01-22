@@ -236,11 +236,17 @@ body {
   width: 100%;
 }
 
+.nav-register .active {
+  background-color: var(--okpurple) !important;
+  color: white !important;
+  border: none;
+}
+
 
 /* Sidebar Media Query */
 @media screen and (max-width: 575.98px)
 {
-  nav .nav-pills .nav-link, nav .fa-user-doctor  {
+  .nav-pills .nav-link, .fa-user-doctor  {
     font-size: 1.5rem;
   }
 

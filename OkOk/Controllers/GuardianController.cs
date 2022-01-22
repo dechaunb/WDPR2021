@@ -35,16 +35,18 @@ namespace OkOk.Controllers
             var client = _context.ClientApplicationUsers
                             .Include(client => client.Sent)
                                 .ThenInclude(m => m.SupportGroup)
+                            .FirstOrDefault(client => client.Id.Equals(id) && !client.OldEnough);
+            
+            return View(client);
+        }
+
+        public IActionResult Child(string id)
+        {
+            var client = _context.ClientApplicationUsers
+                            .Include(client => client.Sent)
+                                .ThenInclude(m => m.SupportGroup)
                             .FirstOrDefault(client => client.Id.Equals(id));
 
-            // var frequency = _context.ClientApplicationUsers
-            //                 .Include(client => client.Sent)
-            //                 .FirstOrDefault(client => client.Id.Equals(id))
-            //                 .Sent.GroupBy(message => message.DateTime)
-            //                     .Select(group => new KeyValuePair<DateTime, int>(group.Key, group.Count()))
-            //                     // .ToDictionary(group => group.Key.Date.ToString("dddd dd MMMM yyyy"), group => group.Count())
-            //                     .ToList();
-            
             return View(client);
         }
     }
