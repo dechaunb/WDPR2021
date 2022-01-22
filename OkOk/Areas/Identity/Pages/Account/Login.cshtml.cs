@@ -103,24 +103,6 @@ namespace OkOk.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    var user = await _userManager.GetUserAsync(User);
-
-                    if(await _userManager.IsInRoleAsync(user, "Client"))
-                    {
-                        return RedirectToAction("Index", "Client");
-                    }
-                    if(await _userManager.IsInRoleAsync(user, "Doctor"))
-                    {
-                        return RedirectToAction("Index", "Doctor");
-                    }
-                    if(await _userManager.IsInRoleAsync(user, "Admin"))
-                    {
-                        return RedirectToAction("Index", "Admin");
-                    }
-                    if(await _userManager.IsInRoleAsync(user, "Guardian"))
-                    {
-                        return RedirectToAction("Index", "Guardian");
-                    }
 
                     return LocalRedirect(returnUrl);
                 }
