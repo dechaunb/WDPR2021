@@ -28,7 +28,8 @@ namespace OkOk.Controllers
         }
 
         public IActionResult Chats(){
-            return View();
+            
+            return RedirectToAction("Messages",User.IsInRole("Doctor")?"Doctor":"Client");
         }
 
         public IActionResult Index()
@@ -66,11 +67,26 @@ namespace OkOk.Controllers
         }
 
         public async Task<JsonResult> GetGroupChats(){
-            var user = await _context.ChatApplicationUsers.Include(it=>it.SupportGroups).SingleAsync(it=>it.Id== _UserManager.GetUserId(User));
+            var user = await _context.ChatApplicationUsers.Include(it=>it.SupportGroups).ThenInclude(it=>it.Received).SingleAsync(it=>it.Id== _UserManager.GetUserId(User));
 
-            var groupchats = user.SupportGroups.Select(it=>new {name=it.Name, id=it.Id.ToString()});
+            var groupchats = user.SupportGroups.Select(
+                it=>{
+                    if (_context.Messages.Where(message=>message.SupportGroup==it).Count()>0)
+                        return new ValueTuple<SupportGroup,Message>(
+                            it, 
+                            it.Received.OrderBy(it=>it.DateTime).Last());
+                    else
+                        return new ValueTuple<SupportGroup,Message>(
+                            it, 
+                            null);
+            }).OrderByDescending(it=>it.Item2.DateTime);
 
-            return Json(groupchats);
+            return Json(groupchats.Select(it=>new{
+                id=it.Item1.Id,
+                name=it.Item1.Name,
+                lastmessage=it.Item2.Content,
+                DateTime=it.Item2.DateTime
+            }));
         }
 
         public async Task<IActionResult> NewGroupChat(int? pageNumber, string searchString, string currentFilter){
@@ -136,7 +152,7 @@ namespace OkOk.Controllers
 
         public async Task GroupMessageCreate([FromBody]ChatViewModel gm)
         {
-            var group =_context.SupportGroups.Include(it=>it.Received).Single(it=>it.Id.ToString().ToLower()==gm.receiver);
+            var group =_context.SupportGroups.Include(it=>it.Received).Include(it=>it.ChatApplicationUsers).ThenInclude(it=>it.Received).Single(it=>it.Id.ToString().ToLower()==gm.receiver);
             var user = await _UserManager.GetUserAsync(User);
             Message message = new Message(){
                 Id = Guid.NewGuid(),
@@ -148,10 +164,15 @@ namespace OkOk.Controllers
                 GroupId=group.Id,
                 Receivers=group.ChatApplicationUsers
             };
+            group.Received.Add(message);
+            _context.Update(group);
+            foreach( var item in group.ChatApplicationUsers){
+                item.Received.Add(message);
+                _context.Update(item);    
+            }
             _context.Add(message);
             await _context.SaveChangesAsync();
         }
-
 
         //Personal Chats
         public async Task<IActionResult> Hub(string id){
@@ -171,17 +192,25 @@ namespace OkOk.Controllers
         public async Task<JsonResult> GetChats(){
             var user = await _context.ChatApplicationUsers.Include(it=>it.Received).ThenInclude(it=>it.SupportGroup).SingleAsync(it=>it.Id== _UserManager.GetUserId(User));
             List<Guid> messages = new List<Guid>();
-            var Chats = new List<ChatApplicationUser>();
+            var Chats = new List<ValueTuple<ChatApplicationUser,Message>>();
             if (user.Received!=null&& messages!=null){
                 messages = user.Received.Where(it=>it.SupportGroup==null).Select(it=>it.Id).ToList();
 
                 foreach (var u in _context.ChatApplicationUsers.Include(it=>it.Received).ThenInclude(it=>it.SupportGroup)){
                     if (u!=user&&u.Received.Where(it=>messages.Contains(it.Id)).Count()>0){
-                        Chats.Add(u);
+                        Chats.Add(new ValueTuple<ChatApplicationUser,Message>(u,(await GetChatMessages(u.UserName)).Last()));
                     }
                 }
             }
-            return Json(Chats.Select(it=>it.UserName));
+            return Json(Chats.Select(it=>
+            new {
+                id=it.Item1.UserName, 
+                name=it.Item1.FullName(),
+                lastmessage=it.Item2.Content,
+                DateTime=it.Item2.DateTime
+                }
+            ).OrderByDescending(it=>it.DateTime)
+            );
         }
 
 
@@ -222,5 +251,6 @@ namespace OkOk.Controllers
             _context.Messages.Add(message);
             await _context.SaveChangesAsync();
         }
+    
     }
 }

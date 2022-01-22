@@ -60,8 +60,8 @@
         // is not interpreted as markup. If you're assigning in any other way, you 
         // should be aware of possible script injection concerns.
         var a = document.createElement("a");
-        a.setAttribute('href', `@Url.Action("Hub", "Message")?id=${user}`);
-        a.textContent = `${user}`;
+        a.setAttribute('href', `@Url.Action("Hub", "Message")?id=${user.id}`);
+        a.textContent = `${user.name}`;
         li.appendChild(a);
     }
 
@@ -76,23 +76,13 @@
         })
         .then(j => {
             for (var i = 0; i < j.length; i++) { 
-                renderGroup("groupchats",j[i]);
+                render("groupchats",j[i]);
             }
         })
         .catch(r => alert("Er is een fout opgetreden: " + r));
 
     }
 
-    function renderGroup (target, user) {
-        var li = document.createElement("li");
-        document.getElementById(target).appendChild(li);
-        // We can assign user-supplied strings to an element's textContent because it
-        // is not interpreted as markup. If you're assigning in any other way, you 
-        // should be aware of possible script injection concerns.
-        var a = document.createElement("a");
-        a.setAttribute('href', `@Url.Action("GroupHub", "Message")?id=${user.id}`);
-        a.textContent = `${user.name}`;
-        li.appendChild(a);
-    }
+
 
 </script>

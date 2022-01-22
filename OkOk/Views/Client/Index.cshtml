@@ -1,0 +1,276 @@
+@model OkOk.Models.ClientDashboardViewModel;
+@{
+    ViewData["Title"] = "Overzicht";
+    Layout = "_ClientLayout";
+}
+
+<header>
+    <div class="m-0 p-0 row gx-xl-3 gx-2">
+        <div class="col-12">
+            <h1 class="text-dark fs-3">
+                @{
+                    ApplicationUser applicationUser = await UserManager.GetUserAsync(User);
+                    string volledigenaam = applicationUser.FullName();
+                }
+                Welkom, @volledigenaam
+            </h1>
+            <h2 class="fs-6 fw-normal text-muted">Een fijne dag toegewenst.</h2>
+        </div>
+    </div>
+</header>
+
+<div class="container-fluid py-2 p-0">
+    <h1 class="visually-hidden">Statistieken</h1>
+    <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-4 g-2 gx-xl-3 m-0 p-0">
+        <div class="col">
+            <div class="p-3 bg-primary okok-rounded align-items-center d-flex align-content-center">
+                <div class="d-inline-flex stat-card-icon bg-opac text-white rounded-circle p-4">
+                    <i style="width:24px;" class="fa-regular fa-calendar fs-4 text-center"></i>
+                </div>
+                <div class="d-inline-flex stat-card-text text-white ms-3">
+                    <h2 class="m-0">
+                        <div class="d-flex align-content-end align-items-end m-0 p-0">
+                            <span class="fs-2 m-0 p-0">@Html.DisplayFor(modelItem => modelItem.AppointmentsDashboard.Count)</span>
+                        </div>
+                        <div class="d-flex align-content-start align-items-start m-0 p-0">
+                            <span class="fs-5 fw-normal ms-1 ms-md-0 m-0 p-0 text-white">
+                                @if(Model.AppointmentsDashboard.Count < 1 || Model.AppointmentsDashboard.Count > 1)
+                                {
+                                    @Html.Raw("Afspraken")
+                                }
+                                else
+                                {
+                                    @Html.Raw("Afspraak")
+                                }
+                            </span>
+                        </div>
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="p-3 bg-light okok-rounded align-items-center d-flex align-content-center">
+                <div class="d-inline-flex stat-card-icon bg-opac text-dark rounded-circle p-4">
+                    <i style="width:24px;" class="fa-regular fa-calendar fs-4 text-center"></i>
+                </div>
+                <div class="d-inline-flex stat-card-text text-dark ms-3">
+                    <h2 class="m-0">
+                        <div class="d-flex align-content-end align-items-end m-0 p-0">
+                            <span class="fs-2 m-0 p-0">24k</span>
+                        </div>
+                        <div class="d-flex align-content-start align-items-start m-0 p-0">
+                            <span class="fs-5 fw-normal ms-1 ms-md-0 m-0 p-0 text-dark">
+                                Berichten
+                            </span>
+                        </div>
+                    </h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid py-2 m-0 p-0 text-dark">
+    <h1 class="visually-hidden">Acties Uitvoeren</h1>
+    <div class="row m-0 p-0 g-xl-3 g-2 d-flex align-items-start align-content-start">
+        <div class="col-xl-4 col-lg-6 mt-0 p">
+            <div class="row m-0 p-0">
+                <div class="col-12 py-3 px-0 d-flex justify-content-between">
+                    <div class="d-flex align-items-end align-content-end m-0 p-0">
+                        <h2 class="fs-4 m-0">Privégesprekken</h2>
+                    </div>
+                    <div class="d-flex align-items-end align-content-end m-0 p-0">
+                        <a class="text-decoration-none text-secondary fs-6" asp-controller="message" asp-action="chats">Toon meer <span class="visually-hidden">privégesprekken</span><i class="fa-regular fa-angle-right"></i></a>
+                    </div>
+                </div>
+
+                <div id="GesprekkenLijst" class="col-12 okok-rounded bg-opac p-3 px-0">
+                    
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-lg-6 mt-0 p">
+            <div class="row m-0 p-0">
+                <div class="col-12 py-3 px-0 d-flex justify-content-between">
+                    <div class="d-flex align-items-end align-content-end m-0 p-0">
+                        <h2 class="fs-4 m-0">Zelfhulpgroepen</h2>
+                    </div>
+                    <div class="d-flex align-items-end align-content-end m-0 p-0">
+                        <a class="text-decoration-none text-secondary fs-6" asp-controller="message" asp-action="chats">Toon meer <span class="visually-hidden">groepsgesprekken</span><i class="fa-regular fa-angle-right"></i></a>
+                    </div>
+                </div>
+
+                <div id="GroepsGesprekkenLijst" class="col-12 okok-rounded bg-opac p-3 px-0">
+                    
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-xl-4 col-12 mt-0">
+            <div class="row m-0 p-0">
+                <div class="col-12 py-3 px-0 d-flex justify-content-between">
+                    <div class="d-flex align-items-end align-content-end m-0 p-0">
+                        <h2 class="fs-4 m-0">Afspraken Vandaag</h2>
+                    </div>
+                    <div class="d-flex align-items-end align-content-end m-0 p-0">
+                        <a class="text-decoration-none text-secondary fs-6" href="#">Toon meer <span class="visually-hidden">afspraken</span><i class="fa-regular fa-angle-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-12 okok-rounded bg-opac p-3 px-0">
+                    @foreach(var item in Model.AppointmentsTodayDashboard.Take(6))
+                    {
+                    <div class="row m-0 p-2 px-3">
+                        <div class="col-8 px-0">
+                            <div class="d-flex m-0 p-0">
+                                <h3 class="fs-5">
+                                    @Html.DisplayFor(modelItem => item.ClientApplicationUser.FirstName) 
+                                    @Html.DisplayFor(modelItem => item.ClientApplicationUser.LastName)
+                                </h3>
+                            </div>
+                            <div class="d-flex m-0 p-0">
+                                <h4 class="fs-6 fw-normal text-muted">
+                                    @Html.DisplayFor(modelItem => item.Description)
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="col-4 px-0 d-flex justify-content-end">
+                            <div class="d-flex m-0 p-0">
+                                <p class="text-secondary d-flex align-content-center align-items-center text-decoration-none fs-5">
+                                    <span class="visually-hidden">Afspraak staat gepland op</span> <i class="fa-regular fa-clock me-2"></i> 
+                                    @item.DateTime.ToString("HH:mm")
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-12 mt-0">
+            <div class="row m-0 p-0">
+                <div class="col-12 py-3 px-0 d-flex justify-content-between">
+                    <div class="d-flex align-items-end align-content-end m-0 p-0">
+                        <h2 class="fs-4 m-0">Recente Hulpverleners</h2>
+                    </div>
+                    <div class="d-flex align-items-end align-content-end m-0 p-0">
+                        <a class="text-decoration-none text-secondary fs-6" href="#">Toon meer <span class="visually-hidden">recente hulpverleners</span><i class="fa-regular fa-angle-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-12 okok-rounded bg-opac p-3 px-0">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class="table-primary">
+                                <tr>
+                                    <th><h3 class="fs-6 m-0">Hulpverlener naam</h3></th>
+                                    <th><h3 class="fs-6 m-0">Laatste Datum</h3></th>
+                                    <th><h3 class="fs-6 m-0">Laatste Behandeling</h3></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach(var item in Model.RecentDoctorsDashboard.Take(6))
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.FirstName) 
+                                            @Html.DisplayFor(modelItem => item.LastName)
+                                        </td>
+                                        <td>
+                                            @item.Treatments.Where(treat => treat.DateTime.CompareTo(DateTime.Now) < 0).OrderByDescending(treat => treat.DateTime).FirstOrDefault().DateTime.ToString("dddd dd MMMM yyyy HH:mm")
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Treatments.Where(treat => treat.DateTime.CompareTo(DateTime.Now) < 0).OrderByDescending(treat => treat.DateTime).FirstOrDefault().Description)
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script >
+    window.onload=()=>{
+
+        getChats("GetChats","GesprekkenLijst")
+        getChats("GetGroupChats","GroepsGesprekkenLijst")
+    }
+    function getChats(method,target){
+        fetch("/Message/"+method , {
+            method: "GET"
+        }).then(r => {
+            if(r.status == 200)
+                return r.json()
+            else
+                throw "Status: " + r.status;
+        })
+        .then(j => {
+            for (var i = 0; i < j.length; i++) { 
+                if (i<6)
+                {
+                    render(target,j[i]);
+                }
+            }
+        })
+        .catch(r => alert("Er is een fout opgetreden: " + r));
+
+    }
+
+    function render (target, user) {
+        var itemContainer = document.createElement("div");
+        itemContainer.classList.add("row","m-0","p-2","px-3")
+        
+        var itemContainerBeschrijving = document.createElement("div");
+        itemContainerBeschrijving.classList.add("col-8", "px-0")
+        
+        var itemContainerKnop = document.createElement("div");
+        itemContainerKnop.classList.add("col-4","px-0","d-flex","justify-content-end")
+
+        document.getElementById(target).appendChild(itemContainer);
+        itemContainer.appendChild(itemContainerBeschrijving);
+        itemContainer.appendChild(itemContainerKnop);
+        
+        var itemSubContainerBeschrijving1 = document.createElement("div");
+        itemSubContainerBeschrijving1.classList.add("d-flex","m-0","p-0");
+        itemContainerBeschrijving.appendChild(itemSubContainerBeschrijving1);
+
+        var itemSubContainerBeschrijving2 = document.createElement("div");
+        itemSubContainerBeschrijving2.classList.add("d-flex","m-0","p-0");
+        itemContainerBeschrijving.appendChild(itemSubContainerBeschrijving2);
+
+        var beschrijvingTitle = document.createElement("h3");
+        beschrijvingTitle.classList.add("fs-5");
+        beschrijvingTitle.textContent = `${user.name}`;
+        itemSubContainerBeschrijving1.appendChild(beschrijvingTitle);
+        
+        var beschrijvingInfo = document.createElement("h4");
+        beschrijvingInfo.classList.add("fs-6","fw-normal","text-muted");
+        beschrijvingInfo.textContent = `Laatste bericht: ${user.lastmessage}`;
+        itemSubContainerBeschrijving2.appendChild(beschrijvingInfo);
+
+
+        var itemSubContainerKnop = document.createElement("div");
+        itemSubContainerKnop.classList.add("d-flex", "m-0", "p-0")
+        var knop = document.createElement("a");
+        if (target == "GesprekkenLijst"){
+            knop.setAttribute('href', `@Url.Action("Hub", "Message")?id=${user.id}`);
+            knop.setAttribute('aria-label', `ga naar het privégesprek met: ${user.name}`);
+        }
+        else {
+            knop.setAttribute('href', `@Url.Action("GroupHub", "Message")?id=${user.id}`);
+            knop.setAttribute('aria-label', `ga naar het groepsgesprek met de groep: ${user.name}`);
+        }        
+        knop.classList.add("text-secondary","d-flex","align-content-center","align-items-center","text-decoration-none","fs-3")
+        var icon = document.createElement("i");
+        icon.classList.add("fa-regular","fa-paper-plane")
+        knop.appendChild(icon)
+
+        itemSubContainerKnop.appendChild(knop);
+        itemContainerKnop.appendChild(itemSubContainerKnop);
+    }
+</script >
