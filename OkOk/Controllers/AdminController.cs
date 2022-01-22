@@ -30,13 +30,17 @@ namespace OkOk.Controllers
         }
 
         // GET: Message
-        public IActionResult Index(int? pageNumberDoctors, int? pageNumberClient, int? pageNumberReport)
+        public IActionResult Index(int? pageNumberDoctors, int? pageNumberClient, int? pageNumberReport, string? searchString)
         {
             //Dokterslijst
             var applicationDbContext = _context.DoctorApplicationUsers.Include(d => d.Treatments).Include(d => d.SignUpRequests);
             int pageSizeDoctors = 5;
             List<DoctorApplicationUser> doctorsPaginated = PaginatedList<DoctorApplicationUser>.CreateAsync(applicationDbContext.ToList(), pageNumberDoctors ?? 1, pageSizeDoctors);
 
+            if(!String.IsNullOrEmpty(searchString)){
+                doctorsPaginated = PaginatedList<DoctorApplicationUser>
+                .CreateAsync(applicationDbContext.Where(doc => doc.FirstName.Contains(searchString)|| doc.LastName.Contains(searchString) || doc.Email.Contains(searchString)).ToList(), pageNumberDoctors ?? 1, pageSizeDoctors);
+            }
             //Cliëntenlijst
             var clientenLijst = _context.ClientApplicationUsers.Include(c => c.Treatments).ThenInclude(c => c.DoctorApplicationUser).ToList();
             int pageSizeClients = 5;

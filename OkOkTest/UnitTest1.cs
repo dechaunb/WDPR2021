@@ -42,7 +42,7 @@ public class UnitTest1
         c.SaveChanges();
 
         //Act
-        var DoctorsListResult = (ViewResult)acon.Index(1, 1, 1);
+        var DoctorsListResult = (ViewResult)acon.Index(1, 1, 1, null);
 
         //Assert
         Xunit.Assert.Equal(2, DoctorsListResult.ViewData.Count());
@@ -85,7 +85,7 @@ public class UnitTest1
         c.SaveChanges();
 
         //Act
-        var result = (ViewResult)acon.Index(1,1,1);
+        var result = (ViewResult)acon.Index(1,1,1, null);
 
         //Assert
         List<ClientApplicationUser>? clientList = result.ViewData["AllClients"] as List<ClientApplicationUser>;
@@ -137,7 +137,7 @@ public class UnitTest1
         Console.WriteLine(c.Reports.Select(r => r.Id).First());
 
         //Act
-        var result = (ViewResult)acon.Index(1,1,1);
+        var result = (ViewResult)acon.Index(1,1,1, null);
 
         //Assert
         List<SummarisedReport>? reportList = result.ViewData["UnfinishedReports"] as List<SummarisedReport>;
