@@ -1,0 +1,133 @@
+﻿@page
+@model RegisterChildModel
+@{
+    ViewData["Title"] = "Kind aanmelden voor OkOk";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center m-0 p-0">
+        <div class="col-md-6 m-0 p-0">
+            <form id="registerForm" method="post" class="row g-2 m-0 p-0">
+                <h1 class="text-primary">
+                    @ViewData["Title"]
+                </h1>
+                <h2 class="text-muted">Meld uw kind aan voor OkOk.</h2>
+                <h3 class="text-muted fs-6 fw-normal">
+                    Bij het aanmelden via deze pagina wordt de aanvraag voor uw kind in behandeling genomen.
+                     Dit doet de orthopedagoog om te kijken
+                    of hij ruimte heeft in zijn rooster. Na het aanmelden op deze pagina kan je dus ook <b>niet</b> inloggen.
+                </h3>
+                <hr />
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        <input asp-for="Input.FirstName" class="form-control" autocomplete="firstname" aria-required="true" />
+                        <label asp-for="Input.FirstName"></label>
+                        <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        <input asp-for="Input.LastName" class="form-control" autocomplete="lastname" aria-required="true" />
+                        <label asp-for="Input.LastName"></label>
+                        <span asp-validation-for="Input.LastName" class="text-danger"></span>
+                    </div>
+                </div>
+                
+                <div class="col-12">
+                    <div class="form-floating">
+                        <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
+                        <label asp-for="Input.Email"></label>
+                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="form-floating">
+                        <input asp-for="Input.BirthDate" class="form-control" autocomplete="birthdate" aria-required="true" />
+                        <label asp-for="Input.BirthDate"></label>
+                        <span asp-validation-for="Input.BirthDate" class="text-danger"></span>
+                    </div>
+                </div>
+
+
+                @* Address *@
+                <div class="col-12 col-md-6">
+                    <div class="form-floating">
+                        <input asp-for="Input.Street" class="form-control" autocomplete="street" aria-required="true" />
+                        <label asp-for="Input.Street"></label>
+                        <span asp-validation-for="Input.Street" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4">
+                    <div class="form-floating">
+                        <input asp-for="Input.HouseNumber" class="form-control" autocomplete="housenumber" aria-required="true" />
+                        <label asp-for="Input.HouseNumber"></label>
+                        <span asp-validation-for="Input.HouseNumber" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-6 col-md-2">
+                    <div class="form-floating">
+                        <input asp-for="Input.HouseNumberAddition" class="form-control" autocomplete="housenumberaddition" aria-required="true" />
+                        <label asp-for="Input.HouseNumberAddition"></label>
+                        <span asp-validation-for="Input.HouseNumberAddition" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-4">
+                    <div class="form-floating">
+                        <input asp-for="Input.ZipCode" class="form-control" autocomplete="zip" aria-required="true" />
+                        <label asp-for="Input.ZipCode"></label>
+                        <span asp-validation-for="Input.ZipCode" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-8">
+                    <div class="form-floating">
+                        <input asp-for="Input.City" class="form-control" autocomplete="city" aria-required="true" />
+                        <label asp-for="Input.City"></label>
+                        <span asp-validation-for="Input.City" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="form-floating">
+                        <input asp-for="Input.Country" class="form-control" autocomplete="country" value="Nederland" aria-required="true"/>
+                        <label asp-for="Input.Country"></label>
+                        <span asp-validation-for="Input.Country" class="text-danger"></span>
+                    </div>
+                </div>
+                
+                <div class="col-12">
+                    <div class="form-floating">
+                        <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" />
+                        <label asp-for="Input.Password"></label>
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="form-floating">
+                        <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" />
+                        <label asp-for="Input.ConfirmPassword"></label>
+                        <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="form-check">
+                        <input asp-for="Input.AnotherOne" class="form-check-input" autocomplete="one-more" />
+                        <label asp-for="Input.AnotherOne" class="form-check-label">
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Aanmelden</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

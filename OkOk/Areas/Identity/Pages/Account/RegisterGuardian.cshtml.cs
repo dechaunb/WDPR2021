@@ -19,27 +19,24 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using OkOk.Models.Identity;
-using OkOk.Models;
-using OkOk.Controllers;
 
 namespace OkOk.Areas.Identity.Pages.Account
 {
-    public class RegisterModel : PageModel
+    [AllowAnonymous]
+    public class RegisterGuardianModel : PageModel
     {
-        private readonly SignInManager<ClientApplicationUser> _signInManager;
-        private readonly UserManager<ClientApplicationUser> _userManager;
-        private readonly IUserStore<ClientApplicationUser> _userStore;
-        private readonly IUserEmailStore<ClientApplicationUser> _emailStore;
-        private readonly ILogger<RegisterModel> _logger;
+        private readonly SignInManager<GuardianApplicationUser> _signInManager;
+        private readonly UserManager<GuardianApplicationUser> _userManager;
+        private readonly IUserStore<GuardianApplicationUser> _userStore;
+        private readonly IUserEmailStore<GuardianApplicationUser> _emailStore;
+        private readonly ILogger<RegisterGuardianModel> _logger;
         private readonly IEmailSender _emailSender;
-        private readonly SignUpRequestController _signUpRequestController;
 
-        public RegisterModel(
-            UserManager<ClientApplicationUser> userManager,
-            IUserStore<ClientApplicationUser> userStore,
-            SignInManager<ClientApplicationUser> signInManager,
-            ILogger<RegisterModel> logger,
-            SignUpRequestController signUpRequestController,
+        public RegisterGuardianModel(
+            UserManager<GuardianApplicationUser> userManager,
+            IUserStore<GuardianApplicationUser> userStore,
+            SignInManager<GuardianApplicationUser> signInManager,
+            ILogger<RegisterGuardianModel> logger,
             IEmailSender emailSender)
         {
             _userManager = userManager;
@@ -48,7 +45,6 @@ namespace OkOk.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
-            _signUpRequestController = signUpRequestController;
         }
 
         
@@ -87,31 +83,6 @@ namespace OkOk.Areas.Identity.Pages.Account
             [RegularExpression(@"^[a-zA-Z''-'\s]{1,40}$", 
             ErrorMessage = "Tekens niet toegestaan.")]
             public string LastName { get; set; }
-
-            [Required]
-            [Display(Name = "Postcode")]
-            [RegularExpression(@"^(?:NL-)?(\d{4})\s*([A-Z]{2})$", 
-            ErrorMessage = "Postcode moet in het format 1234AB zijn.")]
-            public string ZipCode { get; set; }
-            [Required]
-            [Display(Name = "Land")]
-            public string Country { get; set; }
-            public Guid Id { get; set; }
-            [Required]
-            [Display(Name = "Huisnummer")]
-            public int HouseNumber { get; set; }
-            [Display(Name = "Toevoeging")]
-            public string HouseNumberAddition { get; set; }
-            [Required]
-            [Display(Name = "Straat")]
-            public string Street { get; set; }
-            [Required]
-            [Display(Name = "Stad")]
-            public string City { get; set; }
-            [Required]
-            [Display(Name = "Geboortedatum")]
-            [DataType(DataType.Date)]
-            public DateTime BirthDate { get; set; }
         }
 
 
@@ -127,33 +98,12 @@ namespace OkOk.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new ClientApplicationUser {
+                var user = new GuardianApplicationUser {
                     FirstName = Input.FirstName,
                     LastName = Input.LastName,
                     UserName = Input.Email,
-                    Email = Input.Email,
-                    LockoutEnabled = true,
-                    LockoutEnd = DateTime.Now.AddYears(10),
-                    OldEnough = (new DateTime(DateTime.Now.Subtract(Input.BirthDate).Ticks).Year - 1) >= 16 ? true : false,
-                    Address = new Address()
-                    {
-                        HouseNumber = Input.HouseNumber,
-                        HouseNumberAddition = Input.HouseNumberAddition,
-                        Street = Input.Street,
-                        City = Input.City,
-                        ZipCode = Input.ZipCode,
-                        Country = Input.Country
-                    }
-                };                     
-
-                if(Input.BirthDate.CompareTo(DateTime.Now) > 0 || Input.BirthDate.Date.Equals(DateTime.Today))
-                {
-                    ModelState.AddModelError(string.Empty, "De opgegeven datum is ongeldig.");
-                }
-                if(!user.OldEnough)
-                {
-                    ModelState.AddModelError(string.Empty, "Je bent niet oud genoeg om zelf een account aan te maken. Je moet minstens 16 jaar oud zijn.");
-                }
+                    Email = Input.Email
+                };
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
@@ -161,22 +111,22 @@ namespace OkOk.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("User requested new account with password.");
+                    _logger.LogInformation("Guardian created a new account with password.");
 
-                    await _signUpRequestController.CreateRequestAsync(user);
-                    _logger.LogInformation("Signup request has been made.");
-
-                    var roleResult = await _userManager.AddToRoleAsync(user, "Client");
+                    
+                    var roleResult = await _userManager.AddToRoleAsync(user, "Guardian");
                     if(roleResult.Succeeded)
                     {
-                        _logger.LogInformation("Client added to role 'Client'.");
+                        _logger.LogInformation("Guardian added to role 'Guardian'.");
                     }
                     foreach (var error in roleResult.Errors)
                     {
                         ModelState.AddModelError(string.Empty, error.Description);
                     }
 
-                    return LocalRedirect(returnUrl);
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    
+                    return LocalRedirect("/Identity/Account/RegisterChild");
                 }
                 foreach (var error in result.Errors)
                 {
@@ -188,27 +138,27 @@ namespace OkOk.Areas.Identity.Pages.Account
             return Page();
         }
 
-        private ClientApplicationUser CreateUser()
+        private GuardianApplicationUser CreateUser()
         {
             try
             {
-                return Activator.CreateInstance<ClientApplicationUser>();
+                return Activator.CreateInstance<GuardianApplicationUser>();
             }
             catch
             {
-                throw new InvalidOperationException($"Can't create an instance of '{nameof(ClientApplicationUser)}'. " +
-                    $"Ensure that '{nameof(ClientApplicationUser)}' is not an abstract class and has a parameterless constructor, or alternatively " +
+                throw new InvalidOperationException($"Can't create an instance of '{nameof(GuardianApplicationUser)}'. " +
+                    $"Ensure that '{nameof(GuardianApplicationUser)}' is not an abstract class and has a parameterless constructor, or alternatively " +
                     $"override the register page in /Areas/Identity/Pages/Account/Register.cshtml");
             }
         }
 
-        private IUserEmailStore<ClientApplicationUser> GetEmailStore()
+        private IUserEmailStore<GuardianApplicationUser> GetEmailStore()
         {
             if (!_userManager.SupportsUserEmail)
             {
                 throw new NotSupportedException("The default UI requires a user store with email support.");
             }
-            return (IUserEmailStore<ClientApplicationUser>)_userStore;
+            return (IUserEmailStore<GuardianApplicationUser>)_userStore;
         }
     }
 }

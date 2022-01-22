@@ -16,31 +16,38 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using OkOk.Models.Identity;
 using OkOk.Models;
+using OkOk.Data;
 using OkOk.Controllers;
 
 namespace OkOk.Areas.Identity.Pages.Account
 {
-    public class RegisterModel : PageModel
+    [Authorize(Roles = "Guardian")]
+    public class RegisterChildModel : PageModel
     {
         private readonly SignInManager<ClientApplicationUser> _signInManager;
         private readonly UserManager<ClientApplicationUser> _userManager;
+        private readonly UserManager<GuardianApplicationUser> _guardianUserManager;
         private readonly IUserStore<ClientApplicationUser> _userStore;
+        private readonly ApplicationDbContext _context;
         private readonly IUserEmailStore<ClientApplicationUser> _emailStore;
-        private readonly ILogger<RegisterModel> _logger;
+        private readonly ILogger<RegisterChildModel> _logger;
         private readonly IEmailSender _emailSender;
         private readonly SignUpRequestController _signUpRequestController;
 
-        public RegisterModel(
+        public RegisterChildModel(
             UserManager<ClientApplicationUser> userManager,
             IUserStore<ClientApplicationUser> userStore,
             SignInManager<ClientApplicationUser> signInManager,
-            ILogger<RegisterModel> logger,
+            ILogger<RegisterChildModel> logger,
+            IEmailSender emailSender,
+            ApplicationDbContext context,
             SignUpRequestController signUpRequestController,
-            IEmailSender emailSender)
+            UserManager<GuardianApplicationUser> guardianUserManager)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -48,7 +55,9 @@ namespace OkOk.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _context = context;
             _signUpRequestController = signUpRequestController;
+            _guardianUserManager = guardianUserManager;
         }
 
         
@@ -112,6 +121,8 @@ namespace OkOk.Areas.Identity.Pages.Account
             [Display(Name = "Geboortedatum")]
             [DataType(DataType.Date)]
             public DateTime BirthDate { get; set; }
+            [Display(Name = "Wilt u nog een account aanmaken voor een ander kind?")]
+            public bool AnotherOne { get; set; }
         }
 
 
@@ -123,6 +134,8 @@ namespace OkOk.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
+            var getUser = await _guardianUserManager.GetUserAsync(User);
+            var loggedUser = await _context.GuardianApplicationUsers.Include(guardian => guardian.Children).FirstOrDefaultAsync(guardian => guardian.Id.Equals(getUser.Id));
             returnUrl ??= Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
@@ -135,6 +148,10 @@ namespace OkOk.Areas.Identity.Pages.Account
                     LockoutEnabled = true,
                     LockoutEnd = DateTime.Now.AddYears(10),
                     OldEnough = (new DateTime(DateTime.Now.Subtract(Input.BirthDate).Ticks).Year - 1) >= 16 ? true : false,
+                    Guardians = new List<GuardianApplicationUser>()
+                    {
+                        loggedUser
+                    },
                     Address = new Address()
                     {
                         HouseNumber = Input.HouseNumber,
@@ -150,10 +167,6 @@ namespace OkOk.Areas.Identity.Pages.Account
                 {
                     ModelState.AddModelError(string.Empty, "De opgegeven datum is ongeldig.");
                 }
-                if(!user.OldEnough)
-                {
-                    ModelState.AddModelError(string.Empty, "Je bent niet oud genoeg om zelf een account aan te maken. Je moet minstens 16 jaar oud zijn.");
-                }
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
@@ -166,6 +179,10 @@ namespace OkOk.Areas.Identity.Pages.Account
                     await _signUpRequestController.CreateRequestAsync(user);
                     _logger.LogInformation("Signup request has been made.");
 
+                    loggedUser.Children.Add(user);
+                    _context.Update(loggedUser);
+                    _context.SaveChanges();
+
                     var roleResult = await _userManager.AddToRoleAsync(user, "Client");
                     if(roleResult.Succeeded)
                     {
@@ -174,6 +191,15 @@ namespace OkOk.Areas.Identity.Pages.Account
                     foreach (var error in roleResult.Errors)
                     {
                         ModelState.AddModelError(string.Empty, error.Description);
+                    }
+
+                    if(!Input.AnotherOne)
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                    if(Input.AnotherOne)
+                    {
+                        return LocalRedirect("Identity/Account/RegisterChild");
                     }
 
                     return LocalRedirect(returnUrl);
