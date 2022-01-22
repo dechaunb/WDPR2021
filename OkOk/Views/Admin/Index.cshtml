@@ -26,9 +26,6 @@
     <thead>
         <tr>
             <th>
-                Id
-            </th>
-            <th>
                 Voornaam
             </th>
             <th>
@@ -46,9 +43,6 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.FirstName)
             </td>
@@ -95,9 +89,6 @@
     <thead>
         <tr>
             <th>
-                Id
-            </th>
-            <th>
                 Voornaam   
             </th>
             <th>
@@ -119,9 +110,6 @@
 {
         <tr>
             <td>
-                @item.Id
-            </td>
-            <td>
                 @item.FirstName
             </td>
             <td>
@@ -133,7 +121,7 @@
             <td>
                 @* @if(item.Treatments == null){<div> </div>}
                 else{ *@
-                    <div>@string.Join(", ", item.Treatments.Select(t => t.DoctorApplicationUser.Email))</div>
+                    <div>@string.Join(", ", item.Treatments.Select(t => t.DoctorApplicationUser.Email).Distinct())</div>
                 @* } *@
             </td>
             <td>
@@ -172,10 +160,7 @@
 <table class="table">
     <thead>
         <th>
-            Message Id
-        </th>
-        <th>
-            Sender Id
+            Sender Email
         </th>
         <th>
             Message Content
@@ -194,10 +179,7 @@
 {
         <tr>
             <td>
-                @item.MessageId
-            </td>
-            <td>
-                @item.SenderId
+                @item.SenderEmail
             </td>
             <td>
                 @item.Content

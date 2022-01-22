@@ -45,8 +45,12 @@ namespace OkOk.Controllers
             //MeldingLijst
             var meldingLijst = _context.Reports.Where(r => r.Handled == false).
             GroupBy(r => r.MessageReport.MessageId).
-            Select(g => new{MessageId = g.Key, SenderId= _context.Messages.Where(r => r.Id == g.Key).Select(r => r.SenderId).Single()
-            ,Aantal = g.Count(), Content= _context.Messages.Where(r => r.Id == g.Key).Select(r => r.Content).Single()}).OrderByDescending(r => r.Aantal).ToList();
+            Select(g => new{MessageId = g.Key, 
+                            SenderId = _context.Messages.Where(r => r.Id == g.Key).Select(r => r.SenderId).Single(),
+                            SenderEmail= _context.Messages.Where(r => r.Id == g.Key).Select(r => r.Sender.Email).Single(),
+                            Aantal = g.Count(),
+                            Content= _context.Messages.Where(r => r.Id == g.Key).Select(r => r.Content).Single()}).OrderByDescending(r => r.Aantal)
+                            .ToList();
             int pageSizeReport = 5;
             List<SummarisedReport> SumReportList = new List<SummarisedReport>();
             foreach (var item in meldingLijst)
@@ -54,6 +58,7 @@ namespace OkOk.Controllers
                 SumReportList.Add(new SummarisedReport(){
                     MessageId = item.MessageId,
                     SenderId = item.SenderId,
+                    SenderEmail = item.SenderEmail,
                     Amount = item.Aantal,
                     Content = item.Content
                 });
