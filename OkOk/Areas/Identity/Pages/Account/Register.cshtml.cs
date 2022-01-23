@@ -134,6 +134,7 @@ namespace OkOk.Areas.Identity.Pages.Account
                     Email = Input.Email,
                     LockoutEnabled = true,
                     LockoutEnd = DateTime.Now.AddYears(10),
+                    LockedOutReason = "SignUp Request Pending",
                     OldEnough = (new DateTime(DateTime.Now.Subtract(Input.BirthDate).Ticks).Year - 1) >= 16 ? true : false,
                     Address = new Address()
                     {

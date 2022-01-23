@@ -16,7 +16,6 @@ namespace OkOk.Models
         public DateTime DateTime { get; set; }
 
     	//Foreign Keys
-        [Required]
         public string SenderId { get; set; }
         public ChatApplicationUser Sender { get; set; }
         public Guid? GroupId { get; set; }

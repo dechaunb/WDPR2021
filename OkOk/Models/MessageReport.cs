@@ -12,7 +12,6 @@ namespace OkOk.Models
         [Required]
         public Guid? MessageId { get; set; }
         public Message Message { get; set; }
-        [Required]
         public Guid? ReportId { get; set; }
         public Report Report { get; set; }
     }

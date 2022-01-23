@@ -90,7 +90,6 @@ namespace OkOk.Data
                         .HasOne(client => client.SignUpRequest)
                         .WithOne(signup => signup.ClientApplicationUser)
                         .HasForeignKey<SignUpRequest>(signup => signup.ClientId)
-                        .IsRequired()
                         .OnDelete(DeleteBehavior.SetNull);
 
             modelBuilder.Entity<SignUpRequest>()
