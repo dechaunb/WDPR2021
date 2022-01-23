@@ -193,4 +193,21 @@ public class DoctorController : Controller
         {
             return _context.SignUpRequests.Any(e => e.Id == id);
         }
+
+        public IActionResult Messages(){
+            return View();
+        }
+        public IActionResult Appointments(){
+            return View();
+        }
+        public async Task<JsonResult> GetAppointments(){
+            DoctorApplicationUser user = await _context.DoctorApplicationUsers.Include(it=>it.Treatments).SingleAsync(it=>it.Id== _userManager.GetUserId(User));
+            var list = _context.Treatments.Where(it=>it.DoctorId==user.Id).Select(it=>new{
+                Title=it.Description+" van "+it.ClientApplicationUser.FullName(),
+                DateTime=it.DateTime.ToString()
+            });
+            return Json(list);
+        }
+
+        
 }
