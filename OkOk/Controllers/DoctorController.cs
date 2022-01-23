@@ -42,6 +42,7 @@ public class DoctorController : Controller
         doctorDashboard.SignUpRequestsDashboard = await _context.SignUpRequests
                                                             .Include(sur => sur.DoctorApplicationUser)
                                                             .Include(sur => sur.ClientApplicationUser)
+                                                            .Where(sur => sur.ClientApplicationUser != null && sur.DoctorApplicationUser != null)
                                                             .Where(sur => sur.DoctorApplicationUser.Equals(user))
                                                             .Where(sur => sur.Handled.Equals(false))
                                                             .ToListAsync();
@@ -49,6 +50,7 @@ public class DoctorController : Controller
         doctorDashboard.ClientsDashboard = await _context.SignUpRequests
                                                             .Include(sur => sur.DoctorApplicationUser)
                                                             .Include(sur => sur.ClientApplicationUser)
+                                                            .Where(sur => sur.ClientApplicationUser != null && sur.DoctorApplicationUser != null)
                                                             .Where(sur => sur.DoctorApplicationUser.Equals(user))
                                                             .Where(sur => sur.Handled.Equals(true))
                                                             .Select(sur => sur.ClientApplicationUser)
@@ -57,14 +59,16 @@ public class DoctorController : Controller
         doctorDashboard.AppointmentsDashboard = await _context.Treatments
                                                             .Include(treat => treat.DoctorApplicationUser)
                                                             .Include(treat => treat.ClientApplicationUser)
+                                                            .Where(sur => sur.ClientApplicationUser != null && sur.DoctorApplicationUser != null)
                                                             .Where(treat => treat.DoctorApplicationUser.Equals(user))
                                                             //Kijk of datum in de toekomst is of gelijk aan vandaag
-                                                            .Where(treat => treat.DateTime.CompareTo(DateTime.Now) > 0 || treat.DateTime.Date.Equals(DateTime.Today))
+                                                            .Where(treat => treat.DateTime.CompareTo(DateTime.Now) > 0 && treat.DateTime.Date.Equals(DateTime.Today))
                                                             .ToListAsync();
 
         doctorDashboard.AppointmentsTodayDashboard = await _context.Treatments
                                                             .Include(treat => treat.DoctorApplicationUser)
                                                             .Include(treat => treat.ClientApplicationUser)
+                                                            .Where(sur => sur.ClientApplicationUser != null && sur.DoctorApplicationUser != null)
                                                             .Where(treat => treat.DoctorApplicationUser.Equals(user))
                                                             //Kijk of datum in de toekomst is
                                                             .Where(treat => treat.DateTime.Date.Equals(DateTime.Today))
@@ -74,6 +78,8 @@ public class DoctorController : Controller
         doctorDashboard.RecentClientsDashboard = await _context.ClientApplicationUsers
                                                             .Include(client => client.Treatments)
                                                                 .ThenInclude(treat => treat.DoctorApplicationUser)
+                                                            .Where(client => client.Treatments
+                                                                .Any(treat =>treat.ClientApplicationUser != null && treat.DoctorApplicationUser != null))
                                                             .Where(client => client.Treatments
                                                                 .Any(treat => treat.DoctorApplicationUser.Equals(user)))
                                                             .ToListAsync();
@@ -119,6 +125,7 @@ public class DoctorController : Controller
         var signUpRequest = await _context.SignUpRequests
                                             .Include(sur => sur.ClientApplicationUser)
                                             .Include(sur => sur.DoctorApplicationUser)
+                                                            .Where(sur => sur.ClientApplicationUser != null && sur.DoctorApplicationUser != null)
                                             .Where(sur => sur.DoctorApplicationUser.Equals(user))
                                             .Where(sur => !sur.Handled)
                                             .FirstOrDefaultAsync(sur => sur.Id.ToString().ToLower().Equals(id));
@@ -134,8 +141,77 @@ public class DoctorController : Controller
         _context.ClientApplicationUsers.Attach(clientApplicationUser);
         _context.SignUpRequests.Attach(signUpRequest);
         await _context.SaveChangesAsync();
+
+        DoctorDashboardViewModel doctorDashboard = new DoctorDashboardViewModel();
+        doctorDashboard.SignUpRequestsDashboard = await _context.SignUpRequests
+                                                            .Include(sur => sur.DoctorApplicationUser)
+                                                            .Include(sur => sur.ClientApplicationUser)
+                                                            .Where(sur => sur.ClientApplicationUser != null && sur.DoctorApplicationUser != null)
+                                                            .Where(sur => sur.DoctorApplicationUser.Equals(user))
+                                                            .Where(sur => sur.Handled.Equals(false))
+                                                            .ToListAsync();
+
+        doctorDashboard.ClientsDashboard = await _context.SignUpRequests
+                                                            .Include(sur => sur.DoctorApplicationUser)
+                                                            .Include(sur => sur.ClientApplicationUser)
+                                                            .Where(sur => sur.ClientApplicationUser != null && sur.DoctorApplicationUser != null)
+                                                            .Where(sur => sur.DoctorApplicationUser.Equals(user))
+                                                            .Where(sur => sur.Handled.Equals(true))
+                                                            .Select(sur => sur.ClientApplicationUser)
+                                                            .ToListAsync();
+
+        doctorDashboard.AppointmentsDashboard = await _context.Treatments
+                                                            .Include(treat => treat.DoctorApplicationUser)
+                                                            .Include(treat => treat.ClientApplicationUser)
+                                                            .Where(treat => treat.DoctorApplicationUser.Equals(user))
+                                                            .Where(sur => sur.ClientApplicationUser != null && sur.DoctorApplicationUser != null)
+                                                            //Kijk of datum in de toekomst is of gelijk aan vandaag
+                                                            .Where(treat => treat.DateTime.CompareTo(DateTime.Now) > 0 && treat.DateTime.Date.Equals(DateTime.Today))
+                                                            .ToListAsync();
+
+        doctorDashboard.AppointmentsTodayDashboard = await _context.Treatments
+                                                            .Include(treat => treat.DoctorApplicationUser)
+                                                            .Include(treat => treat.ClientApplicationUser)
+                                                            .Where(sur => sur.ClientApplicationUser != null && sur.DoctorApplicationUser != null)
+                                                            .Where(treat => treat.DoctorApplicationUser.Equals(user))
+                                                            //Kijk of datum in de toekomst is
+                                                            .Where(treat => treat.DateTime.Date.Equals(DateTime.Today))
+                                                            .OrderBy(treat => treat.DateTime)
+                                                            .ToListAsync();
+
+        doctorDashboard.RecentClientsDashboard = await _context.ClientApplicationUsers
+                                                            .Include(client => client.Treatments)
+                                                                .ThenInclude(treat => treat.DoctorApplicationUser)
+                                                            .Where(client => client.Treatments
+                                                                .Any(treat =>treat.ClientApplicationUser != null && treat.DoctorApplicationUser != null))
+                                                            .Where(client => client.Treatments
+                                                                .Any(treat => treat.DoctorApplicationUser.Equals(user)))
+                                                            .ToListAsync();
+
+        List<Message> first = _context.ChatApplicationUsers
+                                    .Include(cau => cau.Sent)
+                                    .Include(cau => cau.Received)
+                                    .FirstOrDefault(cau => cau.Id.Equals(user.Id))
+                                    .Sent.ToList();
+        List<Message> second = _context.ChatApplicationUsers
+                                    .Include(cau => cau.Sent)
+                                    .Include(cau => cau.Received)
+                                    .FirstOrDefault(cau => cau.Id.Equals(user.Id))
+                                    .Received.ToList();
+        second.ForEach(item => first.Add(item));
+
+        doctorDashboard.MessagesDashboard = first;
+
+        if(clientApplicationUser.OldEnough)
+        {
+            return View("Index", doctorDashboard);
+        }
+        if(!clientApplicationUser.OldEnough)
+        {
+            return RedirectToPage("/Account/MakeGuardian", new { id = clientApplicationUser.Id});
+        }
         
-        return RedirectToPage("Account/MakeGuardian");
+        return View("Index", doctorDashboard);
     }
 
     public async Task<ActionResult> denyAccess(string id)
@@ -144,6 +220,7 @@ public class DoctorController : Controller
         var signUpRequest = await _context.SignUpRequests
                                             .Include(sur => sur.ClientApplicationUser)
                                             .Include(sur => sur.DoctorApplicationUser)
+                                                            .Where(sur => sur.ClientApplicationUser != null && sur.DoctorApplicationUser != null)
                                             .Where(sur => sur.DoctorApplicationUser.Equals(user))
                                             .Where(sur => !sur.Handled)
                                             .FirstOrDefaultAsync(sur => sur.Id.ToString().ToLower().Equals(id));
@@ -161,6 +238,7 @@ public class DoctorController : Controller
         doctorDashboard.SignUpRequestsDashboard = await _context.SignUpRequests
                                                             .Include(sur => sur.DoctorApplicationUser)
                                                             .Include(sur => sur.ClientApplicationUser)
+                                                            .Where(sur => sur.ClientApplicationUser != null && sur.DoctorApplicationUser != null)
                                                             .Where(sur => sur.DoctorApplicationUser.Equals(user))
                                                             .Where(sur => sur.Handled.Equals(false))
                                                             .ToListAsync();
@@ -168,6 +246,7 @@ public class DoctorController : Controller
         doctorDashboard.ClientsDashboard = await _context.SignUpRequests
                                                             .Include(sur => sur.DoctorApplicationUser)
                                                             .Include(sur => sur.ClientApplicationUser)
+                                                            .Where(sur => sur.ClientApplicationUser != null && sur.DoctorApplicationUser != null)
                                                             .Where(sur => sur.DoctorApplicationUser.Equals(user))
                                                             .Where(sur => sur.Handled.Equals(true))
                                                             .Select(sur => sur.ClientApplicationUser)
@@ -176,14 +255,16 @@ public class DoctorController : Controller
         doctorDashboard.AppointmentsDashboard = await _context.Treatments
                                                             .Include(treat => treat.DoctorApplicationUser)
                                                             .Include(treat => treat.ClientApplicationUser)
+                                                            .Where(sur => sur.ClientApplicationUser != null && sur.DoctorApplicationUser != null)
                                                             .Where(treat => treat.DoctorApplicationUser.Equals(user))
                                                             //Kijk of datum in de toekomst is of gelijk aan vandaag
-                                                            .Where(treat => treat.DateTime.CompareTo(DateTime.Now) > 0 || treat.DateTime.Date.Equals(DateTime.Today))
+                                                            .Where(treat => treat.DateTime.CompareTo(DateTime.Now) > 0 && treat.DateTime.Date.Equals(DateTime.Today))
                                                             .ToListAsync();
 
         doctorDashboard.AppointmentsTodayDashboard = await _context.Treatments
                                                             .Include(treat => treat.DoctorApplicationUser)
                                                             .Include(treat => treat.ClientApplicationUser)
+                                                            .Where(sur => sur.ClientApplicationUser != null && sur.DoctorApplicationUser != null)
                                                             .Where(treat => treat.DoctorApplicationUser.Equals(user))
                                                             //Kijk of datum in de toekomst is
                                                             .Where(treat => treat.DateTime.Date.Equals(DateTime.Today))
@@ -193,6 +274,8 @@ public class DoctorController : Controller
         doctorDashboard.RecentClientsDashboard = await _context.ClientApplicationUsers
                                                             .Include(client => client.Treatments)
                                                                 .ThenInclude(treat => treat.DoctorApplicationUser)
+                                                            .Where(client => client.Treatments
+                                                                .Any(treat =>treat.ClientApplicationUser != null && treat.DoctorApplicationUser != null))
                                                             .Where(client => client.Treatments
                                                                 .Any(treat => treat.DoctorApplicationUser.Equals(user)))
                                                             .ToListAsync();
@@ -257,7 +340,7 @@ public class DoctorController : Controller
         }
         public async Task<JsonResult> GetAppointments(){
             DoctorApplicationUser user = await _context.DoctorApplicationUsers.Include(it=>it.Treatments).SingleAsync(it=>it.Id== _userManager.GetUserId(User));
-            var list = _context.Treatments.Where(it=>it.DoctorId==user.Id).Select(it=>new{
+            var list = _context.Treatments.Where(treat => !treat.ClientApplicationUser.Equals(null) && !treat.DoctorApplicationUser.Equals(null)).Where(it=>it.DoctorId==user.Id).Select(it=>new{
                 Title=it.Description+" van "+it.ClientApplicationUser.FullName(),
                 DateTime=it.DateTime.ToString()
             });

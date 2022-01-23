@@ -97,7 +97,14 @@
         </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Sluiten</button>
-                <button type="submit" class="btn btn-success">Toegang Verlenen</button>
+                @if(!Model.ClientApplicationUser.OldEnough)
+                {
+                    <button type="submit" class="btn btn-primary">Ouderaccount aanmaken</button>
+                }
+                else
+                {
+                    <button type="submit" class="btn btn-success">Toegang Verlenen</button>
+                }
             </div>
         </div>
     </div>
