@@ -63,7 +63,7 @@ public class ClientController : Controller
                                                             .Where(doctor => doctor.Treatments
                                                                 .Any(treat => treat.ClientApplicationUser.Equals(user)))
                                                             .ToListAsync();
-
+        clientDashboard.AantalBerichten = await _context.Messages.Where(it=>it.Receivers.Contains(user)).CountAsync();
         
         return View(clientDashboard);
     }

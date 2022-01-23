@@ -14,5 +14,6 @@ namespace OkOk.Models
         public List<Treatment> AppointmentsDashboard { get; set; }
         public List<Treatment> AppointmentsTodayDashboard { get; set; }
         public List<DoctorApplicationUser> RecentDoctorsDashboard { get; internal set; }
+        public int AantalBerichten { get; set; }
     }
 }

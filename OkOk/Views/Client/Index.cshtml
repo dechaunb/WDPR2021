@@ -51,12 +51,12 @@
         <div class="col">
             <div class="p-3 bg-light okok-rounded align-items-center d-flex align-content-center">
                 <div class="d-inline-flex stat-card-icon bg-opac text-dark rounded-circle p-4">
-                    <i style="width:24px;" class="fa-regular fa-calendar fs-4 text-center"></i>
+                    <i style="width:24px;" class="far fa-envelope fs-4 text-center"></i>
                 </div>
                 <div class="d-inline-flex stat-card-text text-dark ms-3">
                     <h2 class="m-0">
                         <div class="d-flex align-content-end align-items-end m-0 p-0">
-                            <span class="fs-2 m-0 p-0">24k</span>
+                            <span class="fs-2 m-0 p-0">@Model.AantalBerichten</span>
                         </div>
                         <div class="d-flex align-content-start align-items-start m-0 p-0">
                             <span class="fs-5 fw-normal ms-1 ms-md-0 m-0 p-0 text-dark">
@@ -110,22 +110,22 @@
             <div class="row m-0 p-0">
                 <div class="col-12 py-3 px-0 d-flex justify-content-between">
                     <div class="d-flex align-items-end align-content-end m-0 p-0">
-                        <h2 class="fs-4 m-0">Afspraken Vandaag</h2>
+                        <h2 class="fs-4 m-0">Komende afspraken</h2>
                     </div>
                     <div class="d-flex align-items-end align-content-end m-0 p-0">
-                        <a class="text-decoration-none text-secondary fs-6" href="#">Toon meer <span class="visually-hidden">afspraken</span><i class="fa-regular fa-angle-right"></i></a>
+                        <a class="text-decoration-none text-secondary fs-6" asp-action="Appointments">Toon meer <span class="visually-hidden">afspraken</span><i class="fa-regular fa-angle-right"></i></a>
                     </div>
                 </div>
 
                 <div class="col-12 okok-rounded bg-opac p-3 px-0">
-                    @foreach(var item in Model.AppointmentsTodayDashboard.Take(6))
+                    @foreach(var item in Model.AppointmentsDashboard.Take(3))
                     {
                     <div class="row m-0 p-2 px-3">
                         <div class="col-8 px-0">
                             <div class="d-flex m-0 p-0">
                                 <h3 class="fs-5">
-                                    @Html.DisplayFor(modelItem => item.ClientApplicationUser.FirstName) 
-                                    @Html.DisplayFor(modelItem => item.ClientApplicationUser.LastName)
+                                    @Html.DisplayFor(modelItem => item.DoctorApplicationUser.FirstName) 
+                                    @Html.DisplayFor(modelItem => item.DoctorApplicationUser.LastName)
                                 </h3>
                             </div>
                             <div class="d-flex m-0 p-0">
@@ -138,7 +138,10 @@
                             <div class="d-flex m-0 p-0">
                                 <p class="text-secondary d-flex align-content-center align-items-center text-decoration-none fs-5">
                                     <span class="visually-hidden">Afspraak staat gepland op</span> <i class="fa-regular fa-clock me-2"></i> 
-                                    @item.DateTime.ToString("HH:mm")
+                                    <p class="text-secondary d-flex align-content-center align-items-center text-decoration-none fs-7">
+                                        @item.DateTime.ToString("dd-MM") <br/>
+                                        @item.DateTime.ToString("HH:mm")
+                                    </p>
                                 </p>
                             </div>
                         </div>
@@ -155,7 +158,7 @@
                         <h2 class="fs-4 m-0">Recente Hulpverleners</h2>
                     </div>
                     <div class="d-flex align-items-end align-content-end m-0 p-0">
-                        <a class="text-decoration-none text-secondary fs-6" href="#">Toon meer <span class="visually-hidden">recente hulpverleners</span><i class="fa-regular fa-angle-right"></i></a>
+                        <a class="text-decoration-none text-secondary fs-6" asp-action="Appointments">Toon meer <span class="visually-hidden">recente afspraken</span><i class="fa-regular fa-angle-right"></i></a>
                     </div>
                 </div>
 
@@ -211,7 +214,7 @@
         })
         .then(j => {
             for (var i = 0; i < j.length; i++) { 
-                if (i<6)
+                if (i<3)
                 {
                     render(target,j[i]);
                 }
