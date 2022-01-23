@@ -4,15 +4,22 @@
     ViewData["Title"] = "Nieuwe chat";
 }
 
-<h1>@ViewData["Title"]</h1>
+<header>
+    <div class="m-0 p-0 row gx-xl-3 gx-2">
+        <div class="col-12">
+            <h1>@ViewData["Title"]</h1>
+        </div>
+    </div>
+</header>
 
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="NewPrivateChat">
-            <select class ="form-control" name="username" asp-items='@ViewBag.List'></select>
+            <label for="ontvanger" > Selecteer ontvanger:</label>
+            <select id="ontvanger" class ="form-control" name="username" asp-items='@ViewBag.List'></select>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Voeg toe" class="btn btn-primary" />
             </div> 
         </form>
     </div>

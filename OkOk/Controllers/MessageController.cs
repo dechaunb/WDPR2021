@@ -78,7 +78,7 @@ namespace OkOk.Controllers
                     else
                         return new ValueTuple<SupportGroup,Message>(
                             it, 
-                            null);
+                            new Message(){Content="Geen bericht gevonden",DateTime=DateTime.MinValue});
             }).OrderByDescending(it=>it.Item2.DateTime);
 
             return Json(groupchats.Select(it=>new{
@@ -203,13 +203,13 @@ namespace OkOk.Controllers
                 }
             }
             return Json(Chats.Select(it=>
-            new {
-                id=it.Item1.UserName, 
-                name=it.Item1.FullName(),
-                lastmessage=it.Item2.Content,
-                DateTime=it.Item2.DateTime
-                }
-            ).OrderByDescending(it=>it.DateTime)
+                new {
+                    id=it.Item1.UserName, 
+                    name=it.Item1.FullName(),
+                    lastmessage=it.Item2.Content,
+                    DateTime=it.Item2.DateTime
+                    }
+                ).OrderByDescending(it=>it.DateTime)
             );
         }
 
