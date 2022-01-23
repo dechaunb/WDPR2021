@@ -1,3 +1,17 @@
+/* Fonts */
+@import url('https://assets.behindthework.nl/fonts/arminsoft/stylesheet.css');
+
+/* Variables */
+:root {
+  --okpurple: #B26CA1;
+  --okblue: #24869E;
+  --okwhite: #e6e6e6;
+  --okdark: #333333;
+  --okwhiteopac: rgb(230, 230, 230, 0.2);
+  --okdarkopac: rgb(51, 51, 51, 0.2);
+}
+
+/* Basic */
 html {
   font-size: 14px;
 }
@@ -13,6 +27,232 @@ html {
   min-height: 100%;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Armin Soft';
+  font-weight: 600;
+}
+
+p,
+a {
+  font-family: 'Armin Soft';
+}
+
 body {
-  margin-bottom: 60px;
+  margin: 0px 0px 60px 0px;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  line-height: 60px;
+}
+
+/* Sidebar Override */
+.nav-link.active {
+  background-color: white !important;
+  color: var(--okdark) !important;
+}
+
+.dropdown-menu .dropdown-item:hover {
+  opacity: 0.8;
+  background-color: var(--okdark);
+  color: white;
+}
+
+/* Bootstrap Overrides */
+.btn {
+  font-family: 'Armin Soft' !important;
+  font-weight: 500 !important;
+}
+
+.btn:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Solid Buttons */
+.btn-primary {
+  background-color: var(--okpurple) !important;
+  color: white !important;
+  border: none !important;
+}
+
+.btn-primary.dark {
+  background-color: var(--okpurple) !important;
+  color: var(--okdark) !important;
+  border: none !important;
+}
+
+.btn-secondary {
+  background-color: var(--okblue) !important;
+  color: white !important;
+  border: none !important;
+}
+.btn-secondary.dark {
+  background-color: var(--okblue) !important;
+  color: var(--okdark) !important;
+  border: none !important;
+}
+
+.btn-light {
+  background-color: white !important;
+  color: var(--okpurple) !important;
+  border: none !important;
+}
+
+.btn-light.secondary {
+  background-color: white !important;
+  color: var(--okblue) !important;
+  border: none !important;
+}
+
+.btn-dark {
+  background-color: var(--okdark) !important;
+  border: none !important;
+}
+
+/* Outline Buttons */
+.btn-outline-primary {
+  border-color: var(--okpurple) !important;
+  color:var(--okpurple) !important;
+}
+
+.btn-outline-primary:hover {
+  background-color: var(--okpurple) !important;
+  color: white !important;
+}
+
+.btn-outline-secondary {
+  border-color: var(--okblue) !important;
+  color:var(--okblue) !important;
+}
+
+.btn-outline-secondary:hover {
+  background-color: var(--okblue) !important;
+  color: white !important;
+}
+
+.btn-outline-light {
+  border-color: white !important;
+  color:white !important;
+}
+
+.btn-outline-light:hover {
+  background-color: white !important;
+  color: var(--okpurple) !important;
+}
+
+.btn-outline-light.secondary {
+  border-color: white !important;
+  color:white !important;
+}
+
+.btn-outline-light.secondary:hover {
+  background-color: white !important;
+  color: var(--okblue) !important;
+}
+
+.btn-outline-dark {
+  border-color: var(--okdark) !important;
+  color:var(--okdark) !important;
+}
+
+.btn-outline-dark:hover {
+  background-color: var(--okdark) !important;
+  color: white !important;
+}
+
+/* Table */
+.table-primary tr th {
+  background-color: var(--okpurple) !important;
+  border-bottom-width: 0px !important;
+  color: white !important;
+}
+
+/* Text Colors */
+.text-primary {
+  color: var(--okpurple) !important;
+}
+
+.text-secondary {
+  color: var(--okblue) !important;
+}
+
+.text-light {
+  color: var(--okwhite) !important;
+}
+
+.text-dark {
+  color: var(--okdark) !important;
+}
+
+/* Background Colors */
+.bg-primary {
+  background-color: var(--okpurple) !important;
+}
+
+.bg-secondary {
+  background-color: var(--okblue) !important;
+}
+
+.bg-light {
+  background-color: var(--okwhite) !important;
+}
+
+.bg-dark {
+  background-color: var(--okdark) !important;
+}
+
+.bg-opac {
+  background-color: var(--okwhiteopac) !important;
+}
+
+.bg-light .bg-opac, .bg-light.bg-opac, .bg-white .bg-opac, .bg-white.bg-opac {
+  background-color: var(--okdarkopac) !important;
+}
+
+/*////*/
+.okok-rounded {
+  border-radius: 4.6px !important;
+}
+
+.hero-index h1{
+  font-size: 3rem;
+}
+
+.hero-index h2{
+  font-size: 1.5rem;
+  font-weight: 400;
+}
+
+.hero-index img {
+  width: 100%;
+}
+
+.nav-register .active {
+  background-color: var(--okpurple) !important;
+  color: white !important;
+  border: none;
+}
+
+
+/* Sidebar Media Query */
+@media screen and (max-width: 575.98px)
+{
+  .nav-pills .nav-link, .fa-user-doctor  {
+    font-size: 1.5rem;
+  }
+
+  .nav-link.active {
+    background-color: var(--okpurple) !important;
+    color: var(--okwhite) !important;
+    cursor: default !important;
+  }
 }

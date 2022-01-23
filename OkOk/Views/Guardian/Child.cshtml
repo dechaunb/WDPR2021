@@ -1,0 +1,59 @@
+@model OkOk.Models.Identity.ClientApplicationUser
+@{
+    ViewData["Title"] = "Kindgegevens";
+    Layout = "_GuardianLayout";
+}
+
+<header>
+    <div class="m-0 p-0 row gx-xl-3 gx-2">
+        <div class="col-12">
+            <h1 class="text-dark fs-3">
+                Je bekijkt nu de gegevens van @Html.DisplayFor(modelItem => modelItem.FirstName) @Html.DisplayFor(modelItem => modelItem.LastName)
+            </h1>
+        </div>
+        <a title="Keer terug naar het overzicht" class="fs-6 fw-normal" asp-action="Index">Terugkeren naar het overzicht</a>
+    </div>
+</header>
+
+<div class="container-fluid py-2 m-0 p-0 text-dark">
+    <h1 class="visually-hidden">Acties Uitvoeren</h1>
+    <div class="row m-0 p-0 g-xl-3 g-2 d-flex align-items-start align-content-start">
+        <div class="col-12 mt-0">
+            <div class="row m-0 p-0">
+                <div class="col-12 py-3 px-0 d-flex justify-content-between">
+                    <div class="d-flex align-items-end align-content-end m-0 p-0">
+                        <h2 class="fs-4 m-0">Kindgegevens</h2>
+                    </div>
+                    <div class="d-flex align-items-end align-content-end m-0 p-0">
+                        <a class="text-decoration-none text-secondary fs-6" asp-area="Identity" asp-page="/Account/RegisterChild">Registreer een kind <i class="fa-regular fa-angle-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-12 okok-rounded bg-opac p-3 px-0">
+                    <div class="row m-0 p-2 px-3">
+                        <div class="col-8 px-0">
+                            <div class="d-flex m-0 p-0">
+                                <h3 class="fs-5">
+                                    @Html.DisplayFor(modelItem => modelItem.FirstName) 
+                                    @Html.DisplayFor(modelItem => modelItem.LastName)
+                                </h3>
+                            </div>
+                            <div class="d-flex m-0 p-0">
+                                <h4 class="fs-6 fw-normal text-muted">
+                                    @Html.DisplayFor(modelItem => modelItem.Email)
+                                </h4>
+                            </div>
+                            <div class="d-flex m-0 p-0">
+                                <h4 class="fs-6 fw-normal text-muted">
+                                    @Html.DisplayFor(modelItem => modelItem.PhoneNumber)
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="col-4 px-0 d-flex justify-content-end">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

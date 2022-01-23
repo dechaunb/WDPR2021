@@ -18,23 +18,28 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using OkOk.Models.Identity;
+using OkOk.Models;
+using OkOk.Controllers;
 
 namespace OkOk.Areas.Identity.Pages.Account
 {
     public class RegisterModel : PageModel
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly IUserStore<IdentityUser> _userStore;
-        private readonly IUserEmailStore<IdentityUser> _emailStore;
+        private readonly SignInManager<ClientApplicationUser> _signInManager;
+        private readonly UserManager<ClientApplicationUser> _userManager;
+        private readonly IUserStore<ClientApplicationUser> _userStore;
+        private readonly IUserEmailStore<ClientApplicationUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly SignUpRequestController _signUpRequestController;
 
         public RegisterModel(
-            UserManager<IdentityUser> userManager,
-            IUserStore<IdentityUser> userStore,
-            SignInManager<IdentityUser> signInManager,
+            UserManager<ClientApplicationUser> userManager,
+            IUserStore<ClientApplicationUser> userStore,
+            SignInManager<ClientApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
+            SignUpRequestController signUpRequestController,
             IEmailSender emailSender)
         {
             _userManager = userManager;
@@ -43,60 +48,70 @@ namespace OkOk.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _signUpRequestController = signUpRequestController;
         }
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
+        
         [BindProperty]
         public InputModel Input { get; set; }
-
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
         public string ReturnUrl { get; set; }
-
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
         public class InputModel
         {
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
             [Required]
             [EmailAddress]
-            [Display(Name = "Email")]
+            [Display(Name = "E-mailadres")]
             public string Email { get; set; }
 
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
             [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
             [DataType(DataType.Password)]
-            [Display(Name = "Password")]
+            [Display(Name = "Wachtwoord")]
             public string Password { get; set; }
 
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
+            [Display(Name = "Bevestig Wachtwoord")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            [PersonalData]
+            [Required]
+            [Display(Name = "Voornaam")]
+            [RegularExpression(@"^[a-zA-Z''-'\s]{1,40}$", 
+            ErrorMessage = "Tekens niet toegestaan.")]
+            public string FirstName { get; set; }
+            [PersonalData]
+            [Required]
+            [Display(Name = "Achternaam")]
+            [RegularExpression(@"^[a-zA-Z''-'\s]{1,40}$", 
+            ErrorMessage = "Tekens niet toegestaan.")]
+            public string LastName { get; set; }
+
+            [Required]
+            [Display(Name = "Postcode")]
+            [RegularExpression(@"^(?:NL-)?(\d{4})\s*([A-Z]{2})$", 
+            ErrorMessage = "Postcode moet in het format 1234AB zijn.")]
+            public string ZipCode { get; set; }
+            [Required]
+            [Display(Name = "Land")]
+            public string Country { get; set; }
+            public Guid Id { get; set; }
+            [Required]
+            [Display(Name = "Huisnummer")]
+            public int HouseNumber { get; set; }
+            [Display(Name = "Toevoeging")]
+            public string HouseNumberAddition { get; set; }
+            [Required]
+            [Display(Name = "Straat")]
+            public string Street { get; set; }
+            [Required]
+            [Display(Name = "Stad")]
+            public string City { get; set; }
+            [Required]
+            [Display(Name = "Geboortedatum")]
+            [DataType(DataType.Date)]
+            public DateTime BirthDate { get; set; }
         }
 
 
@@ -112,7 +127,34 @@ namespace OkOk.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = CreateUser();
+                var user = new ClientApplicationUser {
+                    FirstName = Input.FirstName,
+                    LastName = Input.LastName,
+                    UserName = Input.Email,
+                    Email = Input.Email,
+                    LockoutEnabled = true,
+                    LockoutEnd = DateTime.Now.AddYears(10),
+                    LockedOutReason = "SignUp Request Pending",
+                    OldEnough = (new DateTime(DateTime.Now.Subtract(Input.BirthDate).Ticks).Year - 1) >= 16 ? true : false,
+                    Address = new Address()
+                    {
+                        HouseNumber = Input.HouseNumber,
+                        HouseNumberAddition = Input.HouseNumberAddition,
+                        Street = Input.Street,
+                        City = Input.City,
+                        ZipCode = Input.ZipCode,
+                        Country = Input.Country
+                    }
+                };                     
+
+                if(Input.BirthDate.CompareTo(DateTime.Now) > 0 || Input.BirthDate.Date.Equals(DateTime.Today))
+                {
+                    ModelState.AddModelError(string.Empty, "De opgegeven datum is ongeldig.");
+                }
+                if(!user.OldEnough)
+                {
+                    ModelState.AddModelError(string.Empty, "Je bent niet oud genoeg om zelf een account aan te maken. Je moet minstens 16 jaar oud zijn.");
+                }
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
@@ -120,29 +162,22 @@ namespace OkOk.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("User created a new account with password.");
+                    _logger.LogInformation("User requested new account with password.");
 
-                    var userId = await _userManager.GetUserIdAsync(user);
-                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                    var callbackUrl = Url.Page(
-                        "/Account/ConfirmEmail",
-                        pageHandler: null,
-                        values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
-                        protocol: Request.Scheme);
+                    await _signUpRequestController.CreateRequestAsync(user);
+                    _logger.LogInformation("Signup request has been made.");
 
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
-
-                    if (_userManager.Options.SignIn.RequireConfirmedAccount)
+                    var roleResult = await _userManager.AddToRoleAsync(user, "Client");
+                    if(roleResult.Succeeded)
                     {
-                        return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
+                        _logger.LogInformation("Client added to role 'Client'.");
                     }
-                    else
+                    foreach (var error in roleResult.Errors)
                     {
-                        await _signInManager.SignInAsync(user, isPersistent: false);
-                        return LocalRedirect(returnUrl);
+                        ModelState.AddModelError(string.Empty, error.Description);
                     }
+
+                    return LocalRedirect(returnUrl);
                 }
                 foreach (var error in result.Errors)
                 {
@@ -154,27 +189,27 @@ namespace OkOk.Areas.Identity.Pages.Account
             return Page();
         }
 
-        private IdentityUser CreateUser()
+        private ClientApplicationUser CreateUser()
         {
             try
             {
-                return Activator.CreateInstance<IdentityUser>();
+                return Activator.CreateInstance<ClientApplicationUser>();
             }
             catch
             {
-                throw new InvalidOperationException($"Can't create an instance of '{nameof(IdentityUser)}'. " +
-                    $"Ensure that '{nameof(IdentityUser)}' is not an abstract class and has a parameterless constructor, or alternatively " +
+                throw new InvalidOperationException($"Can't create an instance of '{nameof(ClientApplicationUser)}'. " +
+                    $"Ensure that '{nameof(ClientApplicationUser)}' is not an abstract class and has a parameterless constructor, or alternatively " +
                     $"override the register page in /Areas/Identity/Pages/Account/Register.cshtml");
             }
         }
 
-        private IUserEmailStore<IdentityUser> GetEmailStore()
+        private IUserEmailStore<ClientApplicationUser> GetEmailStore()
         {
             if (!_userManager.SupportsUserEmail)
             {
                 throw new NotSupportedException("The default UI requires a user store with email support.");
             }
-            return (IUserEmailStore<IdentityUser>)_userStore;
+            return (IUserEmailStore<ClientApplicationUser>)_userStore;
         }
     }
 }

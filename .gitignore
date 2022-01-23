@@ -290,3 +290,5 @@ __pycache__/
 # DBeaver
 *.db-shm
 *.db-wal
+OkDataStore.db-shm
+OkDataStore.db-wal

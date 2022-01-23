@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - OkOk</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <script src="https://kit.fontawesome.com/90666a8c30.js" crossorigin="anonymous"></script>
+    <partial name="_FaviconPartial"/>
+    <link href='~/css/calendar/main.css' rel='stylesheet' />
+    <script src='~/js/calendar/main.js' ></script>
+    <script src='~/js/calendar/nl.js'></script>
+
+</head>
+
+<body class="m-0 p-0">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-2 col-sm-3 col-xl-2 p-sm-3 p-0 py-2 bg-primary text-white min-vh-100 vh-100">
+                <div class="d-flex flex-column text-white h-100">
+                    <a asp-action="Index" asp-controller="Home" class="d-flex align-items-center mb-0 mb-sm-2 mesm-auto text-white text-decoration-none">
+                        <img width="100" class="d-none d-md-inline" alt="OkOk Logo" src="~/images/OkOk - Final_Fullsize White.svg"/>
+                        <img width="100" class="d-none d-md-none d-sm-inline" alt="OkOk Logo Icoon" src="~/images/OkOk - Final_Fullsize Simple White.svg"/>
+                        <img width="100" class="d-inline d-sm-none" alt="OkOk Logo Icoon" src="~/images/OkOk - Final_Fullsize Icon White.svg"/>
+                    </a>
+                    <hr>
+                    <ul class="nav nav-pills flex-column mb-sm-auto mb-0">
+                        <li class="nav-item">
+                            <a id="Overzicht" asp-action="Index" class="nav-link text-white align-middle py-sm-2 py-3 px-0 px-sm-3 text-sm-start text-center"}>
+                                <i class="fa-regular fa-grid-2"></i>
+                                <span class="ms-2 d-none d-sm-inline">Overzicht</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a id="Afspraken" asp-action="Appointments" class="nav-link text-white align-middle py-sm-2 py-3 px-0 px-sm-3 text-sm-start text-center">
+                                <i class="fa-regular fa-calendar"></i>
+                                <span class="ms-2 d-none d-sm-inline">Afspraken</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a id="Clienten" href="#" class="nav-link text-white align-middle py-sm-2 py-3 px-0 px-sm-3 text-sm-start text-center">
+                                <i class="fa-regular fa-user"></i>
+                                <span class="ms-2 d-none d-sm-inline">Cliënten</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a id="Gesprekken" asp-action="Messages" class="nav-link text-white align-middle py-sm-2 py-3 px-0 px-sm-3 text-sm-start text-center">
+                                <i class="fa-regular fa-message"></i>
+                                <span class="ms-2 d-none d-sm-inline">Gesprekken</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <hr>
+                    <div class="dropdown">
+                        <a href="#" class="d-flex py-sm-2 py-3 px-0 px-sm-3 align-items-center text-white text-decoration-none dropdown-toggle justify-content-sm-start justify-content-center" id="UserDropDown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa-regular fa-user-doctor"></i>
+                            @{
+                                ApplicationUser applicationUser = await UserManager.GetUserAsync(User);
+                                string fullName = applicationUser.FullName();
+                            }
+                            <span class="d-none d-sm-inline mx-1 ms-0 ms-sm-2">@fullName</span>
+                        </a>
+
+                        <ul class="dropdown-menu bg-dark text-white text-small shadow" aria-labelledby="UserDropDown">
+                            <li><a class="dropdown-item text-white" href="#">Instellingen</a></li>
+                            <li><a asp-area="Identity" asp-page="/Account/Manage/Index" class="dropdown-item text-white">Profiel</a></li>
+                            <li><hr class="dropdown-divider text-white"></li>
+                            <li>
+                                <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                                <button id="logout" type="submit" class="dropdown-item text-white" href="#">Uitloggen</button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col p-sm-5 p-2 py-3 min-vh-100 vh-100 overflow-auto">
+                <main role="main" class="m-0">
+                    @RenderBody()
+                </main>
+            </div>
+        </div>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+
+<script>
+    getCurrent();
+    function getCurrent(){
+        document.getElementById('@ViewData["title"]').setAttribute("aria-current","page")
+        document.getElementById('@ViewData["title"]').classList.add("active")
+    }
+</script>

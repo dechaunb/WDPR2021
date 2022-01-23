@@ -1,0 +1,57 @@
+@model OkOk.Models.ClientDashboardViewModel;
+@{
+    ViewData["Title"] = "Afspraken";
+    Layout = "_ClientLayout";
+}
+
+<script>
+
+    document.addEventListener('DOMContentLoaded', 
+        function() {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(
+                calendarEl, 
+                {
+                    locale: "nl",
+                    initialView: 'timeGridWeek'
+                }
+            );
+            
+            calendar.batchRendering(function() {
+                calendar.changeView('dayGridMonth');
+                fetch("/Client/GetAppointments" , {
+                    method: "GET"
+                }).then(r => {
+                    if(r.status == 200)
+                        return r.json()
+                    else
+                        throw "Status: " + r.status;
+                })
+                .then(j => {
+                    for (var i = 0; i < j.length; i++) { 
+                        var item = j[i];
+                        calendar.addEvent({ title: item.title ,start: item.dateTime });
+                    }
+                })
+                .catch(r => alert("Er is een fout opgetreden: " + r));
+            });
+            calendar.render();
+        }
+    );
+
+
+</script>
+<header>
+    <div class="m-0 p-0 row gx-xl-3 gx-2">
+        <div class="col-12">
+            <h1 class="text-dark fs-3">
+                Uw kalender 
+            </h1>
+        </div>
+    </div>
+</header>
+<body class="m-0 p-0">
+    <div class="container-fluid">
+        <div id='calendar'></div>
+    </div>
+</body>

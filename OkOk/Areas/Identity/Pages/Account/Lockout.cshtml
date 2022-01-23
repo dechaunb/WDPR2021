@@ -1,10 +1,17 @@
 ﻿@page
 @model LockoutModel
 @{
-    ViewData["Title"] = "Locked out";
+    ViewData["Title"] = "Geen toegang";
 }
 
-<header>
+<div class="container py-5">
     <h1 class="text-danger">@ViewData["Title"]</h1>
-    <p class="text-danger">This account has been locked out, please try again later.</p>
-</header>
+    <h2 class="text-danger fw-normal fs-3">Je hebt momenteel geen toegang tot je account.</h2>
+    <h3 class="text-danger fw-normal fs-6">
+        Bij het aanmelden voor je account wordt je account direct op 'geen toegang' gezet. Dit doen we omdat onze hulpverleners de keus krijgen
+        naar aanleiding van jouw intakegesprek of ze je verder kunnen behandelen. Zodra jouw account wordt geweigerd, word je direct uit ons
+        systeem verwijderd. Als je denkt dat dit niet van toepassing is voor jou of een vergissing is, 
+        <a asp-action="Contact" asp-controller="Home">neem dan contact met ons op</a>.
+
+    </h3>
+</div>

@@ -1,0 +1,286 @@
+@model OkOk.Models.DoctorDashboardViewModel;
+@{
+    ViewData["Title"] = "Overzicht";
+    Layout = "_DoctorLayout";
+}
+
+<header>
+    <div class="m-0 p-0 row gx-xl-3 gx-2">
+        <div class="col-12">
+            <h1 class="text-dark fs-3">
+                @{
+                    ApplicationUser applicationUser = await UserManager.GetUserAsync(User);
+                    string lastName = applicationUser.LastName;
+                }
+                Welkom, Dr @lastName
+            </h1>
+            <h2 class="fs-6 fw-normal text-muted">Een fijne werkdag toegewenst.</h2>
+        </div>
+    </div>
+</header>
+
+<div class="container-fluid py-2 p-0">
+    <h1 class="visually-hidden">Statistieken</h1>
+    <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-4 g-2 gx-xl-3 m-0 p-0">
+        <div class="col">
+            <div class="p-3 bg-primary okok-rounded align-items-center d-flex align-content-center">
+                <div class="d-inline-flex stat-card-icon bg-opac text-white rounded-circle p-4">
+                    <i style="width:24px;" class="fa-regular fa-calendar fs-4 text-center"></i>
+                </div>
+                <div class="d-inline-flex stat-card-text text-white ms-3">
+                    <h2 class="m-0">
+                        <div class="d-flex align-content-end align-items-end m-0 p-0">
+                            <span class="fs-2 m-0 p-0">@Html.DisplayFor(modelItem => modelItem.AppointmentsDashboard.Count)</span>
+                        </div>
+                        <div class="d-flex align-content-start align-items-start m-0 p-0">
+                            <span class="fs-5 fw-normal ms-1 ms-md-0 m-0 p-0 text-white">
+                                @if(Model.AppointmentsDashboard.Count < 1 || Model.AppointmentsDashboard.Count > 1)
+                                {
+                                    @Html.Raw("Afspraken")
+                                }
+                                else
+                                {
+                                    @Html.Raw("Afspraak")
+                                }
+                            </span>
+                        </div>
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="p-3 bg-secondary okok-rounded align-items-center d-flex align-content-center">
+                <div class="d-inline-flex stat-card-icon bg-opac text-white rounded-circle p-4">
+                    <i style="width:24px;" class="fa-regular fa-calendar fs-4 text-center"></i>
+                </div>
+                <div class="d-inline-flex stat-card-text text-white ms-3">
+                    <h2 class="m-0">
+                        <div class="d-flex align-content-end align-items-end m-0 p-0">
+                            <span class="fs-2 m-0 p-0">@Html.DisplayFor(modelItem => modelItem.ClientsDashboard.Count)</span>
+                        </div>
+                        <div class="d-flex align-content-start align-items-start m-0 p-0">
+                            <span class="fs-5 fw-normal ms-1 ms-md-0 m-0 p-0 text-white">
+                                @if(Model.ClientsDashboard.Count < 1 || Model.ClientsDashboard.Count > 1)
+                                {
+                                    @Html.Raw("Clënten")
+                                }
+                                else
+                                {
+                                    @Html.Raw("Cliënt")
+                                }
+                            </span>
+                        </div>
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="p-3 bg-dark okok-rounded align-items-center d-flex align-content-center">
+                <div class="d-inline-flex stat-card-icon bg-opac text-white rounded-circle p-4">
+                    <i style="width:24px;" class="fa-regular fa-calendar fs-4 text-center"></i>
+                </div>
+                <div class="d-inline-flex stat-card-text text-white ms-3">
+                    <h2 class="m-0">
+                        <div class="d-flex align-content-end align-items-end m-0 p-0">
+                            <span class="fs-2 m-0 p-0">@Html.DisplayFor(modelItem => modelItem.SignUpRequestsDashboard.Count)</span>
+                        </div>
+                        <div class="d-flex align-content-start align-items-start m-0 p-0">
+                            <span class="fs-5 fw-normal ms-1 ms-md-0 m-0 p-0 text-white">
+                                @if(Model.SignUpRequestsDashboard.Count < 1 || Model.SignUpRequestsDashboard.Count > 1)
+                                {
+                                    @Html.Raw("Aanvragen")
+                                }
+                                else
+                                {
+                                    @Html.Raw("Aanvraag")
+                                }
+                            </span>
+                        </div>
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="p-3 bg-light okok-rounded align-items-center d-flex align-content-center">
+                <div class="d-inline-flex stat-card-icon bg-opac text-dark rounded-circle p-4">
+                    <i style="width:24px;" class="fa-regular fa-calendar fs-4 text-center"></i>
+                </div>
+                <div class="d-inline-flex stat-card-text text-dark ms-3">
+                    <h2 class="m-0">
+                        <div class="d-flex align-content-end align-items-end m-0 p-0">
+                            <span class="fs-2 m-0 p-0">@Html.DisplayFor(modelItem => modelItem.MessagesDashboard.Count)</span>
+                        </div>
+                        <div class="d-flex align-content-start align-items-start m-0 p-0">
+                            <span class="fs-5 fw-normal ms-1 ms-md-0 m-0 p-0 text-dark">
+                                @if(Model.MessagesDashboard.Count < 1 || Model.MessagesDashboard.Count > 1)
+                                {
+                                    @Html.Raw("Berichten")
+                                }
+                                else
+                                {
+                                    @Html.Raw("Bericht")
+                                }
+                            </span>
+                        </div>
+                    </h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid py-2 m-0 p-0 text-dark">
+    <h1 class="visually-hidden">Acties Uitvoeren</h1>
+    <div class="row m-0 p-0 g-xl-3 g-2 d-flex align-items-start align-content-start">
+        <div class="col-xl-4 col-lg-6 mt-0">
+            <div class="row m-0 p-0">
+                <div class="col-12 py-3 px-0 d-flex justify-content-between">
+                    <div class="d-flex align-items-end align-content-end m-0 p-0">
+                        <h2 class="fs-4 m-0">Aanmeldverzoeken</h2>
+                    </div>
+                    <div class="d-flex align-items-end align-content-end m-0 p-0">
+                        <a class="text-decoration-none text-secondary fs-6" asp-action="SignUpRequests">Toon meer <span class="visually-hidden">aanmeldverzoeken</span><i class="fa-regular fa-angle-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-12 okok-rounded bg-opac p-3 px-0">
+                    @foreach(var item in Model.SignUpRequestsDashboard.Take(6))
+                    {
+                    <div class="row m-0 p-2 px-3">
+                        <div class="col-8 px-0">
+                            <div class="d-flex m-0 p-0">
+                                <h3 class="fs-5">
+                                    @Html.DisplayFor(modelItem => item.ClientApplicationUser.FirstName) 
+                                    @Html.DisplayFor(modelItem => item.ClientApplicationUser.LastName)
+                                </h3>
+                            </div>
+                            <div class="d-flex m-0 p-0">
+                                <h4 class="fs-6 fw-normal text-muted">
+                                    @{var ageGroup = item.ClientApplicationUser.OldEnough ? "16 jaar of ouder" : "Jonger dan 16 jaar";} @ageGroup
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="col-4 px-0 d-flex justify-content-end">
+                            <div class="d-flex m-0 p-0">
+                                <a asp-action="SignUpRequest" asp-route-id="@item.Id" class="text-secondary d-flex align-content-center align-items-center text-decoration-none fs-3" title="Toon meer informatie over @item.ClientApplicationUser.FirstName @item.ClientApplicationUser.LastName">
+                                    <i class="fa-regular fa-square-info"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-4 col-lg-6 mt-0 p">
+            <div class="row m-0 p-0">
+                <div class="col-12 py-3 px-0 d-flex justify-content-between">
+                    <div class="d-flex align-items-end align-content-end m-0 p-0">
+                        <h2 class="fs-4 m-0">Cliënten</h2>
+                    </div>
+                    <div class="d-flex align-items-end align-content-end m-0 p-0">
+                        <a class="text-decoration-none text-secondary fs-6" href="#">Toon meer <span class="visually-hidden">cliënten</span><i class="fa-regular fa-angle-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-12 okok-rounded bg-opac p-3 px-0">
+                    @foreach(var item in Model.SignUpRequestsDashboard.Take(6))
+                    {
+
+                    }
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-xl-4 col-12 mt-0">
+            <div class="row m-0 p-0">
+                <div class="col-12 py-3 px-0 d-flex justify-content-between">
+                    <div class="d-flex align-items-end align-content-end m-0 p-0">
+                        <h2 class="fs-4 m-0">Afspraken Vandaag</h2>
+                    </div>
+                    <div class="d-flex align-items-end align-content-end m-0 p-0">
+                        <a class="text-decoration-none text-secondary fs-6" href="#">Toon meer <span class="visually-hidden">afspraken van vandaag</span><i class="fa-regular fa-angle-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-12 okok-rounded bg-opac p-3 px-0">
+                    @foreach(var item in Model.AppointmentsTodayDashboard.Take(6))
+                    {
+                    <div class="row m-0 p-2 px-3">
+                        <div class="col-8 px-0">
+                            <div class="d-flex m-0 p-0">
+                                <h3 class="fs-5">
+                                    @Html.DisplayFor(modelItem => item.ClientApplicationUser.FirstName) 
+                                    @Html.DisplayFor(modelItem => item.ClientApplicationUser.LastName)
+                                </h3>
+                            </div>
+                            <div class="d-flex m-0 p-0">
+                                <h4 class="fs-6 fw-normal text-muted">
+                                    @Html.DisplayFor(modelItem => item.Description)
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="col-4 px-0 d-flex justify-content-end">
+                            <div class="d-flex m-0 p-0">
+                                <p class="text-secondary d-flex align-content-center align-items-center text-decoration-none fs-5">
+                                    <span class="visually-hidden">Afspraak staat gepland op</span> <i class="fa-regular fa-clock me-2"></i> 
+                                    @item.DateTime.ToString("HH:mm")
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-12 mt-0">
+            <div class="row m-0 p-0">
+                <div class="col-12 py-3 px-0 d-flex justify-content-between">
+                    <div class="d-flex align-items-end align-content-end m-0 p-0">
+                        <h2 class="fs-4 m-0">Recente Cliënten</h2>
+                    </div>
+                    <div class="d-flex align-items-end align-content-end m-0 p-0">
+                        <a class="text-decoration-none text-secondary fs-6" href="#">Toon meer <span class="visually-hidden">recente cliënten</span><i class="fa-regular fa-angle-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-12 okok-rounded bg-opac p-3 px-0">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class="table-primary">
+                                <tr>
+                                    <th><h3 class="fs-6 m-0">Cliëntnaam</h3></th>
+                                    <th><h3 class="fs-6 m-0">Leeftijdsgroep</h3></th>
+                                    <th><h3 class="fs-6 m-0">Laatste Datum</h3></th>
+                                    <th><h3 class="fs-6 m-0">Laatste Behandeling</h3></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach(var item in Model.RecentClientsDashboard.Take(6))
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.FirstName) 
+                                            @Html.DisplayFor(modelItem => item.LastName)
+                                        </td>
+                                        <td>
+                                            @{var ageGroup = item.OldEnough ? "16 jaar of ouder" : "Jonger dan 16 jaar";} @ageGroup
+                                        </td>
+                                        <td>
+                                            @item.Treatments.Where(treat => treat.DateTime.CompareTo(DateTime.Now) < 0).OrderByDescending(treat => treat.DateTime).FirstOrDefault().DateTime.ToString("dddd dd MMMM yyyy HH:mm")
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Treatments.Where(treat => treat.DateTime.CompareTo(DateTime.Now) < 0).OrderByDescending(treat => treat.DateTime).FirstOrDefault().Description)
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

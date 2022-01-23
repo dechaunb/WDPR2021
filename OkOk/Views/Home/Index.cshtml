@@ -2,7 +2,188 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="hero-index py-5 d-flex align-content-center bg-primary text-wrap">
+    <div class="container d-flex align-content-center">
+        <div class="row m-0 p-0 d-flex align-items-center">
+            <div class="col-lg-6 m-0 p-0 text-white">
+                <h1>
+                    De applicatie voor orthopedagogen en patiënten
+                </h1>
+                <h2>
+                    Wil je aan de slag als orthopedagoog? Neem dan zo snel mogelijk contact met ons op!
+                </h2>
+                <a class="btn btn-outline-light btn-lg okok-rounded" asp-area="Identity" asp-page="/Account/Register">
+                    Aanmelden
+                </a>
+                <a class="btn btn-light btn-lg okok-rounded" asp-area="Home" asp-action="Contact">
+                    Contact opnemen
+                </a>
+            </div>
+            <div class="col-lg-6 m-0 p-0">
+                <div class="d-flex">
+                    <img class="img-fluid" alt="" src="~/images/doctor-with-board.svg"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container text-okok-dark py-5">
+    <h1>Over ons</h1>
+    <div class="col-lg-6">
+        <p style="font-size: large">Wij als Zorgmaatschap Den Haag richten ons op helpen van kinderen met problemen zoals ADHD, ADD en faalangst. 
+            Een hulpverlener naar keuze zal met u kind in gesprek gaan en hem of haar verder helpen met verdere problemen. 
+            Er is keuze uit de beste hulpverleners met allerlei verschillende specialismen. 
+            Zij zullen er alles aan doen om uw kind op een rustige en respectvolle manier te helpen om zo goed mogelijk om te gaan met zijn/haar probleem in de praktijk. 
+            In tegenstelling tot andere praktijken zullen onze hulpverleners bereid zijn naast de afspraken ook klaar te staan voor uw kind.
+        <br /> 
+        <br /> 
+        <p style="font-size: large">Onze eerste kernwaarde van de praktijk is welzijn en gezondheid. Daarnaast is privacy ook zeer belangrijk voor onze praktijk. 
+            We zullen bijvoorbeeld niet zomaar gegevens delen met de huisarts of andere derde partijen zonder toestemming van u en/of uw kind.
+        </p>
+        <a class="text-decoration-none text-secondary fs-6" asp-controller="Home" asp-action="Over">Meer info <span class="visually-hidden">over ons</span><i class="fa-regular fa-angle-right"></i></a>
+    </div>
+</div>
+
+<div class="container-fluid bg-secondary">
+    <div class="container text-white py-5">
+        <h1>Onze orthopedagogen</h1>
+
+        <div id="doctorCarousel" class="carousel slide mt-5" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#doctorCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#doctorCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#doctorCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                <button type="button" data-bs-target="#doctorCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="row m-0 p-0">
+                        <div class="col-md-4">
+                            <img class="d-block w-100" src="~/images/ErikLeussen.png" alt="Foto van orthopedagoog Erik van Leussen"/>
+                        </div>
+                        <div class="col-md-8 mt-md-0 mt-5 text-white">
+                            <h2>Erik van Leussen</h2>
+                            <p class="fw-normal fs-5">
+                                Ik ben Erik van Leussen. Ik ben 50 jaar oud en ik ben geboren en getogen in Amsterdam. Helpen zit in mijn aard. Ik
+                                ben van jongs af aan altijd al mijn naasten aan het helpen met ondersteunende gesprekken en ze helpen waar nodig.
+                                Dit is een van de vele redenen dat ik ervoor heb gekozen om pedagogiek te studeren aan de Vrije Universiteit te
+                                Amsterdam. Binnen deze studierichting heb ik mij gespecialiseerd in AD(H)D.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="row m-0 p-0">
+                        <div class="col-md-4">
+                            <img class="d-block w-100" src="~/images/MaaikeBoer.png" alt="Foto van orthopedagoog Erik van Leussen"/>
+                        </div>
+                        <div class="col-md-8 mt-md-0 mt-5 text-white">
+                            <h2>Maaike Boer</h2>
+                            <p class="fw-normal fs-5">
+                                Ik heet Maaike Boer, 43 jaar en ik kom uit Den Haag. Ik ben de jongste van mijn broers en zussen. Zelf heb ik 4 kinderen
+                                en ben ik getrouwd. Het is over het algemeen duidelijk dat veel jongeren zich niet begrepen voelen en dit als frustratie
+                                uiten. Daarom houd ik me al lange tijd bezig met het bestuderen van jongeren, zoals wat ze doen, waarom ze iets doen en
+                                wat hun beweegt. Zo kan ik jongeren helpen doordat ik ze beter begrijp en kan aanvoelen.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="row m-0 p-0">
+                        <div class="col-md-4">
+                            <img class="d-block w-100" src="~/images/MarijnVliert.png" alt="Foto van orthopedagoog Erik van Leussen"/>
+                        </div>
+                        <div class="col-md-8 mt-md-0 mt-5 text-white">
+                            <h2>Marijn Vliert</h2>
+                            <p class="fw-normal fs-5">
+                                Mijn naam is Marijn van der Vliert, ik ben 33 jaar en kom uit Den Haag. Ik heb orthopedagogiek gestudeerd aan de Erasmus
+                                Universiteit in Rotterdam. Bij het afstuderen heb ik me vooral gespecialiseerd in eetstoornissen. Ik ben altijd al
+                                geïnteresseerd geweest in het helpen van jongeren met hun problemen en zou ook bereid zijn om buiten werktijden je te
+                                willen helpen.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="row m-0 p-0">
+                        <div class="col-md-4">
+                            <img class="d-block w-100" src="~/images/JoeriJansen.png" alt="Foto van orthopedagoog Erik van Leussen"/>
+                        </div>
+                        <div class="col-md-8 mt-md-0 mt-5 text-white">
+                            <h2>Joerie Janssen</h2>
+                            <p class="fw-normal fs-5">
+                                Ik ben Joerie Janssen, 49 jaar en geboren in Den Haag. Ik heb orthopedagogiek gestudeerd aan de Universiteit van Leiden.
+                                Ik heb tijdens mijn studie gespecialiseerd in het behandelen van angststoornissen.
+                                </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#doctorCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#doctorCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+        @* <img class="d-block w-100" src="~\images\MaaikeBoer.png" alt="Eerste slide">
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
+                </ol>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img class="d-block w-100" src="~\images\MaaikeBoer.png" alt="Eerste slide">
+                    </div>
+                    <div class="carousel-item">
+                        <img class="d-block w-100" src="~\images\SachikoYagami.png" alt="Tweede slide">
+                    </div>
+                    <div class="carousel-item">
+                        <img class="d-block w-100" src="~\images\JoeriJansen.png" alt="Derde slide">
+                    </div>
+                    <div class="carousel-item">
+                        <img class="d-block w-100" src="~\images\MarijnVliert.png" alt="Vierde slide">
+                    </div>
+                    <div class="carousel-item">
+                        <img class="d-block w-100" src="~\images\ErikLeussen.png" alt="Vijfde slide">
+                    </div>
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Vorige</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Volgende</span>
+                </a>
+            </div> *@
+    </div>
+</div>
+
+<div id="clientGetStarted" class="container d-flex align-content-center py-5">
+    <div class="row w-100 m-0 p-0 d-flex align-items-center">
+        <div class="col-lg-6 m-0 p-0 text-okok-dark">
+            <h1>Wilt u uw kind aanmelden?</h1>
+            <p style="font-size: large">Om een account aan te maken moet je je eerst aanmelden voor een Intake gesprek. 
+                Dit doe je door hieronder op aanmelden te klikken, echter heb je wel een doorverwijzing nodig van je huisarts. 
+                Bij het intakegesprek wordt vervolgens een account gemaakt voor het kind en eventueel ook de ouder/verzorger. 
+                De orthopedagoog stelt bij de aanmelding alles behalve het wachtwoord in, deze kunnen de eigenaars zelf instellen.</p>
+            <a class="btn btn-outline-primary btn-lg okok-rounded" asp-area="Identity" asp-page="/Account/RegisterGuardian">
+                Aanmelden
+            </a>
+        </div>
+        <div class="col-lg-6 m-0 p-0">
+            <div class="d-flex">
+                <img class="img-fluid" alt="" src="~/images/children-playing.svg"/>
+            </div>
+        </div>
+    </div>
+    
 </div>

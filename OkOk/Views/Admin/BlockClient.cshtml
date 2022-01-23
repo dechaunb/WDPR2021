@@ -1,0 +1,15 @@
+@model ClientApplicationUser
+
+<h1>Cliënt Blokkeren</h1>
+<form class="row row-cols-lg-auto g-3 align-items-center" method="post" asp-action="BlockClient">
+    <input id=userId name="userId" type=hidden value='@Model.Id'>
+    <input id=messageId name="messageId" type=hidden value='@ViewData["messageId"]'>
+    <div class="col-12 form-floating">
+        <input type="text" name="lockoutReason" class="form-control" id="lockoutReason" placeholder="Reden">
+        <label class="control-label" for="lockoutReason">Reden van lockout:</label>
+    </div>
+
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary">Toepassen</button>
+    </div>
+</form>

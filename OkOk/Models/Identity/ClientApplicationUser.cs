@@ -11,6 +11,7 @@ namespace OkOk.Models.Identity
         [PersonalData]
         [Required]
         public Address Address { get; set; }
+        public Guid? AddressId { get; set; }
 
         [PersonalData]
         public virtual ICollection<Treatment> Treatments { get; set; }
