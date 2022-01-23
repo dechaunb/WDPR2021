@@ -17,38 +17,31 @@
         U praat nu met: @gn
     </p>
 
-    <div class="row">
-        <div class="col-12">
-            <hr />
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-6">
-            <ul id="messagesList" class="list-group p-5">
-                @foreach(Message message in messages){
-                    @await Html.PartialAsync("MessagePartial", message);
-                }
-            </ul>
-        </div>
-    </div>
-    <div class="container">
-        <div class="row">&nbsp;</div>
+    <div class="container-fluid">
         <div class="row">
-            @* <div class="col-2">User</div> *@
-            <div class="col-4"><input  value='@un' type="hidden" id="userInput" /></div>
-            <div class="col-4"><input  value='@uid' type="hidden" id="userIdInput" /></div>
-            <div class="col-4"><input  value='@gn' type="hidden" id="targetInput" /></div>
-            <div class="col-4"><input  value='@gid' type="hidden" id="targetIdInput" /></div>
-
+            <div class="col">
+                <ul id="messagesList" class="list-group p-5">
+                    @foreach(Message message in messages){
+                        @await Html.PartialAsync("MessagePartial", message);
+                    }
+                </ul>
+            </div>
         </div>
-        <div class="row">
-            <div class="col-2">Message</div>
-            <div class="col-4"><input type="text" id="messageInput" /></div>
-        </div>
-        <div class="row">&nbsp;</div>
-        <div class="row">
-            <div class="col-6">
-                <input type="button" id="sendButton" value="Send Message" />
+        <div class="container-fluid row d-flex justify-content-around m-0">
+            <div class="row">
+                <div class="col-4"><input  value='@un' type="hidden" id="userInput" /></div>
+                <div class="col-4"><input  value='@uid' type="hidden" id="userIdInput" /></div>
+                <div class="col-4"><input  value='@gn' type="hidden" id="targetInput" /></div>
+                <div class="col-4"><input  value='@gid' type="hidden" id="targetIdInput" /></div>
+            </div>
+            <div class="row">
+                <div class="col-10">
+                    <label class="visually-hidden" for="messageInput">Bericht invoer</label>
+                    <input type="text" class="form-control" id="messageInput" placeholder="Typ uw bericht">
+                </div>
+                <div class="col-2 d-flex justify-content-around">
+                    <input class="btn btn-primary" type="button" id="sendButton" value="Verstuur" />
+                </div>
             </div>
         </div>
     </div>
