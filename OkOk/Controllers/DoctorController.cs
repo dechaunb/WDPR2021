@@ -16,21 +16,15 @@ namespace OkOk.Controllers;
 [Authorize(Roles = "Doctor")]
 public class DoctorController : Controller
 {
-    private readonly ILogger<DoctorController> _logger;
     private readonly ApplicationDbContext _context;
     private readonly UserManager<DoctorApplicationUser> _userManager;
-    private readonly SignInManager<DoctorApplicationUser> _signInManager;
 
     public DoctorController(
-        ILogger<DoctorController> logger, 
         ApplicationDbContext context,
-        SignInManager<DoctorApplicationUser> signInManager,
         UserManager<DoctorApplicationUser> userManager
         )
     {
-        _logger = logger;
         _context = context;
-        _signInManager = signInManager;
         _userManager = userManager;
     }
 
@@ -327,10 +321,10 @@ public class DoctorController : Controller
         return View(treatment);
     }
 
-        private bool SignUpRequestExists(Guid id)
-        {
-            return _context.SignUpRequests.Any(e => e.Id == id);
-        }
+    private bool SignUpRequestExists(Guid id)
+    {
+        return _context.SignUpRequests.Any(e => e.Id == id);
+    }
 
         public IActionResult Messages(){
             return View();
