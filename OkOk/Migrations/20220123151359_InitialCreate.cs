@@ -262,7 +262,7 @@ namespace OkOk.Migrations
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     Content = table.Column<string>(type: "TEXT", nullable: false),
                     DateTime = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    SenderId = table.Column<string>(type: "TEXT", nullable: false),
+                    SenderId = table.Column<string>(type: "TEXT", nullable: true),
                     GroupId = table.Column<Guid>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
@@ -288,8 +288,8 @@ namespace OkOk.Migrations
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     Handled = table.Column<bool>(type: "INTEGER", nullable: false),
-                    ClientId = table.Column<string>(type: "TEXT", nullable: false),
-                    DoctorId = table.Column<string>(type: "TEXT", nullable: false)
+                    ClientId = table.Column<string>(type: "TEXT", nullable: true),
+                    DoctorId = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -315,8 +315,8 @@ namespace OkOk.Migrations
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     DateTime = table.Column<DateTime>(type: "TEXT", nullable: false),
                     Description = table.Column<string>(type: "TEXT", nullable: true),
-                    ClientId = table.Column<string>(type: "TEXT", nullable: false),
-                    DoctorId = table.Column<string>(type: "TEXT", nullable: false)
+                    ClientId = table.Column<string>(type: "TEXT", nullable: true),
+                    DoctorId = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -385,292 +385,292 @@ namespace OkOk.Migrations
             migrationBuilder.InsertData(
                 table: "Addresses",
                 columns: new[] { "Id", "City", "Country", "HouseNumber", "HouseNumberAddition", "Street", "ZipCode" },
-                values: new object[] { new Guid("d59ed4f4-4a52-423b-9be2-789dabb0cd01"), "Dorp", "Nederland", 1, null, "Dorpsstraat", "1234AB" });
+                values: new object[] { new Guid("43327698-bdb9-45df-b7eb-9098baf81281"), "Dorp", "Nederland", 1, null, "Dorpsstraat", "1234AB" });
 
             migrationBuilder.InsertData(
                 table: "Addresses",
                 columns: new[] { "Id", "City", "Country", "HouseNumber", "HouseNumberAddition", "Street", "ZipCode" },
-                values: new object[] { new Guid("f8a551b0-0ab2-4d0a-b5dd-183b8a1fe571"), "Dorp", "Nederland", 1, null, "Dorpsstraat", "1234AB" });
+                values: new object[] { new Guid("938c6cd6-9bdd-43ab-93f9-14379a3a5f28"), "Dorp", "Nederland", 1, null, "Dorpsstraat", "1234AB" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "16e828f3-dee1-47eb-8450-dd69d7374cf9", "1", "Guardian", "GUARDIAN" });
+                values: new object[] { "9d39a882-17f2-4e2b-9e4b-13c80e158847", "1", "Guardian", "GUARDIAN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "e75f9f05-a964-4b48-8d2e-ec57c5986234", "1", "Admin", "ADMIN" });
+                values: new object[] { "e00dd267-628a-4b64-8c6b-65a31cf63463", "1", "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "fb404819-a49a-48ed-af48-6a70a6e78043", "1", "Doctor", "DOCTOR" });
+                values: new object[] { "e8e73d04-3827-4cdc-82c0-91e59988cf2e", "1", "Doctor", "DOCTOR" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "fbf65982-e9a7-4c05-b2e0-57f4d77d4cef", "1", "Client", "CLIENT" });
+                values: new object[] { "fb6e2f0e-9614-4e3c-bb94-b9c1fe2d3a9e", "1", "Client", "CLIENT" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "FirstName", "LastName", "LockedOutReason", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "40e2b11d-7be4-41a6-ad95-508a04908823", 0, "6e09cfae-f005-4d0a-a328-0c6b5912c9c8", "ApplicationUser", "dechaun@okokapp.nl", true, "Dechaun", "OkOk", null, false, null, "DECHAUN@OKOKAPP.NL", "DECHAUN@OKOKAPP.NL", "AQAAAAEAACcQAAAAEKoldaDKnu463J4bdDAgGIVkviulj/tXhNtygjTXwwqzwG7KaPzAgfs94WosYZXBZg==", "1234567890", true, "1dc1dc69-df57-4373-9113-6f8c37dcb496", false, "dechaun@okokapp.nl" });
+                values: new object[] { "48cf798d-2d19-4869-969f-a572fabf9ebc", 0, "ad5a226c-3c77-4882-b242-8b3537032655", "ApplicationUser", "timothy@okokapp.nl", true, "Timothy", "OkOk", null, false, null, "TIMOTHY@OKOKAPP.NL", "TIMOTHY@OKOKAPP.NL", "AQAAAAEAACcQAAAAELR3cYheUboHmREjLtfBUAkdo22PsBIMaBj+AwIexu882Grr7M5GwIcuIpBeICvWCg==", "1234567890", true, "1d97cbd9-989a-40c1-8ba4-12ecbd8e3f9a", false, "timothy@okokapp.nl" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "FirstName", "LastName", "LockedOutReason", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "70ad9b1f-1653-4c8b-b0cc-05151dd9c3e5", 0, "24fa01fb-4ad5-40af-8221-c36d3be256b5", "ApplicationUser", "timothy@okokapp.nl", true, "Timothy", "OkOk", null, false, null, "TIMOTHY@OKOKAPP.NL", "TIMOTHY@OKOKAPP.NL", "AQAAAAEAACcQAAAAEF87HRCu2fpGIN5rEyUJM+zwzPgtm4F8/WOfLK8wqJDmb0LafXUFA9ocviz1qAo4HQ==", "1234567890", true, "6f7489ee-71f0-4677-80e5-ac4360df8750", false, "timothy@okokapp.nl" });
+                values: new object[] { "52a7829f-02f6-4f70-a726-a4521850af9e", 0, "9b0b0992-858a-4f19-be91-06673b251b57", "ApplicationUser", "dechaun@okokapp.nl", true, "Dechaun", "OkOk", null, false, null, "DECHAUN@OKOKAPP.NL", "DECHAUN@OKOKAPP.NL", "AQAAAAEAACcQAAAAEERIPCSBwP2NFcyHZkY1P+mBNR9G+X2UUIzGsAT3ujuBLaR6d2/ONnmsPDJOaN3UdA==", "1234567890", true, "b0eaf42d-3e54-415d-8622-1bcc4f098db1", false, "dechaun@okokapp.nl" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "FirstName", "LastName", "LockedOutReason", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "cb942955-b31b-4e4d-b2f9-9d1928aeda7b", 0, "14260196-cbb9-4551-b7bd-c25ec8048c2e", "ApplicationUser", "angelo@okokapp.nl", true, "Angelo", "OkOk", null, false, null, "ANGELO@OKOKAPP.NL", "ANGELO@OKOKAPP.NL", "AQAAAAEAACcQAAAAENTXlnpvglCiOT+Cnl/T7TFVgpSsI8OrydVV9YeboGk4MFSmuhtOEwyj+AG2boSL3A==", "1234567890", true, "cdb8e1d9-2a55-410b-97d6-73560e903faa", false, "angelo@okokapp.nl" });
+                values: new object[] { "895f771b-a2b5-463b-852c-2076635d1f1b", 0, "8b4478ec-ec49-4049-866f-99e7c52fcf45", "ApplicationUser", "angelo@okokapp.nl", true, "Angelo", "OkOk", null, false, null, "ANGELO@OKOKAPP.NL", "ANGELO@OKOKAPP.NL", "AQAAAAEAACcQAAAAEBH94OsN9Db7ylaXW3dmTD75smYYmOW4e/kFaPFWVUEPj9rtcK/BVbTJpIBgE+wZYA==", "1234567890", true, "dfd00ddd-58ed-4ca6-b362-6d20b18cc267", false, "angelo@okokapp.nl" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "FirstName", "LastName", "LockedOutReason", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "Specialism", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "03065621-afd5-485b-a179-309f05a2f95c", 0, "9604c963-698e-4e4b-ab6c-9a7404bdffde", "DoctorApplicationUser", "doctorone@okokapp.nl", true, "Doctor", "One", null, false, null, "DOCTORONE@OKOKAPP.NL", "DOCTORONE@OKOKAPP.NL", "AQAAAAEAACcQAAAAEPrKeBlvY7I8erE9VERTpvlGuoDQSUtYDwcjbX8jxPTsyXaVRtQtd69jFaaO7NyyRA==", "1234567890", true, "7c53a1b1-8983-4298-9596-5fcc118482c1", "Autisme", false, "doctorone@okokapp.nl" });
+                values: new object[] { "4bf7f22b-d20c-49ee-87d3-74f8e8d9972b", 0, "200e712c-a721-4db0-a46c-85b2c2e9d9c9", "DoctorApplicationUser", "doctorone@okokapp.nl", true, "Doctor", "One", null, false, null, "DOCTORONE@OKOKAPP.NL", "DOCTORONE@OKOKAPP.NL", "AQAAAAEAACcQAAAAEIM/maeUYPEHYcAE3lNp7PZqC9F67gtFmRvUb/hV3+vM+ewEM1AcGDv0tj3P0ySQWA==", "1234567890", true, "967da4ef-0a18-47d8-9191-37fe5912847b", "Autisme", false, "doctorone@okokapp.nl" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "FirstName", "LastName", "LockedOutReason", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "Specialism", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "280b2964-749e-4c67-9fa3-52d053d23cb9", 0, "895a40b3-a158-48e5-9e4f-380f22922f0b", "DoctorApplicationUser", "doctortwo@okokapp.nl", true, "Doctor", "Two", null, false, null, "DOCTORTWO@OKOKAPP.NL", "DOCTORTWO@OKOKAPP.NL", "AQAAAAEAACcQAAAAEIUOcxtNWln+TO9Lh5stYovF14R/cwjFlKB5k3fJzpxa1DSfhQOUnIo/Fi0qEdcf0Q==", "1234567890", true, "a6e3c09a-6031-47b5-9f2d-92d8d59a728e", "Autisme", false, "doctortwo@okokapp.nl" });
+                values: new object[] { "a237993d-0c22-4fc9-a055-6d448f84683f", 0, "6108c612-c4cc-441c-b155-eb8861120384", "DoctorApplicationUser", "doctortwo@okokapp.nl", true, "Doctor", "Two", null, false, null, "DOCTORTWO@OKOKAPP.NL", "DOCTORTWO@OKOKAPP.NL", "AQAAAAEAACcQAAAAELc6cahlHEwjej6mGPDIDiQvj1OrThh/IlVoUPqJCwNMC+UoJd5DW4CNxgoyZEzTNw==", "1234567890", true, "704b898e-ae2f-490b-a0ee-68e7f671fe93", "Autisme", false, "doctortwo@okokapp.nl" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "FirstName", "LastName", "LockedOutReason", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "8235b4b5-7f18-466d-aca1-913fdc869705", 0, "91d0dc3f-438f-4e1c-98e9-5a167ca7d961", "GuardianApplicationUser", "guardiantwo@okokapp.nl", true, "Guardian", "Two", null, false, null, "GUARDIANTWO@OKOKAPP.NL", "GUARDIANTWO@OKOKAPP.NL", "AQAAAAEAACcQAAAAEAAaMVUHZNvAfxS/Djfp1TsheITB8zeD68f0PNgIvpU68+mhDZojtBi/rwEEdD01Yw==", "1234567890", true, "d00dee68-afe1-4452-916b-da5735209c6e", false, "guardiantwo@okokapp.nl" });
+                values: new object[] { "b8f5e8c8-2486-40ff-aecd-1523cc43b65f", 0, "8f8b9dba-54d1-4c52-8bb7-04c4f87fa5a8", "GuardianApplicationUser", "guardianone@okokapp.nl", true, "Guardian", "One", null, false, null, "GUARDIANONE@OKOKAPP.NL", "GUARDIANONE@OKOKAPP.NL", "AQAAAAEAACcQAAAAEFc4vzP0IVJ8xM677zGO0kAiBD7FBuABSy4xnNGkQaspbBlBRL+Z3JXZiT4PR6MH0g==", "1234567890", true, "d1ec7426-a4f8-440b-8e9d-bf4560f85fa0", false, "guardianone@okokapp.nl" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "FirstName", "LastName", "LockedOutReason", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "9a1588e9-e19a-4a13-a9b8-e51c3039e338", 0, "59367880-c9c5-41b1-887d-c8be87a16ed2", "GuardianApplicationUser", "guardianone@okokapp.nl", true, "Guardian", "One", null, false, null, "GUARDIANONE@OKOKAPP.NL", "GUARDIANONE@OKOKAPP.NL", "AQAAAAEAACcQAAAAEEK1+7su/R8+XEJDxQyprz2c95ZX3mvqHrvuuo/XKTAsjskLGlh1Gg2sL/du/NAGgQ==", "1234567890", true, "08503e43-e116-4b56-ad9a-56e863d1e02c", false, "guardianone@okokapp.nl" });
+                values: new object[] { "e26a6e77-d1ca-444d-8bf5-2cd1666c7a24", 0, "f420171d-ac45-4b6b-9fcf-93d33d17631d", "GuardianApplicationUser", "guardiantwo@okokapp.nl", true, "Guardian", "Two", null, false, null, "GUARDIANTWO@OKOKAPP.NL", "GUARDIANTWO@OKOKAPP.NL", "AQAAAAEAACcQAAAAEMqVP6uO/gH+Uw4NpVLfDRW2ZQqjskqBToIuRtiSJy98k03vtudhoGSC8GZJ41YAYQ==", "1234567890", true, "bfc7c3b6-49b0-48b5-b12f-b85445d51bcc", false, "guardiantwo@okokapp.nl" });
 
             migrationBuilder.InsertData(
                 table: "Reports",
                 columns: new[] { "Id", "Handled" },
-                values: new object[] { new Guid("45ac16ac-d464-4c4d-9c38-b6ce022d017b"), false });
+                values: new object[] { new Guid("26445a1f-ed8a-4e94-8da2-5839e3b5e4d5"), false });
 
             migrationBuilder.InsertData(
                 table: "Reports",
                 columns: new[] { "Id", "Handled" },
-                values: new object[] { new Guid("5d673c75-8984-4c31-80f8-5726797b42bb"), false });
+                values: new object[] { new Guid("42b71c8d-9286-4e77-b498-0ae78fca600b"), false });
 
             migrationBuilder.InsertData(
                 table: "Reports",
                 columns: new[] { "Id", "Handled" },
-                values: new object[] { new Guid("724fe7b0-495d-4dbe-a9a8-c3e5b6a23f44"), false });
+                values: new object[] { new Guid("74c15987-793b-4bb4-b8c4-e378cfe038cf"), false });
 
             migrationBuilder.InsertData(
                 table: "Reports",
                 columns: new[] { "Id", "Handled" },
-                values: new object[] { new Guid("c9621624-3619-4670-8e3d-254934dd496a"), false });
+                values: new object[] { new Guid("c649b22d-68a5-4401-9107-c71fbe381ffa"), false });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "fb404819-a49a-48ed-af48-6a70a6e78043", "03065621-afd5-485b-a179-309f05a2f95c" });
+                values: new object[] { "e00dd267-628a-4b64-8c6b-65a31cf63463", "48cf798d-2d19-4869-969f-a572fabf9ebc" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "fb404819-a49a-48ed-af48-6a70a6e78043", "280b2964-749e-4c67-9fa3-52d053d23cb9" });
+                values: new object[] { "e8e73d04-3827-4cdc-82c0-91e59988cf2e", "4bf7f22b-d20c-49ee-87d3-74f8e8d9972b" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "e75f9f05-a964-4b48-8d2e-ec57c5986234", "40e2b11d-7be4-41a6-ad95-508a04908823" });
+                values: new object[] { "e00dd267-628a-4b64-8c6b-65a31cf63463", "52a7829f-02f6-4f70-a726-a4521850af9e" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "e75f9f05-a964-4b48-8d2e-ec57c5986234", "70ad9b1f-1653-4c8b-b0cc-05151dd9c3e5" });
+                values: new object[] { "e00dd267-628a-4b64-8c6b-65a31cf63463", "895f771b-a2b5-463b-852c-2076635d1f1b" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "16e828f3-dee1-47eb-8450-dd69d7374cf9", "8235b4b5-7f18-466d-aca1-913fdc869705" });
+                values: new object[] { "e8e73d04-3827-4cdc-82c0-91e59988cf2e", "a237993d-0c22-4fc9-a055-6d448f84683f" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "16e828f3-dee1-47eb-8450-dd69d7374cf9", "9a1588e9-e19a-4a13-a9b8-e51c3039e338" });
+                values: new object[] { "9d39a882-17f2-4e2b-9e4b-13c80e158847", "b8f5e8c8-2486-40ff-aecd-1523cc43b65f" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "e75f9f05-a964-4b48-8d2e-ec57c5986234", "cb942955-b31b-4e4d-b2f9-9d1928aeda7b" });
+                values: new object[] { "9d39a882-17f2-4e2b-9e4b-13c80e158847", "e26a6e77-d1ca-444d-8bf5-2cd1666c7a24" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "AddressId", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "FirstName", "LastName", "LockedOutReason", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "OldEnough", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "6a15ca21-cccb-42ed-8f19-edd6934910c8", 0, new Guid("f8a551b0-0ab2-4d0a-b5dd-183b8a1fe571"), "e9c2c9bd-e873-4dfb-b138-b29817f55f62", "ClientApplicationUser", "clienttwo@okokapp.nl", true, "Client", "Two", null, false, null, "CLIENTTWO@OKOKAPP.NL", "CLIENTTWO@OKOKAPP.NL", false, "AQAAAAEAACcQAAAAECAACz00t1edQeEBelPsieq5blo2j3NIZiouAGiWPq3UGbUanI3Q8GN3x36MxkTO/Q==", "1234567890", true, "b8298d75-086b-4a45-88c0-e931d7ffdf28", false, "clienttwo@okokapp.nl" });
+                values: new object[] { "3e4d8c81-6c69-4f72-93d9-71329872f25b", 0, new Guid("43327698-bdb9-45df-b7eb-9098baf81281"), "ec4f0115-d696-4358-9553-42d05df35212", "ClientApplicationUser", "clienttwo@okokapp.nl", true, "Client", "Two", null, false, null, "CLIENTTWO@OKOKAPP.NL", "CLIENTTWO@OKOKAPP.NL", false, "AQAAAAEAACcQAAAAEOIDXZEUlLFbWJbYLFsByyDPQ+uDKaq0sJjZw2NgPRWzpbcmQg8DuImRNl19g7aAZA==", "1234567890", true, "85deacb4-4544-46c5-bedc-43f26330eb23", false, "clienttwo@okokapp.nl" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "AddressId", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "FirstName", "LastName", "LockedOutReason", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "OldEnough", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "de8459c4-4062-4068-9856-256096919996", 0, new Guid("d59ed4f4-4a52-423b-9be2-789dabb0cd01"), "36d8aa3a-25a1-4536-bce9-37ecb1a450a1", "ClientApplicationUser", "clientone@okokapp.nl", true, "Client", "One", null, false, null, "CLIENTONE@OKOKAPP.NL", "CLIENTONE@OKOKAPP.NL", false, "AQAAAAEAACcQAAAAEDVVY6I4evYkROHM61cpgRgS7pFU/uvhBzlmGd0KvYXJl1HUCZUrMAIaBxVAcPvG5Q==", "1234567890", true, "d9acc481-f9ef-4da4-9ba0-715c76c62193", false, "clientone@okokapp.nl" });
+                values: new object[] { "ecc725e2-d4a3-4c5e-8bad-43d36fc065fb", 0, new Guid("938c6cd6-9bdd-43ab-93f9-14379a3a5f28"), "77063fff-ec58-4af7-8b58-127a94a41c8e", "ClientApplicationUser", "clientone@okokapp.nl", true, "Client", "One", null, false, null, "CLIENTONE@OKOKAPP.NL", "CLIENTONE@OKOKAPP.NL", false, "AQAAAAEAACcQAAAAED4jMMTaZ/+Vnfe62BLlA9pSlRimjdT5E9/KmwE7oNIxJpvGEYBGtAc23QssOSTfGg==", "1234567890", true, "4c42efa9-be0d-4188-9126-26d964f1a65f", false, "clientone@okokapp.nl" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "fbf65982-e9a7-4c05-b2e0-57f4d77d4cef", "6a15ca21-cccb-42ed-8f19-edd6934910c8" });
+                values: new object[] { "fb6e2f0e-9614-4e3c-bb94-b9c1fe2d3a9e", "3e4d8c81-6c69-4f72-93d9-71329872f25b" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "fbf65982-e9a7-4c05-b2e0-57f4d77d4cef", "de8459c4-4062-4068-9856-256096919996" });
+                values: new object[] { "fb6e2f0e-9614-4e3c-bb94-b9c1fe2d3a9e", "ecc725e2-d4a3-4c5e-8bad-43d36fc065fb" });
 
             migrationBuilder.InsertData(
                 table: "GuardianChild",
                 columns: new[] { "ChildId", "GuardianId" },
-                values: new object[] { "6a15ca21-cccb-42ed-8f19-edd6934910c8", "8235b4b5-7f18-466d-aca1-913fdc869705" });
+                values: new object[] { "3e4d8c81-6c69-4f72-93d9-71329872f25b", "e26a6e77-d1ca-444d-8bf5-2cd1666c7a24" });
 
             migrationBuilder.InsertData(
                 table: "GuardianChild",
                 columns: new[] { "ChildId", "GuardianId" },
-                values: new object[] { "de8459c4-4062-4068-9856-256096919996", "9a1588e9-e19a-4a13-a9b8-e51c3039e338" });
+                values: new object[] { "ecc725e2-d4a3-4c5e-8bad-43d36fc065fb", "b8f5e8c8-2486-40ff-aecd-1523cc43b65f" });
 
             migrationBuilder.InsertData(
                 table: "Messages",
                 columns: new[] { "Id", "Content", "DateTime", "GroupId", "SenderId" },
-                values: new object[] { new Guid("008fed72-f9a3-4100-9c57-a88a152f400d"), "Dit is een geseede message [4]", new DateTime(2022, 1, 20, 21, 15, 37, 932, DateTimeKind.Local).AddTicks(3810), null, "6a15ca21-cccb-42ed-8f19-edd6934910c8" });
+                values: new object[] { new Guid("079d8794-974e-4de9-82e7-d76fe34da12d"), "Dit is een geseede message [1]", new DateTime(2022, 1, 23, 16, 13, 59, 315, DateTimeKind.Local).AddTicks(3433), null, "ecc725e2-d4a3-4c5e-8bad-43d36fc065fb" });
 
             migrationBuilder.InsertData(
                 table: "Messages",
                 columns: new[] { "Id", "Content", "DateTime", "GroupId", "SenderId" },
-                values: new object[] { new Guid("3cf2624f-90a0-4166-815f-0ee1215c5677"), "Dit is een geseede message [2]", new DateTime(2022, 1, 20, 21, 15, 37, 932, DateTimeKind.Local).AddTicks(3793), null, "de8459c4-4062-4068-9856-256096919996" });
+                values: new object[] { new Guid("21035c9e-f5e5-42bb-9bb3-0df72ce7ca6d"), "Dit is een geseede message [2]", new DateTime(2022, 1, 23, 16, 13, 59, 315, DateTimeKind.Local).AddTicks(3459), null, "ecc725e2-d4a3-4c5e-8bad-43d36fc065fb" });
 
             migrationBuilder.InsertData(
                 table: "Messages",
                 columns: new[] { "Id", "Content", "DateTime", "GroupId", "SenderId" },
-                values: new object[] { new Guid("de8627de-1e2e-4ff0-bc1f-285711469eb5"), "Dit is een geseede message [3]", new DateTime(2022, 1, 20, 21, 15, 37, 932, DateTimeKind.Local).AddTicks(3804), null, "6a15ca21-cccb-42ed-8f19-edd6934910c8" });
+                values: new object[] { new Guid("9afacd3e-cb22-4e5d-82bc-119cfa33b24b"), "Dit is een geseede message [3]", new DateTime(2022, 1, 23, 16, 13, 59, 315, DateTimeKind.Local).AddTicks(3463), null, "3e4d8c81-6c69-4f72-93d9-71329872f25b" });
 
             migrationBuilder.InsertData(
                 table: "Messages",
                 columns: new[] { "Id", "Content", "DateTime", "GroupId", "SenderId" },
-                values: new object[] { new Guid("f34da526-98c8-40e2-849d-405e40f1a758"), "Dit is een geseede message [1]", new DateTime(2022, 1, 20, 21, 15, 37, 932, DateTimeKind.Local).AddTicks(3775), null, "de8459c4-4062-4068-9856-256096919996" });
+                values: new object[] { new Guid("f7b2eaa7-7d4c-49e4-81e8-9dedc84ebcbd"), "Dit is een geseede message [4]", new DateTime(2022, 1, 23, 16, 13, 59, 315, DateTimeKind.Local).AddTicks(3467), null, "3e4d8c81-6c69-4f72-93d9-71329872f25b" });
 
             migrationBuilder.InsertData(
                 table: "SignUpRequests",
                 columns: new[] { "Id", "ClientId", "DoctorId", "Handled" },
-                values: new object[] { new Guid("2f7d5ac7-9c1b-41aa-b3c8-96674e124912"), "de8459c4-4062-4068-9856-256096919996", "03065621-afd5-485b-a179-309f05a2f95c", false });
+                values: new object[] { new Guid("477c1fb9-bbc6-49c5-9e15-4b5d17c847e6"), "3e4d8c81-6c69-4f72-93d9-71329872f25b", "4bf7f22b-d20c-49ee-87d3-74f8e8d9972b", false });
 
             migrationBuilder.InsertData(
                 table: "SignUpRequests",
                 columns: new[] { "Id", "ClientId", "DoctorId", "Handled" },
-                values: new object[] { new Guid("c1d625a0-fb07-4e2f-ab0e-e781f658406b"), "6a15ca21-cccb-42ed-8f19-edd6934910c8", "03065621-afd5-485b-a179-309f05a2f95c", false });
+                values: new object[] { new Guid("c1e4b216-5b09-4efe-9632-d2273556f245"), "ecc725e2-d4a3-4c5e-8bad-43d36fc065fb", "4bf7f22b-d20c-49ee-87d3-74f8e8d9972b", false });
 
             migrationBuilder.InsertData(
                 table: "Treatments",
                 columns: new[] { "Id", "ClientId", "DateTime", "Description", "DoctorId" },
-                values: new object[] { new Guid("57636457-11f5-41f5-87dc-5010ea1b2a18"), "6a15ca21-cccb-42ed-8f19-edd6934910c8", new DateTime(2022, 2, 28, 11, 0, 0, 0, DateTimeKind.Unspecified), "Behandeling", "280b2964-749e-4c67-9fa3-52d053d23cb9" });
+                values: new object[] { new Guid("108f2081-3592-480b-90a2-0c729b8badc3"), "ecc725e2-d4a3-4c5e-8bad-43d36fc065fb", new DateTime(2022, 2, 28, 11, 0, 0, 0, DateTimeKind.Unspecified), "Behandeling", "4bf7f22b-d20c-49ee-87d3-74f8e8d9972b" });
 
             migrationBuilder.InsertData(
                 table: "Treatments",
                 columns: new[] { "Id", "ClientId", "DateTime", "Description", "DoctorId" },
-                values: new object[] { new Guid("5dca797c-6daf-40ff-8edc-cb196c255cc2"), "de8459c4-4062-4068-9856-256096919996", new DateTime(2022, 1, 11, 11, 30, 0, 0, DateTimeKind.Unspecified), "Behandeling", "03065621-afd5-485b-a179-309f05a2f95c" });
+                values: new object[] { new Guid("13460d55-848d-46e3-bab5-4202ded784f5"), "3e4d8c81-6c69-4f72-93d9-71329872f25b", new DateTime(2022, 2, 28, 11, 0, 0, 0, DateTimeKind.Unspecified), "Behandeling", "a237993d-0c22-4fc9-a055-6d448f84683f" });
 
             migrationBuilder.InsertData(
                 table: "Treatments",
                 columns: new[] { "Id", "ClientId", "DateTime", "Description", "DoctorId" },
-                values: new object[] { new Guid("5f5b360d-a126-4d38-8052-e89886452a49"), "de8459c4-4062-4068-9856-256096919996", new DateTime(2022, 1, 20, 11, 30, 0, 0, DateTimeKind.Unspecified), "Behandeling", "03065621-afd5-485b-a179-309f05a2f95c" });
+                values: new object[] { new Guid("35d97051-d545-45a4-832a-f53c833f3a7b"), "ecc725e2-d4a3-4c5e-8bad-43d36fc065fb", new DateTime(2022, 1, 11, 11, 30, 0, 0, DateTimeKind.Unspecified), "Behandeling", "4bf7f22b-d20c-49ee-87d3-74f8e8d9972b" });
 
             migrationBuilder.InsertData(
                 table: "Treatments",
                 columns: new[] { "Id", "ClientId", "DateTime", "Description", "DoctorId" },
-                values: new object[] { new Guid("6058a610-95bf-4158-bb19-68b03783e725"), "de8459c4-4062-4068-9856-256096919996", new DateTime(2022, 2, 28, 11, 0, 0, 0, DateTimeKind.Unspecified), "Behandeling", "03065621-afd5-485b-a179-309f05a2f95c" });
+                values: new object[] { new Guid("371d748f-f9cf-4b3e-83f6-2f89c9b7942b"), "ecc725e2-d4a3-4c5e-8bad-43d36fc065fb", new DateTime(2022, 1, 23, 11, 0, 0, 0, DateTimeKind.Unspecified), "Behandeling", "4bf7f22b-d20c-49ee-87d3-74f8e8d9972b" });
 
             migrationBuilder.InsertData(
                 table: "Treatments",
                 columns: new[] { "Id", "ClientId", "DateTime", "Description", "DoctorId" },
-                values: new object[] { new Guid("65115d57-0a20-4c64-911b-e3ee05d9682e"), "de8459c4-4062-4068-9856-256096919996", new DateTime(2022, 2, 28, 10, 30, 0, 0, DateTimeKind.Unspecified), "Intake", "03065621-afd5-485b-a179-309f05a2f95c" });
+                values: new object[] { new Guid("3f590170-610f-424f-a140-c0455320123f"), "ecc725e2-d4a3-4c5e-8bad-43d36fc065fb", new DateTime(2022, 1, 11, 11, 0, 0, 0, DateTimeKind.Unspecified), "Behandeling", "4bf7f22b-d20c-49ee-87d3-74f8e8d9972b" });
 
             migrationBuilder.InsertData(
                 table: "Treatments",
                 columns: new[] { "Id", "ClientId", "DateTime", "Description", "DoctorId" },
-                values: new object[] { new Guid("7b1c423a-03cf-4ee7-8116-9747904de6f7"), "6a15ca21-cccb-42ed-8f19-edd6934910c8", new DateTime(2022, 1, 20, 10, 30, 0, 0, DateTimeKind.Unspecified), "Intake", "280b2964-749e-4c67-9fa3-52d053d23cb9" });
+                values: new object[] { new Guid("4137242c-0b8d-4851-b32b-a7001b288f05"), "3e4d8c81-6c69-4f72-93d9-71329872f25b", new DateTime(2022, 1, 11, 10, 30, 0, 0, DateTimeKind.Unspecified), "Intake", "a237993d-0c22-4fc9-a055-6d448f84683f" });
 
             migrationBuilder.InsertData(
                 table: "Treatments",
                 columns: new[] { "Id", "ClientId", "DateTime", "Description", "DoctorId" },
-                values: new object[] { new Guid("8ee08a12-da9a-459c-98a3-86faea194e80"), "6a15ca21-cccb-42ed-8f19-edd6934910c8", new DateTime(2022, 1, 11, 10, 30, 0, 0, DateTimeKind.Unspecified), "Intake", "280b2964-749e-4c67-9fa3-52d053d23cb9" });
+                values: new object[] { new Guid("7da6a096-13b6-48dc-970f-6ccfe81f73a1"), "ecc725e2-d4a3-4c5e-8bad-43d36fc065fb", new DateTime(2022, 2, 28, 11, 30, 0, 0, DateTimeKind.Unspecified), "Behandeling", "4bf7f22b-d20c-49ee-87d3-74f8e8d9972b" });
 
             migrationBuilder.InsertData(
                 table: "Treatments",
                 columns: new[] { "Id", "ClientId", "DateTime", "Description", "DoctorId" },
-                values: new object[] { new Guid("97ccf801-d2b8-4837-90a9-2c98884c12bd"), "de8459c4-4062-4068-9856-256096919996", new DateTime(2022, 2, 28, 11, 30, 0, 0, DateTimeKind.Unspecified), "Behandeling", "03065621-afd5-485b-a179-309f05a2f95c" });
+                values: new object[] { new Guid("900b2831-d375-4a33-8bbd-7e32b4cadbd4"), "3e4d8c81-6c69-4f72-93d9-71329872f25b", new DateTime(2022, 2, 28, 11, 30, 0, 0, DateTimeKind.Unspecified), "Behandeling", "a237993d-0c22-4fc9-a055-6d448f84683f" });
 
             migrationBuilder.InsertData(
                 table: "Treatments",
                 columns: new[] { "Id", "ClientId", "DateTime", "Description", "DoctorId" },
-                values: new object[] { new Guid("a0c7d3f3-dc4d-48db-a66b-ed088463149c"), "6a15ca21-cccb-42ed-8f19-edd6934910c8", new DateTime(2022, 2, 28, 11, 30, 0, 0, DateTimeKind.Unspecified), "Behandeling", "280b2964-749e-4c67-9fa3-52d053d23cb9" });
+                values: new object[] { new Guid("960fa018-da5a-4301-b4db-7628dd1c58d7"), "ecc725e2-d4a3-4c5e-8bad-43d36fc065fb", new DateTime(2022, 1, 11, 10, 30, 0, 0, DateTimeKind.Unspecified), "Intake", "4bf7f22b-d20c-49ee-87d3-74f8e8d9972b" });
 
             migrationBuilder.InsertData(
                 table: "Treatments",
                 columns: new[] { "Id", "ClientId", "DateTime", "Description", "DoctorId" },
-                values: new object[] { new Guid("a3b60a54-fc11-4343-b6e0-e735d2484b76"), "6a15ca21-cccb-42ed-8f19-edd6934910c8", new DateTime(2022, 2, 28, 10, 30, 0, 0, DateTimeKind.Unspecified), "Intake", "280b2964-749e-4c67-9fa3-52d053d23cb9" });
+                values: new object[] { new Guid("ab4e5946-71c3-4ff5-9bc7-2d9fd5e134fa"), "3e4d8c81-6c69-4f72-93d9-71329872f25b", new DateTime(2022, 2, 28, 10, 30, 0, 0, DateTimeKind.Unspecified), "Intake", "a237993d-0c22-4fc9-a055-6d448f84683f" });
 
             migrationBuilder.InsertData(
                 table: "Treatments",
                 columns: new[] { "Id", "ClientId", "DateTime", "Description", "DoctorId" },
-                values: new object[] { new Guid("aa118147-97fa-45bf-a53a-2cbf7104165e"), "6a15ca21-cccb-42ed-8f19-edd6934910c8", new DateTime(2022, 1, 11, 11, 30, 0, 0, DateTimeKind.Unspecified), "Behandeling", "280b2964-749e-4c67-9fa3-52d053d23cb9" });
+                values: new object[] { new Guid("c0fd3df0-8d8b-40a7-b665-85b6ffc0bd56"), "ecc725e2-d4a3-4c5e-8bad-43d36fc065fb", new DateTime(2022, 2, 28, 10, 30, 0, 0, DateTimeKind.Unspecified), "Intake", "4bf7f22b-d20c-49ee-87d3-74f8e8d9972b" });
 
             migrationBuilder.InsertData(
                 table: "Treatments",
                 columns: new[] { "Id", "ClientId", "DateTime", "Description", "DoctorId" },
-                values: new object[] { new Guid("c814d5f5-aa91-4d9e-8b81-f991cfff956c"), "de8459c4-4062-4068-9856-256096919996", new DateTime(2022, 1, 20, 10, 30, 0, 0, DateTimeKind.Unspecified), "Intake", "03065621-afd5-485b-a179-309f05a2f95c" });
+                values: new object[] { new Guid("cde47a9f-dc90-4f82-ae83-974be3f03578"), "3e4d8c81-6c69-4f72-93d9-71329872f25b", new DateTime(2022, 1, 23, 10, 30, 0, 0, DateTimeKind.Unspecified), "Intake", "a237993d-0c22-4fc9-a055-6d448f84683f" });
 
             migrationBuilder.InsertData(
                 table: "Treatments",
                 columns: new[] { "Id", "ClientId", "DateTime", "Description", "DoctorId" },
-                values: new object[] { new Guid("cbfc6a25-247a-485b-83ef-73ec425a8e99"), "6a15ca21-cccb-42ed-8f19-edd6934910c8", new DateTime(2022, 1, 20, 11, 0, 0, 0, DateTimeKind.Unspecified), "Behandeling", "280b2964-749e-4c67-9fa3-52d053d23cb9" });
+                values: new object[] { new Guid("d56b51ba-b5b3-4657-9d5a-2d7d25399fb1"), "ecc725e2-d4a3-4c5e-8bad-43d36fc065fb", new DateTime(2022, 1, 23, 11, 30, 0, 0, DateTimeKind.Unspecified), "Behandeling", "4bf7f22b-d20c-49ee-87d3-74f8e8d9972b" });
 
             migrationBuilder.InsertData(
                 table: "Treatments",
                 columns: new[] { "Id", "ClientId", "DateTime", "Description", "DoctorId" },
-                values: new object[] { new Guid("d650536c-8d90-43c7-a5e2-cc7c031a4a48"), "de8459c4-4062-4068-9856-256096919996", new DateTime(2022, 1, 11, 11, 0, 0, 0, DateTimeKind.Unspecified), "Behandeling", "03065621-afd5-485b-a179-309f05a2f95c" });
+                values: new object[] { new Guid("d98c3175-a090-4f8f-91fc-24d994d7c684"), "3e4d8c81-6c69-4f72-93d9-71329872f25b", new DateTime(2022, 1, 23, 11, 0, 0, 0, DateTimeKind.Unspecified), "Behandeling", "a237993d-0c22-4fc9-a055-6d448f84683f" });
 
             migrationBuilder.InsertData(
                 table: "Treatments",
                 columns: new[] { "Id", "ClientId", "DateTime", "Description", "DoctorId" },
-                values: new object[] { new Guid("e050f7f6-37a4-42bb-9553-355286dc1dd3"), "de8459c4-4062-4068-9856-256096919996", new DateTime(2022, 1, 20, 11, 0, 0, 0, DateTimeKind.Unspecified), "Behandeling", "03065621-afd5-485b-a179-309f05a2f95c" });
+                values: new object[] { new Guid("dd7ac4ee-13a7-436f-a3ea-985a7023972c"), "3e4d8c81-6c69-4f72-93d9-71329872f25b", new DateTime(2022, 1, 23, 11, 30, 0, 0, DateTimeKind.Unspecified), "Behandeling", "a237993d-0c22-4fc9-a055-6d448f84683f" });
 
             migrationBuilder.InsertData(
                 table: "Treatments",
                 columns: new[] { "Id", "ClientId", "DateTime", "Description", "DoctorId" },
-                values: new object[] { new Guid("ec8b93ab-4339-49f6-8319-8a27866281af"), "6a15ca21-cccb-42ed-8f19-edd6934910c8", new DateTime(2022, 1, 20, 11, 30, 0, 0, DateTimeKind.Unspecified), "Behandeling", "280b2964-749e-4c67-9fa3-52d053d23cb9" });
+                values: new object[] { new Guid("dda75612-8965-4252-aac2-c44268d4592e"), "3e4d8c81-6c69-4f72-93d9-71329872f25b", new DateTime(2022, 1, 11, 11, 0, 0, 0, DateTimeKind.Unspecified), "Behandeling", "a237993d-0c22-4fc9-a055-6d448f84683f" });
 
             migrationBuilder.InsertData(
                 table: "Treatments",
                 columns: new[] { "Id", "ClientId", "DateTime", "Description", "DoctorId" },
-                values: new object[] { new Guid("ed5c0ca2-a65f-4771-9177-baff8b83684a"), "de8459c4-4062-4068-9856-256096919996", new DateTime(2022, 1, 11, 10, 30, 0, 0, DateTimeKind.Unspecified), "Intake", "03065621-afd5-485b-a179-309f05a2f95c" });
+                values: new object[] { new Guid("ec539a27-3607-47ec-94e4-5b0bf2fbe168"), "3e4d8c81-6c69-4f72-93d9-71329872f25b", new DateTime(2022, 1, 11, 11, 30, 0, 0, DateTimeKind.Unspecified), "Behandeling", "a237993d-0c22-4fc9-a055-6d448f84683f" });
 
             migrationBuilder.InsertData(
                 table: "Treatments",
                 columns: new[] { "Id", "ClientId", "DateTime", "Description", "DoctorId" },
-                values: new object[] { new Guid("fc54150e-8241-464e-86c6-5d38696ecf04"), "6a15ca21-cccb-42ed-8f19-edd6934910c8", new DateTime(2022, 1, 11, 11, 0, 0, 0, DateTimeKind.Unspecified), "Behandeling", "280b2964-749e-4c67-9fa3-52d053d23cb9" });
+                values: new object[] { new Guid("fb55e11f-dc95-402d-b1da-43258f4d54b7"), "ecc725e2-d4a3-4c5e-8bad-43d36fc065fb", new DateTime(2022, 1, 23, 10, 30, 0, 0, DateTimeKind.Unspecified), "Intake", "4bf7f22b-d20c-49ee-87d3-74f8e8d9972b" });
 
             migrationBuilder.InsertData(
                 table: "MessageReports",
                 columns: new[] { "MessageId", "ReportId" },
-                values: new object[] { new Guid("de8627de-1e2e-4ff0-bc1f-285711469eb5"), new Guid("c9621624-3619-4670-8e3d-254934dd496a") });
+                values: new object[] { new Guid("079d8794-974e-4de9-82e7-d76fe34da12d"), new Guid("26445a1f-ed8a-4e94-8da2-5839e3b5e4d5") });
 
             migrationBuilder.InsertData(
                 table: "MessageReports",
                 columns: new[] { "MessageId", "ReportId" },
-                values: new object[] { new Guid("f34da526-98c8-40e2-849d-405e40f1a758"), new Guid("45ac16ac-d464-4c4d-9c38-b6ce022d017b") });
+                values: new object[] { new Guid("079d8794-974e-4de9-82e7-d76fe34da12d"), new Guid("74c15987-793b-4bb4-b8c4-e378cfe038cf") });
 
             migrationBuilder.InsertData(
                 table: "MessageReports",
                 columns: new[] { "MessageId", "ReportId" },
-                values: new object[] { new Guid("f34da526-98c8-40e2-849d-405e40f1a758"), new Guid("5d673c75-8984-4c31-80f8-5726797b42bb") });
+                values: new object[] { new Guid("079d8794-974e-4de9-82e7-d76fe34da12d"), new Guid("c649b22d-68a5-4401-9107-c71fbe381ffa") });
 
             migrationBuilder.InsertData(
                 table: "MessageReports",
                 columns: new[] { "MessageId", "ReportId" },
-                values: new object[] { new Guid("f34da526-98c8-40e2-849d-405e40f1a758"), new Guid("724fe7b0-495d-4dbe-a9a8-c3e5b6a23f44") });
+                values: new object[] { new Guid("9afacd3e-cb22-4e5d-82bc-119cfa33b24b"), new Guid("42b71c8d-9286-4e77-b498-0ae78fca600b") });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

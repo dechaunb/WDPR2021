@@ -108,11 +108,18 @@
                 <div class="d-inline-flex stat-card-text text-dark ms-3">
                     <h2 class="m-0">
                         <div class="d-flex align-content-end align-items-end m-0 p-0">
-                            <span class="fs-2 m-0 p-0">24k</span>
+                            <span class="fs-2 m-0 p-0">@Html.DisplayFor(modelItem => modelItem.MessagesDashboard.Count)</span>
                         </div>
                         <div class="d-flex align-content-start align-items-start m-0 p-0">
                             <span class="fs-5 fw-normal ms-1 ms-md-0 m-0 p-0 text-dark">
-                                Berichten
+                                @if(Model.MessagesDashboard.Count < 1 || Model.MessagesDashboard.Count > 1)
+                                {
+                                    @Html.Raw("Berichten")
+                                }
+                                else
+                                {
+                                    @Html.Raw("Bericht")
+                                }
                             </span>
                         </div>
                     </h2>
@@ -155,7 +162,7 @@
                         </div>
                         <div class="col-4 px-0 d-flex justify-content-end">
                             <div class="d-flex m-0 p-0">
-                                <a asp-action="HandleRequest" asp-route-id="@item.Id" class="text-secondary d-flex align-content-center align-items-center text-decoration-none fs-3" title="Toon meer informatie over @item.ClientApplicationUser.FirstName @item.ClientApplicationUser.LastName">
+                                <a asp-action="SignUpRequest" asp-route-id="@item.Id" class="text-secondary d-flex align-content-center align-items-center text-decoration-none fs-3" title="Toon meer informatie over @item.ClientApplicationUser.FirstName @item.ClientApplicationUser.LastName">
                                     <i class="fa-regular fa-square-info"></i>
                                 </a>
                             </div>

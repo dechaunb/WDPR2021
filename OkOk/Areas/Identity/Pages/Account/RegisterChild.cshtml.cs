@@ -199,7 +199,7 @@ namespace OkOk.Areas.Identity.Pages.Account
                     }
                     if(Input.AnotherOne)
                     {
-                        return LocalRedirect("Identity/Account/RegisterChild");
+                        return RedirectToPage("RegisterChild");
                     }
 
                     return LocalRedirect(returnUrl);

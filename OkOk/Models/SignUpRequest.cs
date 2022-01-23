@@ -13,10 +13,8 @@ namespace OkOk.Models
         public bool Handled { get; set; }
 
     	//Foreign Keys
-        [Required]
         public string ClientId { get; set; }
         public ClientApplicationUser ClientApplicationUser { get; set; }
-        [Required]
         public string DoctorId { get; set; }
         public DoctorApplicationUser DoctorApplicationUser { get; set; }
     }
