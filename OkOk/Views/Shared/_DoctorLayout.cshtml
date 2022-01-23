@@ -23,25 +23,25 @@
                     <hr>
                     <ul class="nav nav-pills flex-column mb-sm-auto mb-0">
                         <li class="nav-item">
-                            <a href="#" class="nav-link active align-middle py-sm-2 py-3 px-0 px-sm-3 text-sm-start text-center" aria-current="page">
+                            <a id="Overzicht" asp-action="Index" class="nav-link text-white align-middle py-sm-2 py-3 px-0 px-sm-3 text-sm-start text-center"}>
                                 <i class="fa-regular fa-grid-2"></i>
                                 <span class="ms-2 d-none d-sm-inline">Overzicht</span>
                             </a>
                         </li>
                         <li>
-                            <a href="#" class="nav-link text-white align-middle py-sm-2 py-3 px-0 px-sm-3 text-sm-start text-center">
+                            <a id="Afspraken" asp-action="Appointments" class="nav-link text-white align-middle py-sm-2 py-3 px-0 px-sm-3 text-sm-start text-center">
                                 <i class="fa-regular fa-calendar"></i>
                                 <span class="ms-2 d-none d-sm-inline">Afspraken</span>
                             </a>
                         </li>
                         <li>
-                            <a href="#" class="nav-link text-white align-middle py-sm-2 py-3 px-0 px-sm-3 text-sm-start text-center">
+                            <a id="Clienten" href="#" class="nav-link text-white align-middle py-sm-2 py-3 px-0 px-sm-3 text-sm-start text-center">
                                 <i class="fa-regular fa-user"></i>
                                 <span class="ms-2 d-none d-sm-inline">Cliënten</span>
                             </a>
                         </li>
                         <li>
-                            <a href="#" class="nav-link text-white align-middle py-sm-2 py-3 px-0 px-sm-3 text-sm-start text-center">
+                            <a id="Gesprekken" asp-action="Messages" class="nav-link text-white align-middle py-sm-2 py-3 px-0 px-sm-3 text-sm-start text-center">
                                 <i class="fa-regular fa-message"></i>
                                 <span class="ms-2 d-none d-sm-inline">Gesprekken</span>
                             </a>
@@ -86,3 +86,10 @@
 </body>
 </html>
 
+<script>
+    getCurrent();
+    function getCurrent(){
+        document.getElementById('@ViewData["title"]').setAttribute("aria-current","page")
+        document.getElementById('@ViewData["title"]').classList.add("active")
+    }
+</script>

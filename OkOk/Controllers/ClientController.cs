@@ -16,21 +16,15 @@ namespace OkOk.Controllers;
 [Authorize(Roles = "Client")]
 public class ClientController : Controller
 {
-    private readonly ILogger<ClientController> _logger;
     private readonly ApplicationDbContext _context;
     private readonly UserManager<ClientApplicationUser> _userManager;
-    private readonly SignInManager<ClientApplicationUser> _signInManager;
 
     public ClientController(
-        ILogger<ClientController> logger, 
         ApplicationDbContext context,
-        SignInManager<ClientApplicationUser> signInManager,
         UserManager<ClientApplicationUser> userManager
         )
     {
-        _logger = logger;
         _context = context;
-        _signInManager = signInManager;
         _userManager = userManager;
     }
 

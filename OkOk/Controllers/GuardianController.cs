@@ -13,6 +13,7 @@ using OkOk.Models;
 
 namespace OkOk.Controllers
 {
+    [Authorize(Roles ="Guardian")]
     public class GuardianController : Controller{
         private readonly ApplicationDbContext _context;
         private readonly UserManager<GuardianApplicationUser> _userManager;

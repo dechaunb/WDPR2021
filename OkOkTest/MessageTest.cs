@@ -51,8 +51,14 @@ public class MessageTest
         var usermanager = new Mock<UserManager<ChatApplicationUser>>(store.Object, null, null, null, null, null, null, null, null);
         MessageController messageController = new MessageController(c,usermanager.Object);
 
+        var httpContext = new Mock<HttpContext>();
+        httpContext.Setup(con => con.User.IsInRole(It.Is<string>(s => s.Equals("Doctor")))).Returns(true);
+
+        var context = new ControllerContext(new ActionContext(httpContext.Object, new RouteData(), new ControllerActionDescriptor()));
+        messageController.ControllerContext=context;
+
         //Act
-        var sut = messageController.Chats() as ViewResult;
+        var sut = messageController.Chats() as IActionResult;
 
         //Assert
         Assert.NotNull(sut);
@@ -258,7 +264,7 @@ public class MessageTest
 
         //Assert
         Assert.NotNull(sut); 
-        usermanager.Verify(it=>it.GetUserId(It.IsAny<ClaimsPrincipal>()), Times.Once);
+        usermanager.Verify(it=>it.GetUserId(It.IsAny<ClaimsPrincipal>()), Times.Exactly(2));
         Assert.True(res.Contains(doctor.UserName));
 
     }
