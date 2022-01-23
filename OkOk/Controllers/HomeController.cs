@@ -28,4 +28,12 @@ public class HomeController : Controller
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
+
+    public IActionResult Over(){
+        return View();
+    }
+    
+    public IActionResult Faq(){
+        return View();
+    }
 }
