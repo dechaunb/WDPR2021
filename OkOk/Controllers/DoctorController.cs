@@ -213,20 +213,6 @@ public class DoctorController : Controller
 
         return View("Index", doctorDashboard);
     }
-
-    public async Task<IActionResult> Appointments()
-    {
-        var user = await _userManager.GetUserAsync(User);
-
-        var appointments = await _context.Treatments
-                                .Include(treat => treat.DoctorApplicationUser)
-                                .Include(treat => treat.ClientApplicationUser)
-                                .Where(treat => treat.DoctorApplicationUser.Equals(user))
-                                .ToListAsync();
-
-        return View(appointments);
-    }
-
     
     public async Task<IActionResult> CreateAppointment()
     {
@@ -258,8 +244,25 @@ public class DoctorController : Controller
         return View(treatment);
     }
 
-    private bool SignUpRequestExists(Guid id)
-    {
-        return _context.SignUpRequests.Any(e => e.Id == id);
-    }
+        private bool SignUpRequestExists(Guid id)
+        {
+            return _context.SignUpRequests.Any(e => e.Id == id);
+        }
+
+        public IActionResult Messages(){
+            return View();
+        }
+        public IActionResult Appointments(){
+            return View();
+        }
+        public async Task<JsonResult> GetAppointments(){
+            DoctorApplicationUser user = await _context.DoctorApplicationUsers.Include(it=>it.Treatments).SingleAsync(it=>it.Id== _userManager.GetUserId(User));
+            var list = _context.Treatments.Where(it=>it.DoctorId==user.Id).Select(it=>new{
+                Title=it.Description+" van "+it.ClientApplicationUser.FullName(),
+                DateTime=it.DateTime.ToString()
+            });
+            return Json(list);
+        }
+
+        
 }

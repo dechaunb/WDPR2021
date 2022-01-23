@@ -1,9 +1,45 @@
-@model IEnumerable<OkOk.Models.Treatment>
+@model OkOk.Models.DoctorDashboardViewModel;
 @{
     ViewData["Title"] = "Afspraken";
     Layout = "_DoctorLayout";
 }
 
+<script>
+    document.addEventListener('DOMContentLoaded', 
+        function() {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(
+                calendarEl, 
+                {
+                    locale: "nl",
+                    initialView: 'timeGridWeek'
+                }
+            );
+            
+            calendar.batchRendering(function() {
+                calendar.changeView('dayGridMonth');
+                fetch("/Doctor/GetAppointments" , {
+                    method: "GET"
+                }).then(r => {
+                    if(r.status == 200)
+                        return r.json()
+                    else
+                        throw "Status: " + r.status;
+                })
+                .then(j => {
+                    for (var i = 0; i < j.length; i++) { 
+                        var item = j[i];
+                        calendar.addEvent({ title: item.title ,start: item.dateTime });
+                    }
+                })
+                .catch(r => alert("Er is een fout opgetreden: " + r));
+            });
+            calendar.render();
+        }
+    );
+
+
+</script>
 <header>
     <div class="m-0 p-0 row gx-xl-3 gx-2">
         <div class="col-12">
@@ -19,48 +55,8 @@
     </div>
 </header>
 
-<div class="container-fluid py-2 m-0 p-0 text-dark">
-    <h1 class="visually-hidden">Acties Uitvoeren</h1>
-    <div class="row m-0 p-0 g-xl-3 g-2 d-flex align-items-start align-content-start">
-        <div class="col-12 mt-0">
-            <div class="row m-0 p-0">
-                <div class="col-12 py-3 px-0 d-flex justify-content-between">
-                    <div class="d-flex align-items-end align-content-end m-0 p-0">
-                        <h2 class="fs-4 m-0">Afspraken</h2>
-                    </div>
-                    <div class="d-flex align-items-end align-content-end m-0 p-0">
-                        <a aria-label="Maak een nieuwe afspraak" class="text-decoration-none text-secondary fs-6" asp-action="CreateAppointment">Maak een afspraak <i class="fa-regular fa-angle-right"></i></a>
-                    </div>
-                </div>
-
-                <div class="col-12 okok-rounded bg-opac p-3 px-0">
-                    @foreach(var item in Model)
-                    {
-                    <div class="row m-0 p-2 px-3">
-                        <div class="col-8 px-0">
-                            <div class="d-flex m-0 p-0">
-                                <h3 class="fs-5">
-                                    @Html.DisplayFor(modelItem => item.ClientApplicationUser.FirstName) 
-                                    @Html.DisplayFor(modelItem => item.ClientApplicationUser.LastName)
-                                </h3>
-                            </div>
-                            <div class="d-flex m-0 p-0">
-                                <h4 class="fs-6 fw-normal text-muted">
-                                    @Html.DisplayFor(modelItem => item.Description)
-                                </h4>
-                            </div>
-                        </div>
-                        <div class="col-4 px-0 d-flex justify-content-end">
-                            <div class="d-flex m-0 p-0 text-secondary">
-                                <h4 class="fs-5 fw-normal text-secondary">
-                                    @item.DateTime.ToString("dddd dd MMMM yyyy - HH:mm")
-                                </h4>
-                            </div>
-                        </div>
-                    </div>
-                    }
-                </div>
-            </div>
-        </div>
+<body class="m-0 p-0">
+    <div class="container-fluid">
+        <div id='calendar'></div>
     </div>
-</div>
+</body>

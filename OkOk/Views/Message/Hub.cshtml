@@ -109,28 +109,30 @@
         var element = document.getElementById("messagesList");
         element.scrollTop = element.scrollHeight;
         connection.on("ReceivePrivateMessage", function (user, message){
-            var li = document.createElement("li");
-            var p = document.createElement("p");
-            li.appendChild(p);
-            var button = document.createElement("button");
-            li.appendChild(button);
-            var i = document.createElement("i");
-            button.appendChild(i);
+            if (user=="@un"||user=="@tun"){
+                var li = document.createElement("li");
+                var p = document.createElement("p");
+                li.appendChild(p);
+                var button = document.createElement("button");
+                li.appendChild(button);
+                var i = document.createElement("i");
+                button.appendChild(i);
 
-            var naam = "";
-            if (user=="@un"){
-                naam="@user.FirstName"
-            }else{
-                naam = "@tfn";
+                var naam = "";
+                if (user=="@un"){
+                    naam="@user.FirstName"
+                }else{
+                    naam = "@tfn";
+                }
+                p.textContent = `${naam} zei om @DateTime.Now: "${message}" `;
+                li.classList.add("d-flex","align-items-center","justify-content-between");
+                p.classList.add("list-group-item","m-2","w-75");
+                button.classList.add("report","flex-end","align-items-center","btn","text-primary");
+                i.classList.add("fa-solid","fa-triangle-exclamation");
+
+                document.getElementById("messagesList").appendChild(li);
+                element.scrollTop = element.scrollHeight;            
             }
-            p.textContent = `${naam} zei om @DateTime.Now: "${message}" `;
-            li.classList.add("d-flex","align-items-center","justify-content-between");
-            p.classList.add("list-group-item","m-2","w-75");
-            button.classList.add("report","flex-end","align-items-center","btn","text-primary");
-            i.classList.add("fa-solid","fa-triangle-exclamation");
-
-            document.getElementById("messagesList").appendChild(li);
-            element.scrollTop = element.scrollHeight;            
 
         });
         
