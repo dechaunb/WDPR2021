@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OkOk.Data;
@@ -11,21 +12,25 @@ using OkOk.Data;
 namespace OkOk.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220123151359_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20220124101919_InitialWebAppCreate")]
+    partial class InitialWebAppCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "6.0.1");
+            modelBuilder
+                .HasAnnotation("ProductVersion", "6.0.1")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
             modelBuilder.Entity("ChatApplicationUserSupportGroup", b =>
                 {
                     b.Property<string>("ChatUserId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<Guid>("GroupId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("ChatUserId", "GroupId");
 
@@ -37,10 +42,10 @@ namespace OkOk.Migrations
             modelBuilder.Entity("GuardianChild", b =>
                 {
                     b.Property<string>("ChildId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("GuardianId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("ChildId", "GuardianId");
 
@@ -51,23 +56,23 @@ namespace OkOk.Migrations
                     b.HasData(
                         new
                         {
-                            ChildId = "ecc725e2-d4a3-4c5e-8bad-43d36fc065fb",
-                            GuardianId = "b8f5e8c8-2486-40ff-aecd-1523cc43b65f"
+                            ChildId = "515ecb4b-67a6-452d-8d55-928f1bd76c58",
+                            GuardianId = "9d0aad18-e632-45d2-9412-a8af6b400078"
                         },
                         new
                         {
-                            ChildId = "3e4d8c81-6c69-4f72-93d9-71329872f25b",
-                            GuardianId = "e26a6e77-d1ca-444d-8bf5-2cd1666c7a24"
+                            ChildId = "2f6bc50b-3889-4bd5-949e-a54af81e44c1",
+                            GuardianId = "92c83641-7e8a-44f1-908c-e46000426b2b"
                         });
                 });
 
             modelBuilder.Entity("MessageChatapplicationUser", b =>
                 {
                     b.Property<string>("ChatUserId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<Guid>("MessageId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("ChatUserId", "MessageId");
 
@@ -79,53 +84,54 @@ namespace OkOk.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .HasMaxLength(256)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("NormalizedName")
                         .HasMaxLength(256)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
-                        .HasDatabaseName("RoleNameIndex");
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
 
                     b.HasData(
                         new
                         {
-                            Id = "e00dd267-628a-4b64-8c6b-65a31cf63463",
+                            Id = "d3cb8512-d11c-45eb-a72d-ba4ba3edad81",
                             ConcurrencyStamp = "1",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "e8e73d04-3827-4cdc-82c0-91e59988cf2e",
+                            Id = "afd50f9e-b32d-4595-a8ab-2002a9b6b309",
                             ConcurrencyStamp = "1",
                             Name = "Doctor",
                             NormalizedName = "DOCTOR"
                         },
                         new
                         {
-                            Id = "fb6e2f0e-9614-4e3c-bb94-b9c1fe2d3a9e",
+                            Id = "e98e074f-6fff-4854-8717-0622310e9498",
                             ConcurrencyStamp = "1",
                             Name = "Client",
                             NormalizedName = "CLIENT"
                         },
                         new
                         {
-                            Id = "9d39a882-17f2-4e2b-9e4b-13c80e158847",
+                            Id = "59c6519c-b661-49ce-897f-8f6a748efb5a",
                             ConcurrencyStamp = "1",
                             Name = "Guardian",
                             NormalizedName = "GUARDIAN"
@@ -136,17 +142,19 @@ namespace OkOk.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RoleId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -159,17 +167,19 @@ namespace OkOk.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -182,18 +192,18 @@ namespace OkOk.Migrations
                 {
                     b.Property<string>("LoginProvider")
                         .HasMaxLength(128)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ProviderKey")
                         .HasMaxLength(128)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ProviderDisplayName")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("LoginProvider", "ProviderKey");
 
@@ -205,10 +215,10 @@ namespace OkOk.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("RoleId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("UserId", "RoleId");
 
@@ -219,66 +229,66 @@ namespace OkOk.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "895f771b-a2b5-463b-852c-2076635d1f1b",
-                            RoleId = "e00dd267-628a-4b64-8c6b-65a31cf63463"
+                            UserId = "81db857f-158c-40af-9425-33c28f561402",
+                            RoleId = "d3cb8512-d11c-45eb-a72d-ba4ba3edad81"
                         },
                         new
                         {
-                            UserId = "52a7829f-02f6-4f70-a726-a4521850af9e",
-                            RoleId = "e00dd267-628a-4b64-8c6b-65a31cf63463"
+                            UserId = "3eef6450-6406-4820-8e6b-6c23e27b0ea8",
+                            RoleId = "d3cb8512-d11c-45eb-a72d-ba4ba3edad81"
                         },
                         new
                         {
-                            UserId = "48cf798d-2d19-4869-969f-a572fabf9ebc",
-                            RoleId = "e00dd267-628a-4b64-8c6b-65a31cf63463"
+                            UserId = "84a7995c-76c7-4312-94a4-ade11032c6f5",
+                            RoleId = "d3cb8512-d11c-45eb-a72d-ba4ba3edad81"
                         },
                         new
                         {
-                            UserId = "4bf7f22b-d20c-49ee-87d3-74f8e8d9972b",
-                            RoleId = "e8e73d04-3827-4cdc-82c0-91e59988cf2e"
+                            UserId = "8c53a982-ac5b-4879-a8b3-3cd0f739f35a",
+                            RoleId = "afd50f9e-b32d-4595-a8ab-2002a9b6b309"
                         },
                         new
                         {
-                            UserId = "a237993d-0c22-4fc9-a055-6d448f84683f",
-                            RoleId = "e8e73d04-3827-4cdc-82c0-91e59988cf2e"
+                            UserId = "80105c0c-5018-40e5-af82-87cd5e9cf2b5",
+                            RoleId = "afd50f9e-b32d-4595-a8ab-2002a9b6b309"
                         },
                         new
                         {
-                            UserId = "ecc725e2-d4a3-4c5e-8bad-43d36fc065fb",
-                            RoleId = "fb6e2f0e-9614-4e3c-bb94-b9c1fe2d3a9e"
+                            UserId = "515ecb4b-67a6-452d-8d55-928f1bd76c58",
+                            RoleId = "e98e074f-6fff-4854-8717-0622310e9498"
                         },
                         new
                         {
-                            UserId = "3e4d8c81-6c69-4f72-93d9-71329872f25b",
-                            RoleId = "fb6e2f0e-9614-4e3c-bb94-b9c1fe2d3a9e"
+                            UserId = "2f6bc50b-3889-4bd5-949e-a54af81e44c1",
+                            RoleId = "e98e074f-6fff-4854-8717-0622310e9498"
                         },
                         new
                         {
-                            UserId = "b8f5e8c8-2486-40ff-aecd-1523cc43b65f",
-                            RoleId = "9d39a882-17f2-4e2b-9e4b-13c80e158847"
+                            UserId = "9d0aad18-e632-45d2-9412-a8af6b400078",
+                            RoleId = "59c6519c-b661-49ce-897f-8f6a748efb5a"
                         },
                         new
                         {
-                            UserId = "e26a6e77-d1ca-444d-8bf5-2cd1666c7a24",
-                            RoleId = "9d39a882-17f2-4e2b-9e4b-13c80e158847"
+                            UserId = "92c83641-7e8a-44f1-908c-e46000426b2b",
+                            RoleId = "59c6519c-b661-49ce-897f-8f6a748efb5a"
                         });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
                         .HasMaxLength(128)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("Name")
                         .HasMaxLength(128)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("Value")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
@@ -289,29 +299,29 @@ namespace OkOk.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("City")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Country")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("HouseNumber")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<string>("HouseNumberAddition")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Street")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ZipCode")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -320,7 +330,7 @@ namespace OkOk.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("938c6cd6-9bdd-43ab-93f9-14379a3a5f28"),
+                            Id = new Guid("b0ea30dd-95d6-46df-9f09-064aedf54785"),
                             City = "Dorp",
                             Country = "Nederland",
                             HouseNumber = 1,
@@ -329,7 +339,7 @@ namespace OkOk.Migrations
                         },
                         new
                         {
-                            Id = new Guid("43327698-bdb9-45df-b7eb-9098baf81281"),
+                            Id = new Guid("ae53d356-69e9-404b-a710-4b0d96db1b43"),
                             City = "Dorp",
                             Country = "Nederland",
                             HouseNumber = 1,
@@ -341,69 +351,69 @@ namespace OkOk.Migrations
             modelBuilder.Entity("OkOk.Models.Identity.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("AccessFailedCount")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Discriminator")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bit");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LockedOutReason")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bit");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("PasswordHash")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bit");
 
                     b.Property<string>("SecurityStamp")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bit");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
 
@@ -412,7 +422,8 @@ namespace OkOk.Migrations
 
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
-                        .HasDatabaseName("UserNameIndex");
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
 
@@ -421,9 +432,9 @@ namespace OkOk.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "895f771b-a2b5-463b-852c-2076635d1f1b",
+                            Id = "81db857f-158c-40af-9425-33c28f561402",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "8b4478ec-ec49-4049-866f-99e7c52fcf45",
+                            ConcurrencyStamp = "c3182880-8f71-45ea-883f-885758438bf1",
                             Email = "angelo@okokapp.nl",
                             EmailConfirmed = true,
                             FirstName = "Angelo",
@@ -431,18 +442,18 @@ namespace OkOk.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ANGELO@OKOKAPP.NL",
                             NormalizedUserName = "ANGELO@OKOKAPP.NL",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBH94OsN9Db7ylaXW3dmTD75smYYmOW4e/kFaPFWVUEPj9rtcK/BVbTJpIBgE+wZYA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHErUlIwpUy94hww6+3wRI8rGMjlky2VGigCcoyHidZD4NdamStAJA8A9ULvQMZnpQ==",
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "dfd00ddd-58ed-4ca6-b362-6d20b18cc267",
+                            SecurityStamp = "05222ec1-d841-43ea-96da-0eb091f047e4",
                             TwoFactorEnabled = false,
                             UserName = "angelo@okokapp.nl"
                         },
                         new
                         {
-                            Id = "52a7829f-02f6-4f70-a726-a4521850af9e",
+                            Id = "3eef6450-6406-4820-8e6b-6c23e27b0ea8",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9b0b0992-858a-4f19-be91-06673b251b57",
+                            ConcurrencyStamp = "abf8cf8a-ca0d-464c-b84c-c121b1bedfdf",
                             Email = "dechaun@okokapp.nl",
                             EmailConfirmed = true,
                             FirstName = "Dechaun",
@@ -450,18 +461,18 @@ namespace OkOk.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "DECHAUN@OKOKAPP.NL",
                             NormalizedUserName = "DECHAUN@OKOKAPP.NL",
-                            PasswordHash = "AQAAAAEAACcQAAAAEERIPCSBwP2NFcyHZkY1P+mBNR9G+X2UUIzGsAT3ujuBLaR6d2/ONnmsPDJOaN3UdA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOWk/4W8vxsbYwexwRLb6idmNPDT1idO4NR3aJQRYddIwuWaiC1MjqGGLhswCuFZuA==",
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "b0eaf42d-3e54-415d-8622-1bcc4f098db1",
+                            SecurityStamp = "d0f22e03-102f-4724-a959-110559979c89",
                             TwoFactorEnabled = false,
                             UserName = "dechaun@okokapp.nl"
                         },
                         new
                         {
-                            Id = "48cf798d-2d19-4869-969f-a572fabf9ebc",
+                            Id = "84a7995c-76c7-4312-94a4-ade11032c6f5",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ad5a226c-3c77-4882-b242-8b3537032655",
+                            ConcurrencyStamp = "dbf3137a-f150-4e94-8048-51aca2c7598f",
                             Email = "timothy@okokapp.nl",
                             EmailConfirmed = true,
                             FirstName = "Timothy",
@@ -469,10 +480,10 @@ namespace OkOk.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "TIMOTHY@OKOKAPP.NL",
                             NormalizedUserName = "TIMOTHY@OKOKAPP.NL",
-                            PasswordHash = "AQAAAAEAACcQAAAAELR3cYheUboHmREjLtfBUAkdo22PsBIMaBj+AwIexu882Grr7M5GwIcuIpBeICvWCg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJj8YHvaR278tlTwW9KBSS8pS84ImQiKmGNxcG9ozV/B4Bpexxqet/TBl1BxWekvmw==",
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "1d97cbd9-989a-40c1-8ba4-12ecbd8e3f9a",
+                            SecurityStamp = "6d2877bd-cf54-42f3-867f-b4ac7326bcee",
                             TwoFactorEnabled = false,
                             UserName = "timothy@okokapp.nl"
                         });
@@ -482,20 +493,20 @@ namespace OkOk.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Content")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DateTime")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime2");
 
                     b.Property<Guid?>("GroupId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("SenderId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -508,41 +519,41 @@ namespace OkOk.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("079d8794-974e-4de9-82e7-d76fe34da12d"),
+                            Id = new Guid("518b2793-f3a8-4bea-be3c-9e5429de7264"),
                             Content = "Dit is een geseede message [1]",
-                            DateTime = new DateTime(2022, 1, 23, 16, 13, 59, 315, DateTimeKind.Local).AddTicks(3433),
-                            SenderId = "ecc725e2-d4a3-4c5e-8bad-43d36fc065fb"
+                            DateTime = new DateTime(2022, 1, 24, 11, 19, 18, 662, DateTimeKind.Local).AddTicks(1233),
+                            SenderId = "515ecb4b-67a6-452d-8d55-928f1bd76c58"
                         },
                         new
                         {
-                            Id = new Guid("21035c9e-f5e5-42bb-9bb3-0df72ce7ca6d"),
+                            Id = new Guid("d1d970c6-cc18-4011-afcc-bf6c82c52bf0"),
                             Content = "Dit is een geseede message [2]",
-                            DateTime = new DateTime(2022, 1, 23, 16, 13, 59, 315, DateTimeKind.Local).AddTicks(3459),
-                            SenderId = "ecc725e2-d4a3-4c5e-8bad-43d36fc065fb"
+                            DateTime = new DateTime(2022, 1, 24, 11, 19, 18, 662, DateTimeKind.Local).AddTicks(1244),
+                            SenderId = "515ecb4b-67a6-452d-8d55-928f1bd76c58"
                         },
                         new
                         {
-                            Id = new Guid("9afacd3e-cb22-4e5d-82bc-119cfa33b24b"),
+                            Id = new Guid("0efc54d8-2369-4c99-96ad-d96c37e181e3"),
                             Content = "Dit is een geseede message [3]",
-                            DateTime = new DateTime(2022, 1, 23, 16, 13, 59, 315, DateTimeKind.Local).AddTicks(3463),
-                            SenderId = "3e4d8c81-6c69-4f72-93d9-71329872f25b"
+                            DateTime = new DateTime(2022, 1, 24, 11, 19, 18, 662, DateTimeKind.Local).AddTicks(1248),
+                            SenderId = "2f6bc50b-3889-4bd5-949e-a54af81e44c1"
                         },
                         new
                         {
-                            Id = new Guid("f7b2eaa7-7d4c-49e4-81e8-9dedc84ebcbd"),
+                            Id = new Guid("80320823-bfee-4948-95f7-cd45970893eb"),
                             Content = "Dit is een geseede message [4]",
-                            DateTime = new DateTime(2022, 1, 23, 16, 13, 59, 315, DateTimeKind.Local).AddTicks(3467),
-                            SenderId = "3e4d8c81-6c69-4f72-93d9-71329872f25b"
+                            DateTime = new DateTime(2022, 1, 24, 11, 19, 18, 662, DateTimeKind.Local).AddTicks(1252),
+                            SenderId = "2f6bc50b-3889-4bd5-949e-a54af81e44c1"
                         });
                 });
 
             modelBuilder.Entity("OkOk.Models.MessageReport", b =>
                 {
                     b.Property<Guid?>("MessageId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("ReportId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("MessageId", "ReportId");
 
@@ -554,23 +565,23 @@ namespace OkOk.Migrations
                     b.HasData(
                         new
                         {
-                            MessageId = new Guid("079d8794-974e-4de9-82e7-d76fe34da12d"),
-                            ReportId = new Guid("26445a1f-ed8a-4e94-8da2-5839e3b5e4d5")
+                            MessageId = new Guid("518b2793-f3a8-4bea-be3c-9e5429de7264"),
+                            ReportId = new Guid("40381add-e7f6-49cd-ba65-9a3a63993de8")
                         },
                         new
                         {
-                            MessageId = new Guid("079d8794-974e-4de9-82e7-d76fe34da12d"),
-                            ReportId = new Guid("c649b22d-68a5-4401-9107-c71fbe381ffa")
+                            MessageId = new Guid("518b2793-f3a8-4bea-be3c-9e5429de7264"),
+                            ReportId = new Guid("fff0cb7f-4794-4601-a114-b83a3bd38eab")
                         },
                         new
                         {
-                            MessageId = new Guid("079d8794-974e-4de9-82e7-d76fe34da12d"),
-                            ReportId = new Guid("74c15987-793b-4bb4-b8c4-e378cfe038cf")
+                            MessageId = new Guid("518b2793-f3a8-4bea-be3c-9e5429de7264"),
+                            ReportId = new Guid("b0290c51-f347-4604-9d55-f705daba7371")
                         },
                         new
                         {
-                            MessageId = new Guid("9afacd3e-cb22-4e5d-82bc-119cfa33b24b"),
-                            ReportId = new Guid("42b71c8d-9286-4e77-b498-0ae78fca600b")
+                            MessageId = new Guid("0efc54d8-2369-4c99-96ad-d96c37e181e3"),
+                            ReportId = new Guid("3ca3ef8f-8256-4a60-bb8f-da080e98b53f")
                         });
                 });
 
@@ -578,10 +589,10 @@ namespace OkOk.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("Handled")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -590,22 +601,22 @@ namespace OkOk.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("26445a1f-ed8a-4e94-8da2-5839e3b5e4d5"),
+                            Id = new Guid("40381add-e7f6-49cd-ba65-9a3a63993de8"),
                             Handled = false
                         },
                         new
                         {
-                            Id = new Guid("c649b22d-68a5-4401-9107-c71fbe381ffa"),
+                            Id = new Guid("fff0cb7f-4794-4601-a114-b83a3bd38eab"),
                             Handled = false
                         },
                         new
                         {
-                            Id = new Guid("74c15987-793b-4bb4-b8c4-e378cfe038cf"),
+                            Id = new Guid("b0290c51-f347-4604-9d55-f705daba7371"),
                             Handled = false
                         },
                         new
                         {
-                            Id = new Guid("42b71c8d-9286-4e77-b498-0ae78fca600b"),
+                            Id = new Guid("3ca3ef8f-8256-4a60-bb8f-da080e98b53f"),
                             Handled = false
                         });
                 });
@@ -614,21 +625,22 @@ namespace OkOk.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ClientId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("DoctorId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<bool>("Handled")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ClientId")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[ClientId] IS NOT NULL");
 
                     b.HasIndex("DoctorId");
 
@@ -637,16 +649,16 @@ namespace OkOk.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("c1e4b216-5b09-4efe-9632-d2273556f245"),
-                            ClientId = "ecc725e2-d4a3-4c5e-8bad-43d36fc065fb",
-                            DoctorId = "4bf7f22b-d20c-49ee-87d3-74f8e8d9972b",
+                            Id = new Guid("d75e1b49-f870-4a37-9fa2-dc013a7c16d1"),
+                            ClientId = "515ecb4b-67a6-452d-8d55-928f1bd76c58",
+                            DoctorId = "8c53a982-ac5b-4879-a8b3-3cd0f739f35a",
                             Handled = false
                         },
                         new
                         {
-                            Id = new Guid("477c1fb9-bbc6-49c5-9e15-4b5d17c847e6"),
-                            ClientId = "3e4d8c81-6c69-4f72-93d9-71329872f25b",
-                            DoctorId = "4bf7f22b-d20c-49ee-87d3-74f8e8d9972b",
+                            Id = new Guid("af4e9136-526d-41e4-af5a-f9f26c95257f"),
+                            ClientId = "2f6bc50b-3889-4bd5-949e-a54af81e44c1",
+                            DoctorId = "8c53a982-ac5b-4879-a8b3-3cd0f739f35a",
                             Handled = false
                         });
                 });
@@ -655,15 +667,15 @@ namespace OkOk.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -674,19 +686,19 @@ namespace OkOk.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ClientId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("DateTime")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DoctorId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -699,147 +711,147 @@ namespace OkOk.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("fb55e11f-dc95-402d-b1da-43258f4d54b7"),
-                            ClientId = "ecc725e2-d4a3-4c5e-8bad-43d36fc065fb",
-                            DateTime = new DateTime(2022, 1, 23, 10, 30, 0, 0, DateTimeKind.Unspecified),
+                            Id = new Guid("9298aaed-e91b-4cd8-a607-dda7c8b849b9"),
+                            ClientId = "515ecb4b-67a6-452d-8d55-928f1bd76c58",
+                            DateTime = new DateTime(2022, 1, 24, 10, 30, 0, 0, DateTimeKind.Unspecified),
                             Description = "Intake",
-                            DoctorId = "4bf7f22b-d20c-49ee-87d3-74f8e8d9972b"
+                            DoctorId = "8c53a982-ac5b-4879-a8b3-3cd0f739f35a"
                         },
                         new
                         {
-                            Id = new Guid("371d748f-f9cf-4b3e-83f6-2f89c9b7942b"),
-                            ClientId = "ecc725e2-d4a3-4c5e-8bad-43d36fc065fb",
-                            DateTime = new DateTime(2022, 1, 23, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            Id = new Guid("890020da-e86e-44ed-ba6b-3c8053b4d1f4"),
+                            ClientId = "515ecb4b-67a6-452d-8d55-928f1bd76c58",
+                            DateTime = new DateTime(2022, 1, 24, 11, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Behandeling",
-                            DoctorId = "4bf7f22b-d20c-49ee-87d3-74f8e8d9972b"
+                            DoctorId = "8c53a982-ac5b-4879-a8b3-3cd0f739f35a"
                         },
                         new
                         {
-                            Id = new Guid("d56b51ba-b5b3-4657-9d5a-2d7d25399fb1"),
-                            ClientId = "ecc725e2-d4a3-4c5e-8bad-43d36fc065fb",
-                            DateTime = new DateTime(2022, 1, 23, 11, 30, 0, 0, DateTimeKind.Unspecified),
+                            Id = new Guid("1691c211-b2f0-4e1b-90db-a4ccc07924bf"),
+                            ClientId = "515ecb4b-67a6-452d-8d55-928f1bd76c58",
+                            DateTime = new DateTime(2022, 1, 24, 11, 30, 0, 0, DateTimeKind.Unspecified),
                             Description = "Behandeling",
-                            DoctorId = "4bf7f22b-d20c-49ee-87d3-74f8e8d9972b"
+                            DoctorId = "8c53a982-ac5b-4879-a8b3-3cd0f739f35a"
                         },
                         new
                         {
-                            Id = new Guid("960fa018-da5a-4301-b4db-7628dd1c58d7"),
-                            ClientId = "ecc725e2-d4a3-4c5e-8bad-43d36fc065fb",
+                            Id = new Guid("08c340fe-0a9c-4e74-b657-738fe7286cb0"),
+                            ClientId = "515ecb4b-67a6-452d-8d55-928f1bd76c58",
                             DateTime = new DateTime(2022, 1, 11, 10, 30, 0, 0, DateTimeKind.Unspecified),
                             Description = "Intake",
-                            DoctorId = "4bf7f22b-d20c-49ee-87d3-74f8e8d9972b"
+                            DoctorId = "8c53a982-ac5b-4879-a8b3-3cd0f739f35a"
                         },
                         new
                         {
-                            Id = new Guid("3f590170-610f-424f-a140-c0455320123f"),
-                            ClientId = "ecc725e2-d4a3-4c5e-8bad-43d36fc065fb",
+                            Id = new Guid("87d8cf00-b794-4fcd-bba4-ee808072e3ec"),
+                            ClientId = "515ecb4b-67a6-452d-8d55-928f1bd76c58",
                             DateTime = new DateTime(2022, 1, 11, 11, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Behandeling",
-                            DoctorId = "4bf7f22b-d20c-49ee-87d3-74f8e8d9972b"
+                            DoctorId = "8c53a982-ac5b-4879-a8b3-3cd0f739f35a"
                         },
                         new
                         {
-                            Id = new Guid("35d97051-d545-45a4-832a-f53c833f3a7b"),
-                            ClientId = "ecc725e2-d4a3-4c5e-8bad-43d36fc065fb",
+                            Id = new Guid("148e3fbc-87c7-4170-8ad9-8f5961ea0fd0"),
+                            ClientId = "515ecb4b-67a6-452d-8d55-928f1bd76c58",
                             DateTime = new DateTime(2022, 1, 11, 11, 30, 0, 0, DateTimeKind.Unspecified),
                             Description = "Behandeling",
-                            DoctorId = "4bf7f22b-d20c-49ee-87d3-74f8e8d9972b"
+                            DoctorId = "8c53a982-ac5b-4879-a8b3-3cd0f739f35a"
                         },
                         new
                         {
-                            Id = new Guid("c0fd3df0-8d8b-40a7-b665-85b6ffc0bd56"),
-                            ClientId = "ecc725e2-d4a3-4c5e-8bad-43d36fc065fb",
+                            Id = new Guid("c89f3137-e2fd-4f28-baae-8fee737066c8"),
+                            ClientId = "515ecb4b-67a6-452d-8d55-928f1bd76c58",
                             DateTime = new DateTime(2022, 2, 28, 10, 30, 0, 0, DateTimeKind.Unspecified),
                             Description = "Intake",
-                            DoctorId = "4bf7f22b-d20c-49ee-87d3-74f8e8d9972b"
+                            DoctorId = "8c53a982-ac5b-4879-a8b3-3cd0f739f35a"
                         },
                         new
                         {
-                            Id = new Guid("108f2081-3592-480b-90a2-0c729b8badc3"),
-                            ClientId = "ecc725e2-d4a3-4c5e-8bad-43d36fc065fb",
+                            Id = new Guid("7efc4872-68b1-4ba1-a912-6a43e7c68f6a"),
+                            ClientId = "515ecb4b-67a6-452d-8d55-928f1bd76c58",
                             DateTime = new DateTime(2022, 2, 28, 11, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Behandeling",
-                            DoctorId = "4bf7f22b-d20c-49ee-87d3-74f8e8d9972b"
+                            DoctorId = "8c53a982-ac5b-4879-a8b3-3cd0f739f35a"
                         },
                         new
                         {
-                            Id = new Guid("7da6a096-13b6-48dc-970f-6ccfe81f73a1"),
-                            ClientId = "ecc725e2-d4a3-4c5e-8bad-43d36fc065fb",
+                            Id = new Guid("ecae555f-f38e-4c69-93b2-d5da71cfd23a"),
+                            ClientId = "515ecb4b-67a6-452d-8d55-928f1bd76c58",
                             DateTime = new DateTime(2022, 2, 28, 11, 30, 0, 0, DateTimeKind.Unspecified),
                             Description = "Behandeling",
-                            DoctorId = "4bf7f22b-d20c-49ee-87d3-74f8e8d9972b"
+                            DoctorId = "8c53a982-ac5b-4879-a8b3-3cd0f739f35a"
                         },
                         new
                         {
-                            Id = new Guid("cde47a9f-dc90-4f82-ae83-974be3f03578"),
-                            ClientId = "3e4d8c81-6c69-4f72-93d9-71329872f25b",
-                            DateTime = new DateTime(2022, 1, 23, 10, 30, 0, 0, DateTimeKind.Unspecified),
+                            Id = new Guid("f697a84b-ffbf-4720-8118-f4cf264b8e4b"),
+                            ClientId = "2f6bc50b-3889-4bd5-949e-a54af81e44c1",
+                            DateTime = new DateTime(2022, 1, 24, 10, 30, 0, 0, DateTimeKind.Unspecified),
                             Description = "Intake",
-                            DoctorId = "a237993d-0c22-4fc9-a055-6d448f84683f"
+                            DoctorId = "80105c0c-5018-40e5-af82-87cd5e9cf2b5"
                         },
                         new
                         {
-                            Id = new Guid("d98c3175-a090-4f8f-91fc-24d994d7c684"),
-                            ClientId = "3e4d8c81-6c69-4f72-93d9-71329872f25b",
-                            DateTime = new DateTime(2022, 1, 23, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            Id = new Guid("f299ebf4-4d09-44bf-b71d-cc2f7ca9ff88"),
+                            ClientId = "2f6bc50b-3889-4bd5-949e-a54af81e44c1",
+                            DateTime = new DateTime(2022, 1, 24, 11, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Behandeling",
-                            DoctorId = "a237993d-0c22-4fc9-a055-6d448f84683f"
+                            DoctorId = "80105c0c-5018-40e5-af82-87cd5e9cf2b5"
                         },
                         new
                         {
-                            Id = new Guid("dd7ac4ee-13a7-436f-a3ea-985a7023972c"),
-                            ClientId = "3e4d8c81-6c69-4f72-93d9-71329872f25b",
-                            DateTime = new DateTime(2022, 1, 23, 11, 30, 0, 0, DateTimeKind.Unspecified),
+                            Id = new Guid("a20908e0-4c8d-424d-99dc-ee9f6fb1be48"),
+                            ClientId = "2f6bc50b-3889-4bd5-949e-a54af81e44c1",
+                            DateTime = new DateTime(2022, 1, 24, 11, 30, 0, 0, DateTimeKind.Unspecified),
                             Description = "Behandeling",
-                            DoctorId = "a237993d-0c22-4fc9-a055-6d448f84683f"
+                            DoctorId = "80105c0c-5018-40e5-af82-87cd5e9cf2b5"
                         },
                         new
                         {
-                            Id = new Guid("4137242c-0b8d-4851-b32b-a7001b288f05"),
-                            ClientId = "3e4d8c81-6c69-4f72-93d9-71329872f25b",
+                            Id = new Guid("5ea37995-847f-45b4-a874-d429e0a70c4e"),
+                            ClientId = "2f6bc50b-3889-4bd5-949e-a54af81e44c1",
                             DateTime = new DateTime(2022, 1, 11, 10, 30, 0, 0, DateTimeKind.Unspecified),
                             Description = "Intake",
-                            DoctorId = "a237993d-0c22-4fc9-a055-6d448f84683f"
+                            DoctorId = "80105c0c-5018-40e5-af82-87cd5e9cf2b5"
                         },
                         new
                         {
-                            Id = new Guid("dda75612-8965-4252-aac2-c44268d4592e"),
-                            ClientId = "3e4d8c81-6c69-4f72-93d9-71329872f25b",
+                            Id = new Guid("f5f333ba-7760-4a52-814a-7e9941eb27f3"),
+                            ClientId = "2f6bc50b-3889-4bd5-949e-a54af81e44c1",
                             DateTime = new DateTime(2022, 1, 11, 11, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Behandeling",
-                            DoctorId = "a237993d-0c22-4fc9-a055-6d448f84683f"
+                            DoctorId = "80105c0c-5018-40e5-af82-87cd5e9cf2b5"
                         },
                         new
                         {
-                            Id = new Guid("ec539a27-3607-47ec-94e4-5b0bf2fbe168"),
-                            ClientId = "3e4d8c81-6c69-4f72-93d9-71329872f25b",
+                            Id = new Guid("7bfdeccb-03f6-4bd0-9664-6ab1323c479f"),
+                            ClientId = "2f6bc50b-3889-4bd5-949e-a54af81e44c1",
                             DateTime = new DateTime(2022, 1, 11, 11, 30, 0, 0, DateTimeKind.Unspecified),
                             Description = "Behandeling",
-                            DoctorId = "a237993d-0c22-4fc9-a055-6d448f84683f"
+                            DoctorId = "80105c0c-5018-40e5-af82-87cd5e9cf2b5"
                         },
                         new
                         {
-                            Id = new Guid("ab4e5946-71c3-4ff5-9bc7-2d9fd5e134fa"),
-                            ClientId = "3e4d8c81-6c69-4f72-93d9-71329872f25b",
+                            Id = new Guid("8651eb2c-fcee-4fba-8d90-c5b75b8b71c4"),
+                            ClientId = "2f6bc50b-3889-4bd5-949e-a54af81e44c1",
                             DateTime = new DateTime(2022, 2, 28, 10, 30, 0, 0, DateTimeKind.Unspecified),
                             Description = "Intake",
-                            DoctorId = "a237993d-0c22-4fc9-a055-6d448f84683f"
+                            DoctorId = "80105c0c-5018-40e5-af82-87cd5e9cf2b5"
                         },
                         new
                         {
-                            Id = new Guid("13460d55-848d-46e3-bab5-4202ded784f5"),
-                            ClientId = "3e4d8c81-6c69-4f72-93d9-71329872f25b",
+                            Id = new Guid("5fd60fa0-908f-472d-a7c3-a733ffe01fd1"),
+                            ClientId = "2f6bc50b-3889-4bd5-949e-a54af81e44c1",
                             DateTime = new DateTime(2022, 2, 28, 11, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Behandeling",
-                            DoctorId = "a237993d-0c22-4fc9-a055-6d448f84683f"
+                            DoctorId = "80105c0c-5018-40e5-af82-87cd5e9cf2b5"
                         },
                         new
                         {
-                            Id = new Guid("900b2831-d375-4a33-8bbd-7e32b4cadbd4"),
-                            ClientId = "3e4d8c81-6c69-4f72-93d9-71329872f25b",
+                            Id = new Guid("3796214b-b6dc-4c26-8c89-c9d74c726bb4"),
+                            ClientId = "2f6bc50b-3889-4bd5-949e-a54af81e44c1",
                             DateTime = new DateTime(2022, 2, 28, 11, 30, 0, 0, DateTimeKind.Unspecified),
                             Description = "Behandeling",
-                            DoctorId = "a237993d-0c22-4fc9-a055-6d448f84683f"
+                            DoctorId = "80105c0c-5018-40e5-af82-87cd5e9cf2b5"
                         });
                 });
 
@@ -859,9 +871,9 @@ namespace OkOk.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b8f5e8c8-2486-40ff-aecd-1523cc43b65f",
+                            Id = "9d0aad18-e632-45d2-9412-a8af6b400078",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "8f8b9dba-54d1-4c52-8bb7-04c4f87fa5a8",
+                            ConcurrencyStamp = "2eeb9cf2-b0ac-461c-b680-ef8f369621fa",
                             Email = "guardianone@okokapp.nl",
                             EmailConfirmed = true,
                             FirstName = "Guardian",
@@ -869,18 +881,18 @@ namespace OkOk.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "GUARDIANONE@OKOKAPP.NL",
                             NormalizedUserName = "GUARDIANONE@OKOKAPP.NL",
-                            PasswordHash = "AQAAAAEAACcQAAAAEFc4vzP0IVJ8xM677zGO0kAiBD7FBuABSy4xnNGkQaspbBlBRL+Z3JXZiT4PR6MH0g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJiijGuxgnmHtyRyQ942RebcwN3trC3J74vjdc5/QauCKj3IuDGvmnVKBPf5+0PEDg==",
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "d1ec7426-a4f8-440b-8e9d-bf4560f85fa0",
+                            SecurityStamp = "0fda0fbe-ee7f-4ef5-81e9-a7b3a323a02a",
                             TwoFactorEnabled = false,
                             UserName = "guardianone@okokapp.nl"
                         },
                         new
                         {
-                            Id = "e26a6e77-d1ca-444d-8bf5-2cd1666c7a24",
+                            Id = "92c83641-7e8a-44f1-908c-e46000426b2b",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f420171d-ac45-4b6b-9fcf-93d33d17631d",
+                            ConcurrencyStamp = "9a790569-8d96-4d3c-a4ea-388b3067ba6a",
                             Email = "guardiantwo@okokapp.nl",
                             EmailConfirmed = true,
                             FirstName = "Guardian",
@@ -888,10 +900,10 @@ namespace OkOk.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "GUARDIANTWO@OKOKAPP.NL",
                             NormalizedUserName = "GUARDIANTWO@OKOKAPP.NL",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMqVP6uO/gH+Uw4NpVLfDRW2ZQqjskqBToIuRtiSJy98k03vtudhoGSC8GZJ41YAYQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFnHCayTgl6ouvNG7P6gNo6gWSX9vaTnElKSQLNetzzNYMCCQwOx13mnGSXRIAnLGw==",
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "bfc7c3b6-49b0-48b5-b12f-b85445d51bcc",
+                            SecurityStamp = "65bd26c0-8f87-4039-bc5b-cd519002b203",
                             TwoFactorEnabled = false,
                             UserName = "guardiantwo@okokapp.nl"
                         });
@@ -903,22 +915,23 @@ namespace OkOk.Migrations
 
                     b.Property<Guid?>("AddressId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("OldEnough")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bit");
 
                     b.HasIndex("AddressId")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[AddressId] IS NOT NULL");
 
                     b.HasDiscriminator().HasValue("ClientApplicationUser");
 
                     b.HasData(
                         new
                         {
-                            Id = "ecc725e2-d4a3-4c5e-8bad-43d36fc065fb",
+                            Id = "515ecb4b-67a6-452d-8d55-928f1bd76c58",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "77063fff-ec58-4af7-8b58-127a94a41c8e",
+                            ConcurrencyStamp = "22a5f00f-15f4-4607-819c-9a653ce15505",
                             Email = "clientone@okokapp.nl",
                             EmailConfirmed = true,
                             FirstName = "Client",
@@ -926,20 +939,20 @@ namespace OkOk.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "CLIENTONE@OKOKAPP.NL",
                             NormalizedUserName = "CLIENTONE@OKOKAPP.NL",
-                            PasswordHash = "AQAAAAEAACcQAAAAED4jMMTaZ/+Vnfe62BLlA9pSlRimjdT5E9/KmwE7oNIxJpvGEYBGtAc23QssOSTfGg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMV0a3UXlQzyzA4KfXAhwJsrpKfmgA28VPO3EU/BA1PQFw8jWOKTl6itHWEFVYDkaw==",
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "4c42efa9-be0d-4188-9126-26d964f1a65f",
+                            SecurityStamp = "910a57ac-f3dc-4ee9-8c4c-9975e88d6799",
                             TwoFactorEnabled = false,
                             UserName = "clientone@okokapp.nl",
-                            AddressId = new Guid("938c6cd6-9bdd-43ab-93f9-14379a3a5f28"),
+                            AddressId = new Guid("b0ea30dd-95d6-46df-9f09-064aedf54785"),
                             OldEnough = false
                         },
                         new
                         {
-                            Id = "3e4d8c81-6c69-4f72-93d9-71329872f25b",
+                            Id = "2f6bc50b-3889-4bd5-949e-a54af81e44c1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ec4f0115-d696-4358-9553-42d05df35212",
+                            ConcurrencyStamp = "3cf1ed2c-458a-4ed4-a51e-b82d0016c3a6",
                             Email = "clienttwo@okokapp.nl",
                             EmailConfirmed = true,
                             FirstName = "Client",
@@ -947,13 +960,13 @@ namespace OkOk.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "CLIENTTWO@OKOKAPP.NL",
                             NormalizedUserName = "CLIENTTWO@OKOKAPP.NL",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOIDXZEUlLFbWJbYLFsByyDPQ+uDKaq0sJjZw2NgPRWzpbcmQg8DuImRNl19g7aAZA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMosDZbgcyVdTFoZVcJst5Cx0F7nR0YkkUvNSKZAXZkgyIujZl6yqCAvOXh+Lvgnfg==",
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "85deacb4-4544-46c5-bedc-43f26330eb23",
+                            SecurityStamp = "6adcfe42-3faf-422c-91f3-b543611648ea",
                             TwoFactorEnabled = false,
                             UserName = "clienttwo@okokapp.nl",
-                            AddressId = new Guid("43327698-bdb9-45df-b7eb-9098baf81281"),
+                            AddressId = new Guid("ae53d356-69e9-404b-a710-4b0d96db1b43"),
                             OldEnough = false
                         });
                 });
@@ -964,16 +977,16 @@ namespace OkOk.Migrations
 
                     b.Property<string>("Specialism")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("DoctorApplicationUser");
 
                     b.HasData(
                         new
                         {
-                            Id = "4bf7f22b-d20c-49ee-87d3-74f8e8d9972b",
+                            Id = "8c53a982-ac5b-4879-a8b3-3cd0f739f35a",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "200e712c-a721-4db0-a46c-85b2c2e9d9c9",
+                            ConcurrencyStamp = "e5b0b0ab-7134-4ba5-aee6-57b2c54d4d5a",
                             Email = "doctorone@okokapp.nl",
                             EmailConfirmed = true,
                             FirstName = "Doctor",
@@ -981,19 +994,19 @@ namespace OkOk.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "DOCTORONE@OKOKAPP.NL",
                             NormalizedUserName = "DOCTORONE@OKOKAPP.NL",
-                            PasswordHash = "AQAAAAEAACcQAAAAEIM/maeUYPEHYcAE3lNp7PZqC9F67gtFmRvUb/hV3+vM+ewEM1AcGDv0tj3P0ySQWA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENT4w7zueA1cfF+Ev3S87XPGzJNjtS6FeeY4XdUG0G8IaqTXKoMR6SDCvKaYlIhwbg==",
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "967da4ef-0a18-47d8-9191-37fe5912847b",
+                            SecurityStamp = "c76aaca4-f515-419e-be53-917ad6744cef",
                             TwoFactorEnabled = false,
                             UserName = "doctorone@okokapp.nl",
                             Specialism = "Autisme"
                         },
                         new
                         {
-                            Id = "a237993d-0c22-4fc9-a055-6d448f84683f",
+                            Id = "80105c0c-5018-40e5-af82-87cd5e9cf2b5",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "6108c612-c4cc-441c-b155-eb8861120384",
+                            ConcurrencyStamp = "046f81f7-ad5a-408e-a4bd-930262a09d17",
                             Email = "doctortwo@okokapp.nl",
                             EmailConfirmed = true,
                             FirstName = "Doctor",
@@ -1001,10 +1014,10 @@ namespace OkOk.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "DOCTORTWO@OKOKAPP.NL",
                             NormalizedUserName = "DOCTORTWO@OKOKAPP.NL",
-                            PasswordHash = "AQAAAAEAACcQAAAAELc6cahlHEwjej6mGPDIDiQvj1OrThh/IlVoUPqJCwNMC+UoJd5DW4CNxgoyZEzTNw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECJ/TSC+sT8Jpx8zsg0oJpY6UzpKDCaAAT2jF8OhIQ1yjHCdM1CaiPTYELq5Gy2oYA==",
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "704b898e-ae2f-490b-a0ee-68e7f671fe93",
+                            SecurityStamp = "35c2b4cc-761d-450b-99f4-8d1d661e98c0",
                             TwoFactorEnabled = false,
                             UserName = "doctortwo@okokapp.nl",
                             Specialism = "Autisme"
@@ -1112,12 +1125,12 @@ namespace OkOk.Migrations
                     b.HasOne("OkOk.Models.SupportGroup", "SupportGroup")
                         .WithMany("Received")
                         .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("OkOk.Models.Identity.ChatApplicationUser", "Sender")
                         .WithMany("Sent")
                         .HasForeignKey("SenderId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("Sender");
 
@@ -1129,13 +1142,13 @@ namespace OkOk.Migrations
                     b.HasOne("OkOk.Models.Message", "Message")
                         .WithMany("MessageReports")
                         .HasForeignKey("MessageId")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("OkOk.Models.Report", "Report")
                         .WithOne("MessageReport")
                         .HasForeignKey("OkOk.Models.MessageReport", "ReportId")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Message");
@@ -1148,12 +1161,12 @@ namespace OkOk.Migrations
                     b.HasOne("OkOk.Models.Identity.ClientApplicationUser", "ClientApplicationUser")
                         .WithOne("SignUpRequest")
                         .HasForeignKey("OkOk.Models.SignUpRequest", "ClientId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("OkOk.Models.Identity.DoctorApplicationUser", "DoctorApplicationUser")
                         .WithMany("SignUpRequests")
                         .HasForeignKey("DoctorId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("ClientApplicationUser");
 
@@ -1165,12 +1178,12 @@ namespace OkOk.Migrations
                     b.HasOne("OkOk.Models.Identity.ClientApplicationUser", "ClientApplicationUser")
                         .WithMany("Treatments")
                         .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("OkOk.Models.Identity.DoctorApplicationUser", "DoctorApplicationUser")
                         .WithMany("Treatments")
                         .HasForeignKey("DoctorId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("ClientApplicationUser");
 
@@ -1182,7 +1195,7 @@ namespace OkOk.Migrations
                     b.HasOne("OkOk.Models.Address", "Address")
                         .WithOne("ClientApplicationUser")
                         .HasForeignKey("OkOk.Models.Identity.ClientApplicationUser", "AddressId")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Address");

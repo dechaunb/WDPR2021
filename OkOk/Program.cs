@@ -11,7 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 if (builder.Environment.IsDevelopment())
 {
     builder.Services.AddDbContext<ApplicationDbContext>(options =>
-        options.UseSqlite(builder.Configuration.GetConnectionString("DevelopmentApplicationDbContext")));
+        options.UseSqlServer(builder.Configuration.GetConnectionString("ProductionApplicationDbContext")));
 }
 else
 {
