@@ -54,20 +54,20 @@ namespace OkOk.Data
                         .HasOne(client => client.Address)
                         .WithOne(address => address.ClientApplicationUser)
                         .HasForeignKey<ClientApplicationUser>(address => address.AddressId)
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.SetNull);
 
             //Treatment
             modelBuilder.Entity<Treatment>()
                         .HasOne(treatment => treatment.ClientApplicationUser)
                         .WithMany(client => client.Treatments)
                         .HasForeignKey(treatment => treatment.ClientId)
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.SetNull);
 
             modelBuilder.Entity<Treatment>()
                         .HasOne(treatment => treatment.DoctorApplicationUser)
                         .WithMany(doctor => doctor.Treatments)
                         .HasForeignKey(treatment => treatment.DoctorId)
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.SetNull);
 
             //MessageReport
             modelBuilder.Entity<MessageReport>()
@@ -77,39 +77,39 @@ namespace OkOk.Data
                         .HasOne(mreport => mreport.Message)
                         .WithMany(message => message.MessageReports)
                         .HasForeignKey(mreport => mreport.MessageId)
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.SetNull);
 
             modelBuilder.Entity<MessageReport>()
                         .HasOne(mreport => mreport.Report)
                         .WithOne(report => report.MessageReport)
                         .HasForeignKey<MessageReport>(mreport => mreport.ReportId)
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.SetNull);
 
             //SignUpRequest
             modelBuilder.Entity<ClientApplicationUser>()
                         .HasOne(client => client.SignUpRequest)
                         .WithOne(signup => signup.ClientApplicationUser)
                         .HasForeignKey<SignUpRequest>(signup => signup.ClientId)
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.SetNull);
 
             modelBuilder.Entity<SignUpRequest>()
                         .HasOne(signup => signup.DoctorApplicationUser)
                         .WithMany(doctor => doctor.SignUpRequests)
                         .HasForeignKey(signup => signup.DoctorId)
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.SetNull);
 
             //Message
             modelBuilder.Entity<Message>()
                         .HasOne(message => message.Sender)
                         .WithMany(chatuser => chatuser.Sent)
                         .HasForeignKey(message => message.SenderId)
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.SetNull);
 
             modelBuilder.Entity<Message>()
                         .HasOne(message => message.SupportGroup)
                         .WithMany(group => group.Received)
                         .HasForeignKey(message => message.GroupId)
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.SetNull);
 
 
             //Create MessageChatapplicationUser Table
