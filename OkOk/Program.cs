@@ -5,6 +5,7 @@ using OkOk.Data;
 using OkOk.Models.Identity;
 using OkOk.Controllers;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.Azure.SignalR;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,7 +17,7 @@ if (builder.Environment.IsDevelopment())
 else
 {
     builder.Services.AddDbContext<ApplicationDbContext>(options =>
-        options.UseSqlServer(builder.Configuration.GetConnectionString("ProductionApplicationDbContext")));
+        options.UseSqlite(builder.Configuration.GetConnectionString("DevelopmentApplicationDbContext")));
 }
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
@@ -57,7 +58,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddRazorPages();
 builder.Services.AddSingleton<IUserIdProvider, CustomUserIdProvider>();
-builder.Services.AddSignalR();
+builder.Services.AddSignalR().AddAzureSignalR();
 
 
 var app = builder.Build();
